@@ -39,8 +39,8 @@ public:
     QLabel *user_label;
     QLineEdit *user_lineEdit;
     QHBoxLayout *horizontalLayout_2;
-    QLabel *mail_label;
-    QLineEdit *mail_lineEdit;
+    QLabel *email_label;
+    QLineEdit *email_lineEdit;
     QHBoxLayout *horizontalLayout_3;
     QLabel *passwd_label;
     QLineEdit *passwd_lineEdit;
@@ -112,19 +112,19 @@ public:
 
         horizontalLayout_2 = new QHBoxLayout();
         horizontalLayout_2->setObjectName(QString::fromUtf8("horizontalLayout_2"));
-        mail_label = new QLabel(page);
-        mail_label->setObjectName(QString::fromUtf8("mail_label"));
-        mail_label->setMinimumSize(QSize(0, 25));
-        mail_label->setMaximumSize(QSize(16777215, 25));
+        email_label = new QLabel(page);
+        email_label->setObjectName(QString::fromUtf8("email_label"));
+        email_label->setMinimumSize(QSize(0, 25));
+        email_label->setMaximumSize(QSize(16777215, 25));
 
-        horizontalLayout_2->addWidget(mail_label);
+        horizontalLayout_2->addWidget(email_label);
 
-        mail_lineEdit = new QLineEdit(page);
-        mail_lineEdit->setObjectName(QString::fromUtf8("mail_lineEdit"));
-        mail_lineEdit->setMinimumSize(QSize(0, 25));
-        mail_lineEdit->setMaximumSize(QSize(16777215, 25));
+        email_lineEdit = new QLineEdit(page);
+        email_lineEdit->setObjectName(QString::fromUtf8("email_lineEdit"));
+        email_lineEdit->setMinimumSize(QSize(0, 25));
+        email_lineEdit->setMaximumSize(QSize(16777215, 25));
 
-        horizontalLayout_2->addWidget(mail_lineEdit);
+        horizontalLayout_2->addWidget(email_lineEdit);
 
 
         verticalLayout_3->addLayout(horizontalLayout_2);
@@ -237,7 +237,7 @@ public:
         RegisterDialog->setWindowTitle(QApplication::translate("RegisterDialog", "Dialog", nullptr));
         err_tip->setText(QApplication::translate("RegisterDialog", "\351\224\231\350\257\257\346\217\220\347\244\272", nullptr));
         user_label->setText(QApplication::translate("RegisterDialog", "\347\224\250\346\210\267", nullptr));
-        mail_label->setText(QApplication::translate("RegisterDialog", "\351\202\256\347\256\261", nullptr));
+        email_label->setText(QApplication::translate("RegisterDialog", "\351\202\256\347\256\261", nullptr));
         passwd_label->setText(QApplication::translate("RegisterDialog", "\345\257\206\347\240\201", nullptr));
         confirm_label->setText(QApplication::translate("RegisterDialog", "\347\241\256\350\256\244\345\257\206\347\240\201", nullptr));
         verify_label->setText(QApplication::translate("RegisterDialog", "\351\252\214\350\257\201\347\240\201", nullptr));

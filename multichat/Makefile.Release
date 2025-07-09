@@ -69,7 +69,7 @@ OBJECTS       = release/global.o \
 		release/moc_mainwindow.o \
 		release/moc_registerdialog.o
 
-DIST          =  global.h \
+DIST          = config.ini global.h \
 		httpmgr.h \
 		logindialog.h \
 		mainwindow.h \
@@ -92,6 +92,7 @@ all: Makefile.Release  bin/multichat.exe
 
 bin/multichat.exe: D:/Qt/Qt5.12/5.12.5/mingw73_64/lib/libQt5Widgets.a D:/Qt/Qt5.12/5.12.5/mingw73_64/lib/libQt5Gui.a D:/Qt/Qt5.12/5.12.5/mingw73_64/lib/libQt5Network.a D:/Qt/Qt5.12/5.12.5/mingw73_64/lib/libQt5Core.a D:/Qt/Qt5.12/5.12.5/mingw73_64/lib/libqtmain.a ui_logindialog.h ui_mainwindow.h ui_registerdialog.h $(OBJECTS) release/multichat_resource_res.o
 	$(LINKER) $(LFLAGS) -o $(DESTDIR_TARGET) @object_script.multichat.Release  $(LIBS)
+	copy /Y "D:\NJUPT\jobhunter\00_MultiChat_code\multichat\config.ini" "D:\NJUPT\jobhunter\00_MultiChat_code\multichat\.\bin"
 
 release/multichat_resource_res.o: multichat_resource.rc
 	windres -i multichat_resource.rc -o release\multichat_resource_res.o --include-dir=. $(DEFINES)
@@ -289,7 +290,7 @@ release/moc_httpmgr.cpp: httpmgr.h \
 		../../../../Qt/Qt5.12/5.12.5/mingw73_64/include/QtCore/qjsondocument.h \
 		release/moc_predefs.h \
 		../../../../Qt/Qt5.12/5.12.5/mingw73_64/bin/moc.exe
-	D:\Qt\Qt5.12\5.12.5\mingw73_64\bin\moc.exe $(DEFINES) --include D:/NJUPT/jobhunter/00_code/multichat/release/moc_predefs.h -ID:/Qt/Qt5.12/5.12.5/mingw73_64/mkspecs/win32-g++ -ID:/NJUPT/jobhunter/00_code/multichat -ID:/Qt/Qt5.12/5.12.5/mingw73_64/include -ID:/Qt/Qt5.12/5.12.5/mingw73_64/include/QtWidgets -ID:/Qt/Qt5.12/5.12.5/mingw73_64/include/QtGui -ID:/Qt/Qt5.12/5.12.5/mingw73_64/include/QtANGLE -ID:/Qt/Qt5.12/5.12.5/mingw73_64/include/QtNetwork -ID:/Qt/Qt5.12/5.12.5/mingw73_64/include/QtCore -ID:/Qt/Qt5.12/Tools/mingw730_64/lib/gcc/x86_64-w64-mingw32/7.3.0/include/c++ -ID:/Qt/Qt5.12/Tools/mingw730_64/lib/gcc/x86_64-w64-mingw32/7.3.0/include/c++/x86_64-w64-mingw32 -ID:/Qt/Qt5.12/Tools/mingw730_64/lib/gcc/x86_64-w64-mingw32/7.3.0/include/c++/backward -ID:/Qt/Qt5.12/Tools/mingw730_64/lib/gcc/x86_64-w64-mingw32/7.3.0/include -ID:/Qt/Qt5.12/Tools/mingw730_64/lib/gcc/x86_64-w64-mingw32/7.3.0/include-fixed -ID:/Qt/Qt5.12/Tools/mingw730_64/x86_64-w64-mingw32/include httpmgr.h -o release\moc_httpmgr.cpp
+	D:\Qt\Qt5.12\5.12.5\mingw73_64\bin\moc.exe $(DEFINES) --include D:/NJUPT/jobhunter/00_MultiChat_code/multichat/release/moc_predefs.h -ID:/Qt/Qt5.12/5.12.5/mingw73_64/mkspecs/win32-g++ -ID:/NJUPT/jobhunter/00_MultiChat_code/multichat -ID:/Qt/Qt5.12/5.12.5/mingw73_64/include -ID:/Qt/Qt5.12/5.12.5/mingw73_64/include/QtWidgets -ID:/Qt/Qt5.12/5.12.5/mingw73_64/include/QtGui -ID:/Qt/Qt5.12/5.12.5/mingw73_64/include/QtANGLE -ID:/Qt/Qt5.12/5.12.5/mingw73_64/include/QtNetwork -ID:/Qt/Qt5.12/5.12.5/mingw73_64/include/QtCore -ID:/Qt/Qt5.12/Tools/mingw730_64/lib/gcc/x86_64-w64-mingw32/7.3.0/include/c++ -ID:/Qt/Qt5.12/Tools/mingw730_64/lib/gcc/x86_64-w64-mingw32/7.3.0/include/c++/x86_64-w64-mingw32 -ID:/Qt/Qt5.12/Tools/mingw730_64/lib/gcc/x86_64-w64-mingw32/7.3.0/include/c++/backward -ID:/Qt/Qt5.12/Tools/mingw730_64/lib/gcc/x86_64-w64-mingw32/7.3.0/include -ID:/Qt/Qt5.12/Tools/mingw730_64/lib/gcc/x86_64-w64-mingw32/7.3.0/include-fixed -ID:/Qt/Qt5.12/Tools/mingw730_64/x86_64-w64-mingw32/include httpmgr.h -o release\moc_httpmgr.cpp
 
 release/moc_logindialog.cpp: logindialog.h \
 		../../../../Qt/Qt5.12/5.12.5/mingw73_64/include/QtWidgets/QDialog \
@@ -398,7 +399,7 @@ release/moc_logindialog.cpp: logindialog.h \
 		../../../../Qt/Qt5.12/5.12.5/mingw73_64/include/QtGui/qtouchdevice.h \
 		release/moc_predefs.h \
 		../../../../Qt/Qt5.12/5.12.5/mingw73_64/bin/moc.exe
-	D:\Qt\Qt5.12\5.12.5\mingw73_64\bin\moc.exe $(DEFINES) --include D:/NJUPT/jobhunter/00_code/multichat/release/moc_predefs.h -ID:/Qt/Qt5.12/5.12.5/mingw73_64/mkspecs/win32-g++ -ID:/NJUPT/jobhunter/00_code/multichat -ID:/Qt/Qt5.12/5.12.5/mingw73_64/include -ID:/Qt/Qt5.12/5.12.5/mingw73_64/include/QtWidgets -ID:/Qt/Qt5.12/5.12.5/mingw73_64/include/QtGui -ID:/Qt/Qt5.12/5.12.5/mingw73_64/include/QtANGLE -ID:/Qt/Qt5.12/5.12.5/mingw73_64/include/QtNetwork -ID:/Qt/Qt5.12/5.12.5/mingw73_64/include/QtCore -ID:/Qt/Qt5.12/Tools/mingw730_64/lib/gcc/x86_64-w64-mingw32/7.3.0/include/c++ -ID:/Qt/Qt5.12/Tools/mingw730_64/lib/gcc/x86_64-w64-mingw32/7.3.0/include/c++/x86_64-w64-mingw32 -ID:/Qt/Qt5.12/Tools/mingw730_64/lib/gcc/x86_64-w64-mingw32/7.3.0/include/c++/backward -ID:/Qt/Qt5.12/Tools/mingw730_64/lib/gcc/x86_64-w64-mingw32/7.3.0/include -ID:/Qt/Qt5.12/Tools/mingw730_64/lib/gcc/x86_64-w64-mingw32/7.3.0/include-fixed -ID:/Qt/Qt5.12/Tools/mingw730_64/x86_64-w64-mingw32/include logindialog.h -o release\moc_logindialog.cpp
+	D:\Qt\Qt5.12\5.12.5\mingw73_64\bin\moc.exe $(DEFINES) --include D:/NJUPT/jobhunter/00_MultiChat_code/multichat/release/moc_predefs.h -ID:/Qt/Qt5.12/5.12.5/mingw73_64/mkspecs/win32-g++ -ID:/NJUPT/jobhunter/00_MultiChat_code/multichat -ID:/Qt/Qt5.12/5.12.5/mingw73_64/include -ID:/Qt/Qt5.12/5.12.5/mingw73_64/include/QtWidgets -ID:/Qt/Qt5.12/5.12.5/mingw73_64/include/QtGui -ID:/Qt/Qt5.12/5.12.5/mingw73_64/include/QtANGLE -ID:/Qt/Qt5.12/5.12.5/mingw73_64/include/QtNetwork -ID:/Qt/Qt5.12/5.12.5/mingw73_64/include/QtCore -ID:/Qt/Qt5.12/Tools/mingw730_64/lib/gcc/x86_64-w64-mingw32/7.3.0/include/c++ -ID:/Qt/Qt5.12/Tools/mingw730_64/lib/gcc/x86_64-w64-mingw32/7.3.0/include/c++/x86_64-w64-mingw32 -ID:/Qt/Qt5.12/Tools/mingw730_64/lib/gcc/x86_64-w64-mingw32/7.3.0/include/c++/backward -ID:/Qt/Qt5.12/Tools/mingw730_64/lib/gcc/x86_64-w64-mingw32/7.3.0/include -ID:/Qt/Qt5.12/Tools/mingw730_64/lib/gcc/x86_64-w64-mingw32/7.3.0/include-fixed -ID:/Qt/Qt5.12/Tools/mingw730_64/x86_64-w64-mingw32/include logindialog.h -o release\moc_logindialog.cpp
 
 release/moc_mainwindow.cpp: mainwindow.h \
 		../../../../Qt/Qt5.12/5.12.5/mingw73_64/include/QtWidgets/QMainWindow \
@@ -547,9 +548,12 @@ release/moc_mainwindow.cpp: mainwindow.h \
 		../../../../Qt/Qt5.12/5.12.5/mingw73_64/include/QtNetwork/QSslPreSharedKeyAuthenticator \
 		../../../../Qt/Qt5.12/5.12.5/mingw73_64/include/QtNetwork/qsslpresharedkeyauthenticator.h \
 		../../../../Qt/Qt5.12/5.12.5/mingw73_64/include/QtCore/QMetaType \
+		../../../../Qt/Qt5.12/5.12.5/mingw73_64/include/QtCore/QJsonObject \
+		../../../../Qt/Qt5.12/5.12.5/mingw73_64/include/QtCore/qjsonobject.h \
+		../../../../Qt/Qt5.12/5.12.5/mingw73_64/include/QtCore/qjsonvalue.h \
 		release/moc_predefs.h \
 		../../../../Qt/Qt5.12/5.12.5/mingw73_64/bin/moc.exe
-	D:\Qt\Qt5.12\5.12.5\mingw73_64\bin\moc.exe $(DEFINES) --include D:/NJUPT/jobhunter/00_code/multichat/release/moc_predefs.h -ID:/Qt/Qt5.12/5.12.5/mingw73_64/mkspecs/win32-g++ -ID:/NJUPT/jobhunter/00_code/multichat -ID:/Qt/Qt5.12/5.12.5/mingw73_64/include -ID:/Qt/Qt5.12/5.12.5/mingw73_64/include/QtWidgets -ID:/Qt/Qt5.12/5.12.5/mingw73_64/include/QtGui -ID:/Qt/Qt5.12/5.12.5/mingw73_64/include/QtANGLE -ID:/Qt/Qt5.12/5.12.5/mingw73_64/include/QtNetwork -ID:/Qt/Qt5.12/5.12.5/mingw73_64/include/QtCore -ID:/Qt/Qt5.12/Tools/mingw730_64/lib/gcc/x86_64-w64-mingw32/7.3.0/include/c++ -ID:/Qt/Qt5.12/Tools/mingw730_64/lib/gcc/x86_64-w64-mingw32/7.3.0/include/c++/x86_64-w64-mingw32 -ID:/Qt/Qt5.12/Tools/mingw730_64/lib/gcc/x86_64-w64-mingw32/7.3.0/include/c++/backward -ID:/Qt/Qt5.12/Tools/mingw730_64/lib/gcc/x86_64-w64-mingw32/7.3.0/include -ID:/Qt/Qt5.12/Tools/mingw730_64/lib/gcc/x86_64-w64-mingw32/7.3.0/include-fixed -ID:/Qt/Qt5.12/Tools/mingw730_64/x86_64-w64-mingw32/include mainwindow.h -o release\moc_mainwindow.cpp
+	D:\Qt\Qt5.12\5.12.5\mingw73_64\bin\moc.exe $(DEFINES) --include D:/NJUPT/jobhunter/00_MultiChat_code/multichat/release/moc_predefs.h -ID:/Qt/Qt5.12/5.12.5/mingw73_64/mkspecs/win32-g++ -ID:/NJUPT/jobhunter/00_MultiChat_code/multichat -ID:/Qt/Qt5.12/5.12.5/mingw73_64/include -ID:/Qt/Qt5.12/5.12.5/mingw73_64/include/QtWidgets -ID:/Qt/Qt5.12/5.12.5/mingw73_64/include/QtGui -ID:/Qt/Qt5.12/5.12.5/mingw73_64/include/QtANGLE -ID:/Qt/Qt5.12/5.12.5/mingw73_64/include/QtNetwork -ID:/Qt/Qt5.12/5.12.5/mingw73_64/include/QtCore -ID:/Qt/Qt5.12/Tools/mingw730_64/lib/gcc/x86_64-w64-mingw32/7.3.0/include/c++ -ID:/Qt/Qt5.12/Tools/mingw730_64/lib/gcc/x86_64-w64-mingw32/7.3.0/include/c++/x86_64-w64-mingw32 -ID:/Qt/Qt5.12/Tools/mingw730_64/lib/gcc/x86_64-w64-mingw32/7.3.0/include/c++/backward -ID:/Qt/Qt5.12/Tools/mingw730_64/lib/gcc/x86_64-w64-mingw32/7.3.0/include -ID:/Qt/Qt5.12/Tools/mingw730_64/lib/gcc/x86_64-w64-mingw32/7.3.0/include-fixed -ID:/Qt/Qt5.12/Tools/mingw730_64/x86_64-w64-mingw32/include mainwindow.h -o release\moc_mainwindow.cpp
 
 release/moc_registerdialog.cpp: registerdialog.h \
 		../../../../Qt/Qt5.12/5.12.5/mingw73_64/include/QtWidgets/QDialog \
@@ -693,9 +697,12 @@ release/moc_registerdialog.cpp: registerdialog.h \
 		../../../../Qt/Qt5.12/5.12.5/mingw73_64/include/QtNetwork/QSslPreSharedKeyAuthenticator \
 		../../../../Qt/Qt5.12/5.12.5/mingw73_64/include/QtNetwork/qsslpresharedkeyauthenticator.h \
 		../../../../Qt/Qt5.12/5.12.5/mingw73_64/include/QtCore/QMetaType \
+		../../../../Qt/Qt5.12/5.12.5/mingw73_64/include/QtCore/QJsonObject \
+		../../../../Qt/Qt5.12/5.12.5/mingw73_64/include/QtCore/qjsonobject.h \
+		../../../../Qt/Qt5.12/5.12.5/mingw73_64/include/QtCore/qjsonvalue.h \
 		release/moc_predefs.h \
 		../../../../Qt/Qt5.12/5.12.5/mingw73_64/bin/moc.exe
-	D:\Qt\Qt5.12\5.12.5\mingw73_64\bin\moc.exe $(DEFINES) --include D:/NJUPT/jobhunter/00_code/multichat/release/moc_predefs.h -ID:/Qt/Qt5.12/5.12.5/mingw73_64/mkspecs/win32-g++ -ID:/NJUPT/jobhunter/00_code/multichat -ID:/Qt/Qt5.12/5.12.5/mingw73_64/include -ID:/Qt/Qt5.12/5.12.5/mingw73_64/include/QtWidgets -ID:/Qt/Qt5.12/5.12.5/mingw73_64/include/QtGui -ID:/Qt/Qt5.12/5.12.5/mingw73_64/include/QtANGLE -ID:/Qt/Qt5.12/5.12.5/mingw73_64/include/QtNetwork -ID:/Qt/Qt5.12/5.12.5/mingw73_64/include/QtCore -ID:/Qt/Qt5.12/Tools/mingw730_64/lib/gcc/x86_64-w64-mingw32/7.3.0/include/c++ -ID:/Qt/Qt5.12/Tools/mingw730_64/lib/gcc/x86_64-w64-mingw32/7.3.0/include/c++/x86_64-w64-mingw32 -ID:/Qt/Qt5.12/Tools/mingw730_64/lib/gcc/x86_64-w64-mingw32/7.3.0/include/c++/backward -ID:/Qt/Qt5.12/Tools/mingw730_64/lib/gcc/x86_64-w64-mingw32/7.3.0/include -ID:/Qt/Qt5.12/Tools/mingw730_64/lib/gcc/x86_64-w64-mingw32/7.3.0/include-fixed -ID:/Qt/Qt5.12/Tools/mingw730_64/x86_64-w64-mingw32/include registerdialog.h -o release\moc_registerdialog.cpp
+	D:\Qt\Qt5.12\5.12.5\mingw73_64\bin\moc.exe $(DEFINES) --include D:/NJUPT/jobhunter/00_MultiChat_code/multichat/release/moc_predefs.h -ID:/Qt/Qt5.12/5.12.5/mingw73_64/mkspecs/win32-g++ -ID:/NJUPT/jobhunter/00_MultiChat_code/multichat -ID:/Qt/Qt5.12/5.12.5/mingw73_64/include -ID:/Qt/Qt5.12/5.12.5/mingw73_64/include/QtWidgets -ID:/Qt/Qt5.12/5.12.5/mingw73_64/include/QtGui -ID:/Qt/Qt5.12/5.12.5/mingw73_64/include/QtANGLE -ID:/Qt/Qt5.12/5.12.5/mingw73_64/include/QtNetwork -ID:/Qt/Qt5.12/5.12.5/mingw73_64/include/QtCore -ID:/Qt/Qt5.12/Tools/mingw730_64/lib/gcc/x86_64-w64-mingw32/7.3.0/include/c++ -ID:/Qt/Qt5.12/Tools/mingw730_64/lib/gcc/x86_64-w64-mingw32/7.3.0/include/c++/x86_64-w64-mingw32 -ID:/Qt/Qt5.12/Tools/mingw730_64/lib/gcc/x86_64-w64-mingw32/7.3.0/include/c++/backward -ID:/Qt/Qt5.12/Tools/mingw730_64/lib/gcc/x86_64-w64-mingw32/7.3.0/include -ID:/Qt/Qt5.12/Tools/mingw730_64/lib/gcc/x86_64-w64-mingw32/7.3.0/include-fixed -ID:/Qt/Qt5.12/Tools/mingw730_64/x86_64-w64-mingw32/include registerdialog.h -o release\moc_registerdialog.cpp
 
 compiler_moc_objc_header_make_all:
 compiler_moc_objc_header_clean:
@@ -866,7 +873,10 @@ release/global.o: global.cpp global.h \
 		../../../../Qt/Qt5.12/5.12.5/mingw73_64/include/QtCore/QFlags \
 		../../../../Qt/Qt5.12/5.12.5/mingw73_64/include/QtNetwork/QSslPreSharedKeyAuthenticator \
 		../../../../Qt/Qt5.12/5.12.5/mingw73_64/include/QtNetwork/qsslpresharedkeyauthenticator.h \
-		../../../../Qt/Qt5.12/5.12.5/mingw73_64/include/QtCore/QMetaType
+		../../../../Qt/Qt5.12/5.12.5/mingw73_64/include/QtCore/QMetaType \
+		../../../../Qt/Qt5.12/5.12.5/mingw73_64/include/QtCore/QJsonObject \
+		../../../../Qt/Qt5.12/5.12.5/mingw73_64/include/QtCore/qjsonobject.h \
+		../../../../Qt/Qt5.12/5.12.5/mingw73_64/include/QtCore/qjsonvalue.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o release\global.o global.cpp
 
 release/httpmgr.o: httpmgr.cpp httpmgr.h \
@@ -1302,6 +1312,9 @@ release/main.o: main.cpp mainwindow.h \
 		../../../../Qt/Qt5.12/5.12.5/mingw73_64/include/QtNetwork/QSslPreSharedKeyAuthenticator \
 		../../../../Qt/Qt5.12/5.12.5/mingw73_64/include/QtNetwork/qsslpresharedkeyauthenticator.h \
 		../../../../Qt/Qt5.12/5.12.5/mingw73_64/include/QtCore/QMetaType \
+		../../../../Qt/Qt5.12/5.12.5/mingw73_64/include/QtCore/QJsonObject \
+		../../../../Qt/Qt5.12/5.12.5/mingw73_64/include/QtCore/qjsonobject.h \
+		../../../../Qt/Qt5.12/5.12.5/mingw73_64/include/QtCore/qjsonvalue.h \
 		../../../../Qt/Qt5.12/5.12.5/mingw73_64/include/QtWidgets/QApplication \
 		../../../../Qt/Qt5.12/5.12.5/mingw73_64/include/QtWidgets/qapplication.h \
 		../../../../Qt/Qt5.12/5.12.5/mingw73_64/include/QtCore/qcoreapplication.h \
@@ -1459,6 +1472,9 @@ release/mainwindow.o: mainwindow.cpp mainwindow.h \
 		../../../../Qt/Qt5.12/5.12.5/mingw73_64/include/QtNetwork/QSslPreSharedKeyAuthenticator \
 		../../../../Qt/Qt5.12/5.12.5/mingw73_64/include/QtNetwork/qsslpresharedkeyauthenticator.h \
 		../../../../Qt/Qt5.12/5.12.5/mingw73_64/include/QtCore/QMetaType \
+		../../../../Qt/Qt5.12/5.12.5/mingw73_64/include/QtCore/QJsonObject \
+		../../../../Qt/Qt5.12/5.12.5/mingw73_64/include/QtCore/qjsonobject.h \
+		../../../../Qt/Qt5.12/5.12.5/mingw73_64/include/QtCore/qjsonvalue.h \
 		ui_mainwindow.h \
 		../../../../Qt/Qt5.12/5.12.5/mingw73_64/include/QtWidgets/QApplication \
 		../../../../Qt/Qt5.12/5.12.5/mingw73_64/include/QtWidgets/qapplication.h \
@@ -1618,6 +1634,9 @@ release/registerdialog.o: registerdialog.cpp registerdialog.h \
 		../../../../Qt/Qt5.12/5.12.5/mingw73_64/include/QtNetwork/QSslPreSharedKeyAuthenticator \
 		../../../../Qt/Qt5.12/5.12.5/mingw73_64/include/QtNetwork/qsslpresharedkeyauthenticator.h \
 		../../../../Qt/Qt5.12/5.12.5/mingw73_64/include/QtCore/QMetaType \
+		../../../../Qt/Qt5.12/5.12.5/mingw73_64/include/QtCore/QJsonObject \
+		../../../../Qt/Qt5.12/5.12.5/mingw73_64/include/QtCore/qjsonobject.h \
+		../../../../Qt/Qt5.12/5.12.5/mingw73_64/include/QtCore/qjsonvalue.h \
 		ui_registerdialog.h \
 		../../../../Qt/Qt5.12/5.12.5/mingw73_64/include/QtWidgets/QApplication \
 		../../../../Qt/Qt5.12/5.12.5/mingw73_64/include/QtWidgets/qapplication.h \
@@ -1649,9 +1668,6 @@ release/registerdialog.o: registerdialog.cpp registerdialog.h \
 		../../../../Qt/Qt5.12/5.12.5/mingw73_64/include/QtWidgets/QVBoxLayout \
 		httpmgr.h \
 		singleton.h \
-		../../../../Qt/Qt5.12/5.12.5/mingw73_64/include/QtCore/QJsonObject \
-		../../../../Qt/Qt5.12/5.12.5/mingw73_64/include/QtCore/qjsonobject.h \
-		../../../../Qt/Qt5.12/5.12.5/mingw73_64/include/QtCore/qjsonvalue.h \
 		../../../../Qt/Qt5.12/5.12.5/mingw73_64/include/QtCore/QJsonDocument \
 		../../../../Qt/Qt5.12/5.12.5/mingw73_64/include/QtCore/qjsondocument.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o release\registerdialog.o registerdialog.cpp
