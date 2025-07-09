@@ -14,7 +14,7 @@ protected:
     static std::shared_ptr<T> _instance; //只是声明，模板类初始化在.h文件下面
 
 public:
-    static std::shared_ptr<T> getInstance() {
+    static std::shared_ptr<T> GetInstance() {
         static std::once_flag s_flag; //保证只有第一次的时候才会初始化
         std::call_once(s_flag, [&]() {
             _instance = std::shared_ptr<T> (new T);

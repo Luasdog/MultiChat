@@ -15,11 +15,11 @@ class HttpMgr : public QObject, public Singleton<HttpMgr>,
     Q_OBJECT
 public:
     ~HttpMgr(); //单例中的智能指针会调用此类的析构
+    void postHttpReq(QUrl url,QJsonObject json, ReqId req_id, Modules mod);
 private:
     friend class Singleton<HttpMgr>; //声明成友元即可调用私有的构造函数
     HttpMgr(); //单例的构造函数不能公有
     QNetworkAccessManager _manager;
-    void postHttpReq(QUrl url,QJsonObject json, ReqId req_id, Modules mod);
 
 private slots:
     void slot_http_finish(ReqId id, QString res, ErrorCodes err, Modules mod);

@@ -103,7 +103,7 @@
          <item>
           <layout class="QHBoxLayout" name="horizontalLayout_2">
            <item>
-            <widget class="QLabel" name="mail_label">
+            <widget class="QLabel" name="email_label">
              <property name="minimumSize">
               <size>
                <width>0</width>
@@ -122,7 +122,7 @@
             </widget>
            </item>
            <item>
-            <widget class="QLineEdit" name="mail_lineEdit">
+            <widget class="QLineEdit" name="email_lineEdit">
              <property name="minimumSize">
               <size>
                <width>0</width>
