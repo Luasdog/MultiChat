@@ -41,6 +41,7 @@ int main()
 			});
 
 		std::make_shared<CServer>(ioc, port)->Start();
+		std::cout << "Gate Server listen on port: " << port << std::endl;
 		ioc.run();
 	}
 	catch (std::exception const& e) {
@@ -49,13 +50,13 @@ int main()
 	}
 }
 
-// 运行程序: Ctrl + F5 或调试 >“开始执行(不调试)”菜单
-// 调试程序: F5 或调试 >“开始调试”菜单
-
-// 入门使用技巧: 
-//   1. 使用解决方案资源管理器窗口添加/管理文件
-//   2. 使用团队资源管理器窗口连接到源代码管理
-//   3. 使用输出窗口查看生成输出和其他消息
-//   4. 使用错误列表窗口查看错误
-//   5. 转到“项目”>“添加新项”以创建新的代码文件，或转到“项目”>“添加现有项”以将现有代码文件添加到项目
-//   6. 将来，若要再次打开此项目，请转到“文件”>“打开”>“项目”并选择 .sln 文件
+//启动服务器，在浏览器输入`http://localhost:8080/get_test`
+//
+//会看到服务器回包`receive get_test req`
+//
+//如果我们输入带参数的url请求`http://localhost:8080/get_test?key1=value1&key2=value2`
+//
+//会收到服务器反馈`url not found`
+//
+//所以对于get请求带参数的情况我们要实现参数解析，我们可以自己实现简单的url解析函数
+//
