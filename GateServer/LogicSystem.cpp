@@ -1,5 +1,6 @@
 #include "LogicSystem.h"
 #include "HttpConnection.h"
+#include "VerifyGrpcClient.h"
 
 void LogicSystem::RegGet(std::string url, HttpHandler handler) {
 	_get_handlers.insert(make_pair(url, handler));
@@ -47,8 +48,10 @@ LogicSystem::LogicSystem() {
 
 		// key 存在，将 Json 数据加载到 src_root 中
 		auto email = src_root["email"].asString();
+		// 接收验证客户端发送的验证码
+		GetVerifyRsp rsp = VerifyGrpcClient::GetInstance()->GetVerifyCode(email);
 		std::cout << "email is " << email << std::endl;
-		root["error"] = 0;
+		root["error"] = rsp.error();
 		root["email"] = src_root["email"];
 		std::string jsonstr = root.toStyledString(); // 序列化，转成标准字符串
 		beast::ostream(connection->_response.body()) << jsonstr;
