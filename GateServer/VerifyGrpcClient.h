@@ -12,6 +12,19 @@ using message::GetVerifyReq;
 using message::GetVerifyRsp;
 using message::VerifyService;
 
+class RPConPool {
+public:
+	RPConPool(size_t poolsize, std::string host, std::string port) {
+
+	}
+private:
+	std::atomic<bool> _b_stop;
+	size_t _poolSize;
+	std::string _host;
+	std::string _port;
+	std::queue<atd::unique_ptr<VerifyService::Stub>> _connections;
+};
+
 class VerifyGrpcClient : public Singleton<VerifyGrpcClient>
 {
 	friend class Singleton<VerifyGrpcClient>;

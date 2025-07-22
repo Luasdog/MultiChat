@@ -10,3 +10,5 @@ multichat/bin/
 multichat/.qmake.stash
 multichat/Makefile.*
 multichat/object_script.multichat.*
+
+VerifyServer/config.json

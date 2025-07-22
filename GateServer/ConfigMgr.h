@@ -43,7 +43,11 @@ public:
 		return _config_map[section];
 	}
 
-	ConfigMgr();
+	// 改成单例模式
+	static ConfigMgr& Inst() {
+		static ConfigMgr cfg_mgr; // 生命周期与进程同步
+		return cfg_mgr;
+	}
 
 	ConfigMgr(const ConfigMgr& src) {
 		_config_map = src._config_map;
@@ -57,6 +61,7 @@ public:
 		_config_map = src._config_map;
 	}
 private:
+	ConfigMgr();
 	std::map<std::string, SectionInfo> _config_map;
 };
 

@@ -29,13 +29,14 @@
 
 int main()
 {
-	ConfigMgr gCfgMgr;
+	// ConfigMgr gCfgMgr;
+	auto& gCfgMgr = ConfigMgr::Inst();
 	std::string gate_port_str = gCfgMgr["GateServer"]["Port"];
 	unsigned short gate_port = atoi(gate_port_str.c_str());
 
 	try {
 		unsigned short port = static_cast<unsigned short>(8080);
-		net::io_context ioc{ 1 };
+		net::io_context ioc{ 1 }; // 只有一个主线程，并发能力不行；可创建线程池提高并发能力
 		boost::asio::signal_set signals(ioc, SIGINT, SIGTERM);
 		signals.async_wait([&ioc](const boost::system::error_code& error, int signal_number) {
 			if (error) {

@@ -1,9 +1,17 @@
 #include "HttpConnection.h"
 #include "LogicSystem.h"
 
-HttpConnection::HttpConnection(tcp::socket socket) : _socket(std::move(socket)) {
+//HttpConnection::HttpConnection(tcp::socket socket) : _socket(std::move(socket)) {
+//
+//}
+HttpConnection::HttpConnection(boost::asio::io_context& ioc) : _socket(ioc) {
 
 }
+
+tcp::socket& HttpConnection::GetSocket() {
+	return _socket;
+}
+
 void HttpConnection::Start() {
 	auto self = shared_from_this();
 	http::async_read(_socket, _buffer, _request, [self](beast::error_code ec, std::size_t bytes_transferred) {
