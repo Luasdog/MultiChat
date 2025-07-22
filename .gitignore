@@ -1,5 +1,12 @@
 basic_con/
-GateServer/GateServer/
-GateServer/x64/
-GateServer/.vs/
-multichat/debug/
+build-multichat*
+Debug
+x64
+.vs
+multichat.pro.user
+node_modules
+
+multichat/bin/
+multichat/.qmake.stash
+multichat/Makefile.*
+multichat/object_script.multichat.*
