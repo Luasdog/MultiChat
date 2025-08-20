@@ -74,6 +74,21 @@ LogicSystem::LogicSystem() {
 			beast::ostream(connection->_response.body()) << jsonstr;
 			return true;
 		}
+
+		auto email = src_root["email"].asString();
+		auto name = src_root["user"].asString();
+		auto pwd = src_root["passwd"].asString();
+		auto confirm = src_root["confirm"].asString();
+
+		// 判断密码和确认密码是否一致
+		if (pwd != confirm) {
+			std::cout << "password err" << std::endl;
+			root["error"] = ErrorCodes::PasswdErr;
+			std::string jsonstr = root.toStyledString();
+			beast::ostream(connection->_response.body()) << jsonstr;
+			return true;
+		}
+
 		//先查找redis中email对应的验证码是否合理
 		std::string  verify_code;
 		bool b_get_verify = RedisMgr::GetInstance()->Get(CODEPREFIX + src_root["email"].asString(), verify_code);
