@@ -1,6 +1,74 @@
 #include "RedisMgr.h"
 #include "ConfigMgr.h"
 
+RedisConPool::RedisConPool(size_t poolSize, const char* host, int port, const char* pwd)
+    : _poolSize(poolSize), _host(host), _port(port), _b_stop(false) {
+    for (size_t i = 0; i < _poolSize; ++i) {
+        auto* context = redisConnect(host, port);
+        if (context == nullptr || context->err != 0) {
+            if (context != nullptr) {
+                redisFree(context);
+            }
+            continue;
+        }
+
+        auto reply = (redisReply*)redisCommand(context, "AUTH %s", pwd);
+        if (reply->type == REDIS_REPLY_ERROR) {
+            std::cout << "认证失败" << std::endl;
+            //执行成功 释放redisCommand执行后返回的redisReply所占用的内存
+            freeReplyObject(reply);
+            redisFree(context);
+            continue;
+        }
+
+        //执行成功 释放redisCommand执行后返回的redisReply所占用的内存
+        freeReplyObject(reply);
+        std::cout << "认证成功" << std::endl;
+        _connections.push(context);
+    }
+
+}
+
+RedisConPool::~RedisConPool() {
+    std::lock_guard<std::mutex> lock(_mutex);
+    while (!_connections.empty()) {
+        auto context = _connections.front();
+        _connections.pop();
+        redisFree(context);
+    }
+}
+
+redisContext* RedisConPool::getConnection() {
+    std::unique_lock<std::mutex> lock(_mutex);
+    _cond.wait(lock, [this] {
+        if (_b_stop) {
+            return true;
+        }
+        return !_connections.empty();
+        });
+    //如果停止则直接返回空指针
+    if (_b_stop) {
+        return  nullptr;
+    }
+    auto* context = _connections.front();
+    _connections.pop();
+    return context;
+}
+
+void RedisConPool::returnConnection(redisContext* context) {
+    std::lock_guard<std::mutex> lock(_mutex);
+    if (_b_stop) {
+        return;
+    }
+    _connections.push(context);
+    _cond.notify_one();
+}
+
+void RedisConPool::Close() {
+    _b_stop = true;
+    _cond.notify_all();
+}
+
 RedisMgr::RedisMgr() {
     auto& gCfgMgr = ConfigMgr::Inst();
     auto host = gCfgMgr["Redis"]["Host"];
