@@ -48,7 +48,7 @@ void RegisterDialog::slot_reg_mod_finish(ReqId id, QString res, ErrorCodes err)
         return;
     }
 
-    //解析json字符串， res转化为QByteArray
+    //解析Json字符串， res转化为QByteArray
     QJsonDocument jsonDoc = QJsonDocument::fromJson(res.toUtf8());
     if (jsonDoc.isNull()) {
         showTip(tr("json解析失败"), false);
@@ -78,6 +78,18 @@ void RegisterDialog::initHttpHandlers()
         showTip(tr("验证码已经发送到邮箱，注意查收"), true);
         qDebug() << "email is " << email;
     });
+
+    //注册注册用户回包逻辑
+    _handlers.insert(ReqId::ID_REG_USER, [this](QJsonObject jsonObj){
+        int error = jsonObj["error"].toInt();
+        if(error != ErrorCodes::SUCCESS){
+            showTip(tr("参数错误"),false);
+            return;
+        }
+        auto email = jsonObj["email"].toString();
+        showTip(tr("用户注册成功"), true);
+        qDebug()<< "email is " << email ;
+    });
 }
 
 void RegisterDialog::showTip(QString str, bool b_ok)
@@ -89,4 +101,47 @@ void RegisterDialog::showTip(QString str, bool b_ok)
     }
     ui->err_tip->setText(str);
     repolish(ui->err_tip);
+}
+
+void RegisterDialog::on_confirm_pushButton_clicked()
+{
+    if(ui->user_lineEdit->text() == ""){
+            showTip(tr("用户名不能为空"), false);
+            return;
+        }
+
+        if(ui->email_lineEdit->text() == ""){
+            showTip(tr("邮箱不能为空"), false);
+            return;
+        }
+
+        if(ui->passwd_lineEdit->text() == ""){
+            showTip(tr("密码不能为空"), false);
+            return;
+        }
+
+        if(ui->confirm_lineEdit->text() == ""){
+            showTip(tr("确认密码不能为空"), false);
+            return;
+        }
+
+        if(ui->confirm_lineEdit->text() != ui->passwd_lineEdit->text()){
+            showTip(tr("密码和确认密码不匹配"), false);
+            return;
+        }
+
+        if(ui->verify_lineEdit->text() == ""){
+            showTip(tr("验证码不能为空"), false);
+            return;
+        }
+
+        //发送http请求注册用户
+        QJsonObject json_obj;
+        json_obj["user"] = ui->user_lineEdit->text();
+        json_obj["email"] = ui->email_lineEdit->text();
+        json_obj["passwd"] = ui->passwd_lineEdit->text();
+        json_obj["confirm"] = ui->confirm_lineEdit->text();
+        json_obj["verifycode"] = ui->verify_lineEdit->text();
+        HttpMgr::GetInstance()->postHttpReq(QUrl(gate_url_prefix+"/user_register"),
+                     json_obj, ReqId::ID_REG_USER,Modules::REGISTERMOD);
 }
