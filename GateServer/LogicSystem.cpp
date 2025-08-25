@@ -2,6 +2,7 @@
 #include "HttpConnection.h"
 #include "VerifyGrpcClient.h"
 #include "RedisMgr.h"
+#include "MysqlMgr.h"
 
 void LogicSystem::RegGet(std::string url, HttpHandler handler) {
 	_get_handlers.insert(make_pair(url, handler));
@@ -90,7 +91,7 @@ LogicSystem::LogicSystem() {
 		}
 
 		//先查找redis中email对应的验证码是否合理
-		std::string  verify_code;
+		std::string verify_code;
 		bool b_get_verify = RedisMgr::GetInstance()->Get(CODEPREFIX + src_root["email"].asString(), verify_code);
 		if (!b_get_verify) {
 			std::cout << " get verify code expired" << std::endl;
@@ -108,27 +109,37 @@ LogicSystem::LogicSystem() {
 			return true;
 		}
 
-		//访问redis查找用户名/用户是否已经注册
-		bool b_usr_exist = RedisMgr::GetInstance()->ExistsKey(src_root["user"].asString());
-		if (b_usr_exist) {
-			std::cout << " user exist" << std::endl;
+		//查找数据库判断用户是否存在
+		int uid = MysqlMgr::GetInstance()->RegUser(name, email, pwd);
+		if (uid == 0 || uid == -1) {
+			std::cout << " user or email exist" << std::endl;
 			root["error"] = ErrorCodes::UserExist;
 			std::string jsonstr = root.toStyledString();
 			beast::ostream(connection->_response.body()) << jsonstr;
 			return true;
 		}
 
-		//查找数据库判断用户是否存在
 		root["error"] = 0;
-		root["email"] = src_root["email"];
-		root["user"] = src_root["user"].asString();
-		root["passwd"] = src_root["passwd"].asString();
-		root["confirm"] = src_root["confirm"].asString();
+		root["uid"] = uid;
+		root["email"] = email;
+		root["user"] = name;
+		root["passwd"] = pwd;
+		root["confirm"] = confirm;
 		root["verifycode"] = src_root["verifycode"].asString();
 		std::string jsonstr = root.toStyledString();
 		beast::ostream(connection->_response.body()) << jsonstr;
 		return true;
 		});
+
+		////访问redis查找用户名/用户是否已经注册
+		//bool b_usr_exist = RedisMgr::GetInstance()->ExistsKey(src_root["user"].asString());
+		//if (b_usr_exist) {
+		//	std::cout << " user exist" << std::endl;
+		//	root["error"] = ErrorCodes::UserExist;
+		//	std::string jsonstr = root.toStyledString();
+		//	beast::ostream(connection->_response.body()) << jsonstr;
+		//	return true;
+		//}
 }
 
 bool LogicSystem::HandleGet(std::string path, std::shared_ptr<HttpConnection> con) {

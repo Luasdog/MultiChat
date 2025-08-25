@@ -4,22 +4,33 @@
 #include <boost/asio.hpp>
 #include <memory>
 #include <iostream>
-#include "Singleton.h"
-#include <functional>
-#include <map>
 #include <unordered_map>
 #include <json/json.h>
 #include <json/value.h>
 #include <json/reader.h>
+#include "Singleton.h"
+#include <assert.h>
+#include <queue>
+#include <jdbc/mysql_driver.h>
+#include <jdbc/mysql_connection.h>
+#include <jdbc/cppconn/prepared_statement.h>
+#include <jdbc/cppconn/resultset.h>
+#include <jdbc/cppconn/statement.h>
+#include <jdbc/cppconn/exception.h>
+#include <functional>
+#include <boost/uuid/uuid.hpp>
+#include <boost/uuid/uuid_generators.hpp>
+#include <boost/uuid/uuid_io.hpp>
+#include <string>
+#include <cassert>
+#include <map>
 #include <boost/filesystem.hpp>
 #include <boost/property_tree/ptree.hpp>
 #include <boost/property_tree/ini_parser.hpp>
 #include <atomic>
-#include <queue>
 #include <mutex>
 #include <condition_variable>
 #include "hiredis.h"
-#include <cassert>
 
 namespace beast = boost::beast;         // from <boost/beast.hpp>
 namespace http = beast::http;           // from <boost/beast/http.hpp>
@@ -40,6 +51,22 @@ enum ErrorCodes {
 	TokenInvalid = 1010,   //Token失效
 	UidInvalid = 1011,  //uid无效
 };
+
+// Defer类
+class Defer {
+public:
+	// 接受一个lambda表达式或者函数指针
+	Defer(std::function<void()> func) : func_(func) {}
+
+	// 析构函数中执行传入的函数
+	~Defer() {
+		func_();
+	}
+
+private:
+	std::function<void()> func_;
+};
+
 
 #define CODEPREFIX "code_"
 
