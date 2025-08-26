@@ -17,7 +17,7 @@ public:
     ~RegisterDialog();
 
 private slots:
-    void on_getcode_pushButton_clicked();
+    void on_getcode_btn_clicked();
     void slot_reg_mod_finish(ReqId id, QString res, ErrorCodes err);
 
     void on_confirm_pushButton_clicked();

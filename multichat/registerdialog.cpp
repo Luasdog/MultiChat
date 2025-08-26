@@ -25,7 +25,7 @@ RegisterDialog::~RegisterDialog()
     delete ui;
 }
 
-void RegisterDialog::on_getcode_pushButton_clicked()
+void RegisterDialog::on_getcode_btn_clicked()
 {
     auto email = ui->email_lineEdit->text();
     QRegularExpression regex(R"((\w+)(\.|_)?(\w*)@(\w+)(\.(\w+))+)"); //正则表达式 邮箱

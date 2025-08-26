@@ -20,6 +20,7 @@
 #include <QtWidgets/QStackedWidget>
 #include <QtWidgets/QVBoxLayout>
 #include <QtWidgets/QWidget>
+#include "timerbtn.h"
 
 QT_BEGIN_NAMESPACE
 
@@ -50,7 +51,7 @@ public:
     QHBoxLayout *horizontalLayout_5;
     QLabel *verify_label;
     QLineEdit *verify_lineEdit;
-    QPushButton *getcode_pushButton;
+    TimerBtn *getcode_btn;
     QSpacerItem *verticalSpacer_2;
     QHBoxLayout *horizontalLayout_6;
     QPushButton *confirm_pushButton;
@@ -61,7 +62,7 @@ public:
     {
         if (RegisterDialog->objectName().isEmpty())
             RegisterDialog->setObjectName(QString::fromUtf8("RegisterDialog"));
-        RegisterDialog->resize(407, 500);
+        RegisterDialog->resize(371, 500);
         RegisterDialog->setMinimumSize(QSize(300, 500));
         RegisterDialog->setMaximumSize(QSize(600, 900));
         verticalLayout_2 = new QVBoxLayout(RegisterDialog);
@@ -183,12 +184,12 @@ public:
 
         horizontalLayout_5->addWidget(verify_lineEdit);
 
-        getcode_pushButton = new QPushButton(page);
-        getcode_pushButton->setObjectName(QString::fromUtf8("getcode_pushButton"));
-        getcode_pushButton->setMinimumSize(QSize(0, 25));
-        getcode_pushButton->setMaximumSize(QSize(16777215, 25));
+        getcode_btn = new TimerBtn(page);
+        getcode_btn->setObjectName(QString::fromUtf8("getcode_btn"));
+        getcode_btn->setMinimumSize(QSize(0, 25));
+        getcode_btn->setMaximumSize(QSize(16777215, 25));
 
-        horizontalLayout_5->addWidget(getcode_pushButton);
+        horizontalLayout_5->addWidget(getcode_btn);
 
 
         verticalLayout_3->addLayout(horizontalLayout_5);
@@ -241,7 +242,7 @@ public:
         passwd_label->setText(QApplication::translate("RegisterDialog", "\345\257\206\347\240\201", nullptr));
         confirm_label->setText(QApplication::translate("RegisterDialog", "\347\241\256\350\256\244\345\257\206\347\240\201", nullptr));
         verify_label->setText(QApplication::translate("RegisterDialog", "\351\252\214\350\257\201\347\240\201", nullptr));
-        getcode_pushButton->setText(QApplication::translate("RegisterDialog", "\350\216\267\345\217\226", nullptr));
+        getcode_btn->setText(QApplication::translate("RegisterDialog", "\350\216\267\345\217\226", nullptr));
         confirm_pushButton->setText(QApplication::translate("RegisterDialog", "\347\241\256\350\256\244", nullptr));
         cancel_pushButton->setText(QApplication::translate("RegisterDialog", "\345\217\226\346\266\210", nullptr));
     } // retranslateUi
