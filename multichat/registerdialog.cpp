@@ -140,8 +140,8 @@ void RegisterDialog::on_confirm_pushButton_clicked()
         QJsonObject json_obj;
         json_obj["user"] = ui->user_lineEdit->text();
         json_obj["email"] = ui->email_lineEdit->text();
-        json_obj["passwd"] = ui->passwd_lineEdit->text();
-        json_obj["confirm"] = ui->confirm_lineEdit->text();
+        json_obj["passwd"] = xorString(ui->passwd_lineEdit->text());
+        json_obj["confirm"] = xorString(ui->confirm_lineEdit->text());
         json_obj["verifycode"] = ui->verify_lineEdit->text();
         HttpMgr::GetInstance()->postHttpReq(QUrl(gate_url_prefix+"/user_register"),
                      json_obj, ReqId::ID_REG_USER,Modules::REGISTERMOD);

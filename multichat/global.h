@@ -18,6 +18,14 @@
  */
 extern std::function<void(QWidget*)> repolish;
 
+/**
+ * @brief 使用异或加密敏感数据
+ */
+extern std::function<QString(QString)> xorString;
+
+/**
+ * @brief The ReqId enum 表示请求的id
+ */
 enum ReqId {
     ID_GET_VERIFY_CODE = 1001, //获取验证码
     ID_REG_USER = 1002, //注册用户
