@@ -20,6 +20,7 @@
 #include <QtWidgets/QStackedWidget>
 #include <QtWidgets/QVBoxLayout>
 #include <QtWidgets/QWidget>
+#include "clickedlabel.h"
 #include "timerbtn.h"
 
 QT_BEGIN_NAMESPACE
@@ -45,9 +46,11 @@ public:
     QHBoxLayout *horizontalLayout_3;
     QLabel *passwd_label;
     QLineEdit *passwd_edit;
+    ClickedLabel *passwd_visible;
     QHBoxLayout *horizontalLayout_4;
     QLabel *confirm_label;
     QLineEdit *confirm_edit;
+    ClickedLabel *confirm_visible;
     QHBoxLayout *horizontalLayout_5;
     QLabel *verify_label;
     QLineEdit *verify_edit;
@@ -146,6 +149,13 @@ public:
 
         horizontalLayout_3->addWidget(passwd_edit);
 
+        passwd_visible = new ClickedLabel(page);
+        passwd_visible->setObjectName(QString::fromUtf8("passwd_visible"));
+        passwd_visible->setMinimumSize(QSize(20, 20));
+        passwd_visible->setMaximumSize(QSize(20, 20));
+
+        horizontalLayout_3->addWidget(passwd_visible);
+
 
         verticalLayout_3->addLayout(horizontalLayout_3);
 
@@ -164,6 +174,13 @@ public:
         confirm_edit->setMaximumSize(QSize(16777215, 25));
 
         horizontalLayout_4->addWidget(confirm_edit);
+
+        confirm_visible = new ClickedLabel(page);
+        confirm_visible->setObjectName(QString::fromUtf8("confirm_visible"));
+        confirm_visible->setMinimumSize(QSize(20, 20));
+        confirm_visible->setMaximumSize(QSize(20, 20));
+
+        horizontalLayout_4->addWidget(confirm_visible);
 
 
         verticalLayout_3->addLayout(horizontalLayout_4);
@@ -240,7 +257,9 @@ public:
         user_label->setText(QApplication::translate("RegisterDialog", "\347\224\250\346\210\267", nullptr));
         email_label->setText(QApplication::translate("RegisterDialog", "\351\202\256\347\256\261", nullptr));
         passwd_label->setText(QApplication::translate("RegisterDialog", "\345\257\206\347\240\201", nullptr));
+        passwd_visible->setText(QString());
         confirm_label->setText(QApplication::translate("RegisterDialog", "\347\241\256\350\256\244\345\257\206\347\240\201", nullptr));
+        confirm_visible->setText(QString());
         verify_label->setText(QApplication::translate("RegisterDialog", "\351\252\214\350\257\201\347\240\201", nullptr));
         getcode_btn->setText(QApplication::translate("RegisterDialog", "\350\216\267\345\217\226", nullptr));
         confirm_pushButton->setText(QApplication::translate("RegisterDialog", "\347\241\256\350\256\244", nullptr));

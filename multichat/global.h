@@ -45,6 +45,11 @@ enum TipErr{
     TIP_USER_ERR = 6
 };
 
+enum ClickLbState{
+    Normal = 0,
+    Selected = 1
+};
+
 enum ErrorCodes {
     SUCCESS = 0,
     ERR_JSON = 1, //json解析失败
