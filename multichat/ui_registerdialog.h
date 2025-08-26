@@ -38,19 +38,19 @@ public:
     QLabel *err_tip;
     QHBoxLayout *horizontalLayout;
     QLabel *user_label;
-    QLineEdit *user_lineEdit;
+    QLineEdit *user_edit;
     QHBoxLayout *horizontalLayout_2;
     QLabel *email_label;
-    QLineEdit *email_lineEdit;
+    QLineEdit *email_edit;
     QHBoxLayout *horizontalLayout_3;
     QLabel *passwd_label;
-    QLineEdit *passwd_lineEdit;
+    QLineEdit *passwd_edit;
     QHBoxLayout *horizontalLayout_4;
     QLabel *confirm_label;
-    QLineEdit *confirm_lineEdit;
+    QLineEdit *confirm_edit;
     QHBoxLayout *horizontalLayout_5;
     QLabel *verify_label;
-    QLineEdit *verify_lineEdit;
+    QLineEdit *verify_edit;
     TimerBtn *getcode_btn;
     QSpacerItem *verticalSpacer_2;
     QHBoxLayout *horizontalLayout_6;
@@ -101,12 +101,12 @@ public:
 
         horizontalLayout->addWidget(user_label);
 
-        user_lineEdit = new QLineEdit(page);
-        user_lineEdit->setObjectName(QString::fromUtf8("user_lineEdit"));
-        user_lineEdit->setMinimumSize(QSize(0, 25));
-        user_lineEdit->setMaximumSize(QSize(16777215, 25));
+        user_edit = new QLineEdit(page);
+        user_edit->setObjectName(QString::fromUtf8("user_edit"));
+        user_edit->setMinimumSize(QSize(0, 25));
+        user_edit->setMaximumSize(QSize(16777215, 25));
 
-        horizontalLayout->addWidget(user_lineEdit);
+        horizontalLayout->addWidget(user_edit);
 
 
         verticalLayout_3->addLayout(horizontalLayout);
@@ -120,12 +120,12 @@ public:
 
         horizontalLayout_2->addWidget(email_label);
 
-        email_lineEdit = new QLineEdit(page);
-        email_lineEdit->setObjectName(QString::fromUtf8("email_lineEdit"));
-        email_lineEdit->setMinimumSize(QSize(0, 25));
-        email_lineEdit->setMaximumSize(QSize(16777215, 25));
+        email_edit = new QLineEdit(page);
+        email_edit->setObjectName(QString::fromUtf8("email_edit"));
+        email_edit->setMinimumSize(QSize(0, 25));
+        email_edit->setMaximumSize(QSize(16777215, 25));
 
-        horizontalLayout_2->addWidget(email_lineEdit);
+        horizontalLayout_2->addWidget(email_edit);
 
 
         verticalLayout_3->addLayout(horizontalLayout_2);
@@ -139,12 +139,12 @@ public:
 
         horizontalLayout_3->addWidget(passwd_label);
 
-        passwd_lineEdit = new QLineEdit(page);
-        passwd_lineEdit->setObjectName(QString::fromUtf8("passwd_lineEdit"));
-        passwd_lineEdit->setMinimumSize(QSize(0, 25));
-        passwd_lineEdit->setMaximumSize(QSize(16777215, 25));
+        passwd_edit = new QLineEdit(page);
+        passwd_edit->setObjectName(QString::fromUtf8("passwd_edit"));
+        passwd_edit->setMinimumSize(QSize(0, 25));
+        passwd_edit->setMaximumSize(QSize(16777215, 25));
 
-        horizontalLayout_3->addWidget(passwd_lineEdit);
+        horizontalLayout_3->addWidget(passwd_edit);
 
 
         verticalLayout_3->addLayout(horizontalLayout_3);
@@ -158,12 +158,12 @@ public:
 
         horizontalLayout_4->addWidget(confirm_label);
 
-        confirm_lineEdit = new QLineEdit(page);
-        confirm_lineEdit->setObjectName(QString::fromUtf8("confirm_lineEdit"));
-        confirm_lineEdit->setMinimumSize(QSize(0, 25));
-        confirm_lineEdit->setMaximumSize(QSize(16777215, 25));
+        confirm_edit = new QLineEdit(page);
+        confirm_edit->setObjectName(QString::fromUtf8("confirm_edit"));
+        confirm_edit->setMinimumSize(QSize(0, 25));
+        confirm_edit->setMaximumSize(QSize(16777215, 25));
 
-        horizontalLayout_4->addWidget(confirm_lineEdit);
+        horizontalLayout_4->addWidget(confirm_edit);
 
 
         verticalLayout_3->addLayout(horizontalLayout_4);
@@ -177,12 +177,12 @@ public:
 
         horizontalLayout_5->addWidget(verify_label);
 
-        verify_lineEdit = new QLineEdit(page);
-        verify_lineEdit->setObjectName(QString::fromUtf8("verify_lineEdit"));
-        verify_lineEdit->setMinimumSize(QSize(0, 25));
-        verify_lineEdit->setMaximumSize(QSize(16777215, 25));
+        verify_edit = new QLineEdit(page);
+        verify_edit->setObjectName(QString::fromUtf8("verify_edit"));
+        verify_edit->setMinimumSize(QSize(0, 25));
+        verify_edit->setMaximumSize(QSize(16777215, 25));
 
-        horizontalLayout_5->addWidget(verify_lineEdit);
+        horizontalLayout_5->addWidget(verify_edit);
 
         getcode_btn = new TimerBtn(page);
         getcode_btn->setObjectName(QString::fromUtf8("getcode_btn"));

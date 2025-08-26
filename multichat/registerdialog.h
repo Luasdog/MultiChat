@@ -19,12 +19,20 @@ public:
 private slots:
     void on_getcode_btn_clicked();
     void slot_reg_mod_finish(ReqId id, QString res, ErrorCodes err);
-
     void on_confirm_pushButton_clicked();
 
 private:
     void initHttpHandlers();
     void showTip(QString str, bool b_ok);
+    bool checkUserValid();
+    bool checkEmailValid();
+    bool checkPassValid();
+    bool checkVerifyValid();
+    bool checkConfirmValid();
+    void AddTipErr(TipErr te, QString tips);
+    void DelTipErr(TipErr te);
+
+    QMap<TipErr, QString> _tip_errs;
     Ui::RegisterDialog *ui;
     QMap<ReqId, std::function<void(const QJsonObject&)>> _handlers;
 };
