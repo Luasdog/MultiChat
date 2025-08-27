@@ -3,7 +3,7 @@
 
 ClickedLabel::ClickedLabel(QWidget *parent) : QLabel(parent), _curstate(ClickLbState::Normal)
 {
-    setCursor(Qt::PointingHandCursor);
+    this->setCursor(Qt::PointingHandCursor);
 }
 
 void ClickedLabel::mousePressEvent(QMouseEvent *event)
