@@ -28,7 +28,7 @@ QT_BEGIN_NAMESPACE
 class Ui_RegisterDialog
 {
 public:
-    QVBoxLayout *verticalLayout_2;
+    QHBoxLayout *horizontalLayout_7;
     QVBoxLayout *verticalLayout;
     QStackedWidget *stackedWidget;
     QWidget *page;
@@ -60,6 +60,17 @@ public:
     QPushButton *confirm_pushButton;
     QPushButton *cancel_pushButton;
     QWidget *page_2;
+    QVBoxLayout *verticalLayout_5;
+    QSpacerItem *verticalSpacer_3;
+    QLabel *tip_label;
+    QLabel *tip2_label;
+    QSpacerItem *verticalSpacer_4;
+    QWidget *widget_2;
+    QHBoxLayout *horizontalLayout_8;
+    QSpacerItem *horizontalSpacer_2;
+    QPushButton *return_btn;
+    QSpacerItem *horizontalSpacer;
+    QSpacerItem *verticalSpacer_5;
 
     void setupUi(QDialog *RegisterDialog)
     {
@@ -68,8 +79,8 @@ public:
         RegisterDialog->resize(371, 500);
         RegisterDialog->setMinimumSize(QSize(300, 500));
         RegisterDialog->setMaximumSize(QSize(600, 900));
-        verticalLayout_2 = new QVBoxLayout(RegisterDialog);
-        verticalLayout_2->setObjectName(QString::fromUtf8("verticalLayout_2"));
+        horizontalLayout_7 = new QHBoxLayout(RegisterDialog);
+        horizontalLayout_7->setObjectName(QString::fromUtf8("horizontalLayout_7"));
         verticalLayout = new QVBoxLayout();
         verticalLayout->setObjectName(QString::fromUtf8("verticalLayout"));
         stackedWidget = new QStackedWidget(RegisterDialog);
@@ -237,15 +248,66 @@ public:
         stackedWidget->addWidget(page);
         page_2 = new QWidget();
         page_2->setObjectName(QString::fromUtf8("page_2"));
+        verticalLayout_5 = new QVBoxLayout(page_2);
+        verticalLayout_5->setObjectName(QString::fromUtf8("verticalLayout_5"));
+        verticalSpacer_3 = new QSpacerItem(20, 40, QSizePolicy::Minimum, QSizePolicy::Expanding);
+
+        verticalLayout_5->addItem(verticalSpacer_3);
+
+        tip_label = new QLabel(page_2);
+        tip_label->setObjectName(QString::fromUtf8("tip_label"));
+        tip_label->setAlignment(Qt::AlignCenter);
+
+        verticalLayout_5->addWidget(tip_label);
+
+        tip2_label = new QLabel(page_2);
+        tip2_label->setObjectName(QString::fromUtf8("tip2_label"));
+        tip2_label->setAlignment(Qt::AlignCenter);
+
+        verticalLayout_5->addWidget(tip2_label);
+
+        verticalSpacer_4 = new QSpacerItem(20, 40, QSizePolicy::Minimum, QSizePolicy::Expanding);
+
+        verticalLayout_5->addItem(verticalSpacer_4);
+
+        widget_2 = new QWidget(page_2);
+        widget_2->setObjectName(QString::fromUtf8("widget_2"));
+        horizontalLayout_8 = new QHBoxLayout(widget_2);
+        horizontalLayout_8->setObjectName(QString::fromUtf8("horizontalLayout_8"));
+        horizontalSpacer_2 = new QSpacerItem(80, 20, QSizePolicy::Expanding, QSizePolicy::Minimum);
+
+        horizontalLayout_8->addItem(horizontalSpacer_2);
+
+        return_btn = new QPushButton(widget_2);
+        return_btn->setObjectName(QString::fromUtf8("return_btn"));
+        return_btn->setMinimumSize(QSize(0, 25));
+        return_btn->setMaximumSize(QSize(16777215, 25));
+
+        horizontalLayout_8->addWidget(return_btn);
+
+        horizontalSpacer = new QSpacerItem(80, 20, QSizePolicy::Expanding, QSizePolicy::Minimum);
+
+        horizontalLayout_8->addItem(horizontalSpacer);
+
+
+        verticalLayout_5->addWidget(widget_2);
+
+        verticalSpacer_5 = new QSpacerItem(20, 40, QSizePolicy::Minimum, QSizePolicy::Expanding);
+
+        verticalLayout_5->addItem(verticalSpacer_5);
+
         stackedWidget->addWidget(page_2);
 
         verticalLayout->addWidget(stackedWidget);
 
 
-        verticalLayout_2->addLayout(verticalLayout);
+        horizontalLayout_7->addLayout(verticalLayout);
 
 
         retranslateUi(RegisterDialog);
+
+        stackedWidget->setCurrentIndex(1);
+
 
         QMetaObject::connectSlotsByName(RegisterDialog);
     } // setupUi
@@ -264,6 +326,9 @@ public:
         getcode_btn->setText(QApplication::translate("RegisterDialog", "\350\216\267\345\217\226", nullptr));
         confirm_pushButton->setText(QApplication::translate("RegisterDialog", "\347\241\256\350\256\244", nullptr));
         cancel_pushButton->setText(QApplication::translate("RegisterDialog", "\345\217\226\346\266\210", nullptr));
+        tip_label->setText(QApplication::translate("RegisterDialog", "\346\263\250\345\206\214\346\210\220\345\212\237\357\274\2145s\345\220\216\350\277\224\345\233\236\347\231\273\345\275\225", nullptr));
+        tip2_label->setText(QApplication::translate("RegisterDialog", "\345\217\257\347\202\271\345\207\273\350\277\224\345\233\236\346\214\211\351\222\256\347\233\264\346\216\245\350\277\224\345\233\236\347\231\273\351\231\206\347\225\214\351\235\242", nullptr));
+        return_btn->setText(QApplication::translate("RegisterDialog", "\350\277\224\345\233\236\347\231\273\345\275\225", nullptr));
     } // retranslateUi
 
 };

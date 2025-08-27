@@ -7,17 +7,14 @@ MainWindow::MainWindow(QWidget *parent)
 {
     ui->setupUi(this);
     _login_dialog = new LoginDialog(this); //为了防止内存泄露，添加this设置成主窗口的子类
+    _login_dialog->setWindowFlags(Qt::CustomizeWindowHint | Qt::FramelessWindowHint); //删除多余窗口
     //带来的问题是窗口会独立弹开
     setCentralWidget(_login_dialog);
     //_login_dialog->show();
 
     // 创建和注册消息连接
     connect(_login_dialog, &LoginDialog::switchRegister, this, & MainWindow::SlotSwitchReg);
-    _reg_dialog = new RegisterDialog(this); //为了防止内存泄露，添加this设置成主窗口的子类
 
-    _login_dialog->setWindowFlags(Qt::CustomizeWindowHint | Qt::FramelessWindowHint); //删除多余窗口
-    _reg_dialog->setWindowFlags(Qt::CustomizeWindowHint | Qt::FramelessWindowHint);
-    _reg_dialog->hide();
 }
 
 MainWindow::~MainWindow()
@@ -36,8 +33,29 @@ MainWindow::~MainWindow()
 
 void MainWindow::SlotSwitchReg()
 {
+    // 修改成动态初始化
+    _reg_dialog = new RegisterDialog(this); //为了防止内存泄露，添加this设置成主窗口的子类
+
+    _reg_dialog->setWindowFlags(Qt::CustomizeWindowHint | Qt::FramelessWindowHint);
+
+    //连接注册界面返回登录信号
+    connect(_reg_dialog, &RegisterDialog::sigSwitchLogin, this, &MainWindow::SlotSwitchLogin);
+
     setCentralWidget(_reg_dialog);
     _login_dialog->hide();
     _reg_dialog->show();
+}
+
+void MainWindow::SlotSwitchLogin()
+{
+    //创建一个CentralWidget, 并将其设置为MainWindow的中心部件
+    _login_dialog = new LoginDialog(this);
+    _login_dialog->setWindowFlags(Qt::CustomizeWindowHint|Qt::FramelessWindowHint);
+    setCentralWidget(_login_dialog);
+
+    _reg_dialog->hide();
+    _login_dialog->show();
+    //连接登录界面注册信号
+    connect(_login_dialog, &LoginDialog::switchRegister, this, &MainWindow::SlotSwitchReg);
 }
 

@@ -21,6 +21,8 @@ private slots:
     void slot_reg_mod_finish(ReqId id, QString res, ErrorCodes err);
     void on_confirm_pushButton_clicked();
 
+    void on_return_btn_clicked();
+
 private:
     void initHttpHandlers();
     void showTip(QString str, bool b_ok);
@@ -29,12 +31,20 @@ private:
     bool checkPassValid();
     bool checkVerifyValid();
     bool checkConfirmValid();
-    void AddTipErr(TipErr te, QString tips);
-    void DelTipErr(TipErr te);
+    void addTipErr(TipErr te, QString tips);
+    void delTipErr(TipErr te);
+
+    void changeTipPage();
 
     QMap<TipErr, QString> _tip_errs;
     Ui::RegisterDialog *ui;
     QMap<ReqId, std::function<void(const QJsonObject&)>> _handlers;
+
+    QTimer * _countdown_timer;
+    int _countdown;
+
+signals:
+    void sigSwitchLogin();
 };
 
 #endif // REGISTERDIALOG_H

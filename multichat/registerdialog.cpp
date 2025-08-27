@@ -5,7 +5,7 @@
 
 RegisterDialog::RegisterDialog(QWidget *parent) :
     QDialog(parent),
-    ui(new Ui::RegisterDialog)
+    ui(new Ui::RegisterDialog), _countdown(5)
 {
     ui->setupUi(this);
     ui->passwd_edit->setEchoMode(QLineEdit::Password); //隐藏输入的密码
@@ -72,10 +72,25 @@ RegisterDialog::RegisterDialog(QWidget *parent) :
         }
         qDebug() << "Label was clicked!";
     });
+
+    // 创建定时器
+    _countdown_timer = new QTimer(this);
+    // 连接信号和槽
+    connect(_countdown_timer, &QTimer::timeout, [this](){
+        if(_countdown==0){
+            _countdown_timer->stop();
+            emit sigSwitchLogin();
+            return;
+        }
+        _countdown--;
+        auto str = QString("注册成功，%1 s后返回登录").arg(_countdown);
+        ui->tip_label->setText(str);
+    });
 }
 
 RegisterDialog::~RegisterDialog()
 {
+    qDebug() << "destruct RegisterDialog";
     delete ui;
 }
 
@@ -158,13 +173,13 @@ void RegisterDialog::showTip(QString str, bool b_ok)
     repolish(ui->err_tip);
 }
 
-void RegisterDialog::AddTipErr(TipErr te, QString tips)
+void RegisterDialog::addTipErr(TipErr te, QString tips)
 {
     _tip_errs[te] = tips;
     showTip(tips, false);
 }
 
-void RegisterDialog::DelTipErr(TipErr te)
+void RegisterDialog::delTipErr(TipErr te)
 {
     _tip_errs.remove(te);
     if(_tip_errs.empty()){
@@ -178,11 +193,11 @@ void RegisterDialog::DelTipErr(TipErr te)
 bool RegisterDialog::checkUserValid()
 {
     if(ui->user_edit->text() == ""){
-        AddTipErr(TipErr::TIP_USER_ERR, tr("用户名不能为空"));
+        addTipErr(TipErr::TIP_USER_ERR, tr("用户名不能为空"));
         return false;
     }
 
-    DelTipErr(TipErr::TIP_USER_ERR); // 删除错误缓存
+    delTipErr(TipErr::TIP_USER_ERR); // 删除错误缓存
     return true;
 }
 
@@ -195,11 +210,11 @@ bool RegisterDialog::checkEmailValid()
     bool match = regex.match(email).hasMatch(); // 执行正则表达式匹配
     if(!match){
         //提示邮箱不正确
-        AddTipErr(TipErr::TIP_EMAIL_ERR, tr("邮箱地址不正确"));
+        addTipErr(TipErr::TIP_EMAIL_ERR, tr("邮箱地址不正确"));
         return false;
     }
 
-    DelTipErr(TipErr::TIP_EMAIL_ERR);
+    delTipErr(TipErr::TIP_EMAIL_ERR);
     return true;
 }
 
@@ -210,7 +225,7 @@ bool RegisterDialog::checkPassValid()
 
     if(pass.length() < 6 || pass.length()>15){
         //提示长度不准确
-        AddTipErr(TipErr::TIP_PWD_ERR, tr("密码长度应为6~15"));
+        addTipErr(TipErr::TIP_PWD_ERR, tr("密码长度应为6~15"));
         return false;
     }
 
@@ -221,18 +236,18 @@ bool RegisterDialog::checkPassValid()
     bool match = regExp.match(pass).hasMatch();
     if(!match){
         //提示字符非法
-        AddTipErr(TipErr::TIP_PWD_ERR, tr("不能包含非法字符"));
+        addTipErr(TipErr::TIP_PWD_ERR, tr("不能包含非法字符"));
         return false;
     }
 
-    DelTipErr(TipErr::TIP_PWD_ERR);
+    delTipErr(TipErr::TIP_PWD_ERR);
 
     if(pass != confirm){
         //提示密码不匹配
-        AddTipErr(TipErr::TIP_PWD_CONFIRM, tr("密码和确认密码不匹配"));
+        addTipErr(TipErr::TIP_PWD_CONFIRM, tr("密码和确认密码不匹配"));
         return false;
     }else{
-       DelTipErr(TipErr::TIP_PWD_CONFIRM);
+       delTipErr(TipErr::TIP_PWD_CONFIRM);
     }
     return true;
 }
@@ -241,11 +256,11 @@ bool RegisterDialog::checkVerifyValid()
 {
     auto pass = ui->verify_edit->text();
     if(pass.isEmpty()){
-        AddTipErr(TipErr::TIP_VERIFY_ERR, tr("验证码不能为空"));
+        addTipErr(TipErr::TIP_VERIFY_ERR, tr("验证码不能为空"));
         return false;
     }
 
-    DelTipErr(TipErr::TIP_VERIFY_ERR);
+    delTipErr(TipErr::TIP_VERIFY_ERR);
     return true;
 }
 
@@ -256,7 +271,7 @@ bool RegisterDialog::checkConfirmValid()
 
     if(confirm.length() < 6 || confirm.length() > 15 ){
         //提示长度不准确
-        AddTipErr(TipErr::TIP_CONFIRM_ERR, tr("密码长度应为6~15"));
+        addTipErr(TipErr::TIP_CONFIRM_ERR, tr("密码长度应为6~15"));
         return false;
     }
 
@@ -267,20 +282,29 @@ bool RegisterDialog::checkConfirmValid()
     bool match = regExp.match(confirm).hasMatch();
     if(!match){
         //提示字符非法
-        AddTipErr(TipErr::TIP_CONFIRM_ERR, tr("不能包含非法字符"));
+        addTipErr(TipErr::TIP_CONFIRM_ERR, tr("不能包含非法字符"));
         return false;
     }
 
-    DelTipErr(TipErr::TIP_CONFIRM_ERR);
+    delTipErr(TipErr::TIP_CONFIRM_ERR);
 
     if(pass != confirm){
         //提示密码不匹配
-        AddTipErr(TipErr::TIP_PWD_CONFIRM, tr("确认密码和密码不匹配"));
+        addTipErr(TipErr::TIP_PWD_CONFIRM, tr("确认密码和密码不匹配"));
         return false;
     }else{
-       DelTipErr(TipErr::TIP_PWD_CONFIRM);
+       delTipErr(TipErr::TIP_PWD_CONFIRM);
     }
     return true;
+}
+
+void RegisterDialog::changeTipPage()
+{
+    _countdown_timer->stop();
+    ui->stackedWidget->setCurrentWidget(ui->page_2); // 切换到page2
+
+    // 启动定时器，设置间隔为1000毫秒（1秒）
+    _countdown_timer->start(1000);
 }
 
 void RegisterDialog::on_confirm_pushButton_clicked()
@@ -324,4 +348,10 @@ void RegisterDialog::on_confirm_pushButton_clicked()
         json_obj["verifycode"] = ui->verify_edit->text();
         HttpMgr::GetInstance()->postHttpReq(QUrl(gate_url_prefix+"/user_register"),
                      json_obj, ReqId::ID_REG_USER,Modules::REGISTERMOD);
+}
+
+void RegisterDialog::on_return_btn_clicked()
+{
+    _countdown_timer->stop();
+    emit sigSwitchLogin();
 }
