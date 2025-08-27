@@ -72,17 +72,13 @@ bool MysqlDao::CheckEmail(const std::string& name, const std::string& email) {
 		// 执行查询
 		std::unique_ptr<sql::ResultSet> res(pstmt->executeQuery());
 
-		// 遍历结果集
-		while (res->next()) {
-			std::cout << "Check Email: " << res->getString("email") << std::endl;
-			if (email != res->getString("email")) {
-				pool_->returnConnection(std::move(con));
-				return false;
-			}
-			pool_->returnConnection(std::move(con));
-			return true;
+		bool isMatch = false;
+		// 如果用户名不存在，返回false（或根据业务需求调整）
+		if (res->next()) {
+			isMatch = (email == res->getString("email"));
 		}
-		return true;
+		pool_->returnConnection(std::move(con));
+		return isMatch;
 	}
 	catch (sql::SQLException& e) {
 		pool_->returnConnection(std::move(con));
