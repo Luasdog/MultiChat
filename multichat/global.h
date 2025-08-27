@@ -38,6 +38,7 @@ enum ReqId {
 enum Modules {
     REGISTERMOD = 0,
     RESETMOD = 1,
+    LOGINMOD = 2,
 };
 
 enum TipErr{
@@ -59,6 +60,13 @@ enum ErrorCodes {
     SUCCESS = 0,
     ERR_JSON = 1, //json解析失败
     ERR_NETWORK = 2, //网络错误
+};
+
+struct ServerInfo{
+    QString Host;
+    QString Port;
+    QString Token;
+    int Uid;
 };
 
 extern QString gate_url_prefix;

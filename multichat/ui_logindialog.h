@@ -29,27 +29,27 @@ class Ui_LoginDialog
 public:
     QVBoxLayout *verticalLayout_2;
     QVBoxLayout *verticalLayout;
-    QWidget *widget;
+    QLabel *err_tip;
+    QWidget *head_widget;
     QGridLayout *gridLayout;
-    QLabel *label;
-    QSpacerItem *verticalSpacer;
+    QLabel *head_label;
     QHBoxLayout *horizontalLayout;
-    QLabel *user_label;
-    QLineEdit *user_lineEdit;
+    QLabel *email_label;
+    QLineEdit *email_edit;
     QHBoxLayout *horizontalLayout_2;
     QLabel *passwd_label;
-    QLineEdit *passwd_lineEdit;
+    QLineEdit *passwd_edit;
     QHBoxLayout *horizontalLayout_3;
     QSpacerItem *horizontalSpacer;
     ClickedLabel *forget_label;
     QSpacerItem *verticalSpacer_2;
     QHBoxLayout *horizontalLayout_4;
     QSpacerItem *horizontalSpacer_3;
-    QPushButton *login_pushButton;
+    QPushButton *login_btn;
     QSpacerItem *horizontalSpacer_2;
     QHBoxLayout *horizontalLayout_5;
     QSpacerItem *horizontalSpacer_5;
-    QPushButton *reg_pushButton;
+    QPushButton *reg_btn;
     QSpacerItem *horizontalSpacer_4;
     QSpacerItem *verticalSpacer_3;
 
@@ -57,7 +57,7 @@ public:
     {
         if (LoginDialog->objectName().isEmpty())
             LoginDialog->setObjectName(QString::fromUtf8("LoginDialog"));
-        LoginDialog->resize(345, 526);
+        LoginDialog->resize(330, 500);
         LoginDialog->setMinimumSize(QSize(300, 500));
         LoginDialog->setMaximumSize(QSize(600, 900));
         verticalLayout_2 = new QVBoxLayout(LoginDialog);
@@ -66,42 +66,44 @@ public:
         verticalLayout->setSpacing(7);
         verticalLayout->setObjectName(QString::fromUtf8("verticalLayout"));
         verticalLayout->setContentsMargins(5, 5, 5, 5);
-        widget = new QWidget(LoginDialog);
-        widget->setObjectName(QString::fromUtf8("widget"));
-        gridLayout = new QGridLayout(widget);
+        err_tip = new QLabel(LoginDialog);
+        err_tip->setObjectName(QString::fromUtf8("err_tip"));
+        err_tip->setAlignment(Qt::AlignCenter);
+
+        verticalLayout->addWidget(err_tip);
+
+        head_widget = new QWidget(LoginDialog);
+        head_widget->setObjectName(QString::fromUtf8("head_widget"));
+        gridLayout = new QGridLayout(head_widget);
         gridLayout->setObjectName(QString::fromUtf8("gridLayout"));
-        label = new QLabel(widget);
-        label->setObjectName(QString::fromUtf8("label"));
-        label->setMaximumSize(QSize(200, 200));
-        label->setPixmap(QPixmap(QString::fromUtf8(":/resource/login_640.png")));
-        label->setScaledContents(true);
-        label->setAlignment(Qt::AlignCenter);
+        head_label = new QLabel(head_widget);
+        head_label->setObjectName(QString::fromUtf8("head_label"));
+        head_label->setMinimumSize(QSize(200, 200));
+        head_label->setMaximumSize(QSize(200, 200));
+        head_label->setScaledContents(true);
+        head_label->setAlignment(Qt::AlignCenter);
 
-        gridLayout->addWidget(label, 0, 0, 1, 1);
-
-        verticalSpacer = new QSpacerItem(20, 40, QSizePolicy::Minimum, QSizePolicy::Expanding);
-
-        gridLayout->addItem(verticalSpacer, 1, 0, 1, 1);
+        gridLayout->addWidget(head_label, 0, 0, 1, 1);
 
 
-        verticalLayout->addWidget(widget);
+        verticalLayout->addWidget(head_widget);
 
         horizontalLayout = new QHBoxLayout();
         horizontalLayout->setSpacing(7);
         horizontalLayout->setObjectName(QString::fromUtf8("horizontalLayout"));
-        user_label = new QLabel(LoginDialog);
-        user_label->setObjectName(QString::fromUtf8("user_label"));
-        user_label->setMinimumSize(QSize(0, 25));
-        user_label->setMaximumSize(QSize(16777215, 25));
+        email_label = new QLabel(LoginDialog);
+        email_label->setObjectName(QString::fromUtf8("email_label"));
+        email_label->setMinimumSize(QSize(0, 25));
+        email_label->setMaximumSize(QSize(16777215, 25));
 
-        horizontalLayout->addWidget(user_label);
+        horizontalLayout->addWidget(email_label);
 
-        user_lineEdit = new QLineEdit(LoginDialog);
-        user_lineEdit->setObjectName(QString::fromUtf8("user_lineEdit"));
-        user_lineEdit->setMinimumSize(QSize(0, 25));
-        user_lineEdit->setMaximumSize(QSize(16777215, 25));
+        email_edit = new QLineEdit(LoginDialog);
+        email_edit->setObjectName(QString::fromUtf8("email_edit"));
+        email_edit->setMinimumSize(QSize(0, 25));
+        email_edit->setMaximumSize(QSize(16777215, 25));
 
-        horizontalLayout->addWidget(user_lineEdit);
+        horizontalLayout->addWidget(email_edit);
 
 
         verticalLayout->addLayout(horizontalLayout);
@@ -115,12 +117,12 @@ public:
 
         horizontalLayout_2->addWidget(passwd_label);
 
-        passwd_lineEdit = new QLineEdit(LoginDialog);
-        passwd_lineEdit->setObjectName(QString::fromUtf8("passwd_lineEdit"));
-        passwd_lineEdit->setMinimumSize(QSize(0, 25));
-        passwd_lineEdit->setMaximumSize(QSize(16777215, 25));
+        passwd_edit = new QLineEdit(LoginDialog);
+        passwd_edit->setObjectName(QString::fromUtf8("passwd_edit"));
+        passwd_edit->setMinimumSize(QSize(0, 25));
+        passwd_edit->setMaximumSize(QSize(16777215, 25));
 
-        horizontalLayout_2->addWidget(passwd_lineEdit);
+        horizontalLayout_2->addWidget(passwd_edit);
 
 
         verticalLayout->addLayout(horizontalLayout_2);
@@ -151,12 +153,12 @@ public:
 
         horizontalLayout_4->addItem(horizontalSpacer_3);
 
-        login_pushButton = new QPushButton(LoginDialog);
-        login_pushButton->setObjectName(QString::fromUtf8("login_pushButton"));
-        login_pushButton->setMinimumSize(QSize(100, 30));
-        login_pushButton->setMaximumSize(QSize(16777215, 30));
+        login_btn = new QPushButton(LoginDialog);
+        login_btn->setObjectName(QString::fromUtf8("login_btn"));
+        login_btn->setMinimumSize(QSize(100, 30));
+        login_btn->setMaximumSize(QSize(16777215, 30));
 
-        horizontalLayout_4->addWidget(login_pushButton);
+        horizontalLayout_4->addWidget(login_btn);
 
         horizontalSpacer_2 = new QSpacerItem(40, 20, QSizePolicy::Expanding, QSizePolicy::Minimum);
 
@@ -171,12 +173,12 @@ public:
 
         horizontalLayout_5->addItem(horizontalSpacer_5);
 
-        reg_pushButton = new QPushButton(LoginDialog);
-        reg_pushButton->setObjectName(QString::fromUtf8("reg_pushButton"));
-        reg_pushButton->setMinimumSize(QSize(100, 30));
-        reg_pushButton->setMaximumSize(QSize(16777215, 30));
+        reg_btn = new QPushButton(LoginDialog);
+        reg_btn->setObjectName(QString::fromUtf8("reg_btn"));
+        reg_btn->setMinimumSize(QSize(100, 30));
+        reg_btn->setMaximumSize(QSize(16777215, 30));
 
-        horizontalLayout_5->addWidget(reg_pushButton);
+        horizontalLayout_5->addWidget(reg_btn);
 
         horizontalSpacer_4 = new QSpacerItem(40, 20, QSizePolicy::Expanding, QSizePolicy::Minimum);
 
@@ -201,12 +203,13 @@ public:
     void retranslateUi(QDialog *LoginDialog)
     {
         LoginDialog->setWindowTitle(QApplication::translate("LoginDialog", "Dialog", nullptr));
-        label->setText(QString());
-        user_label->setText(QApplication::translate("LoginDialog", "\347\224\250\346\210\267", nullptr));
+        err_tip->setText(QString());
+        head_label->setText(QString());
+        email_label->setText(QApplication::translate("LoginDialog", "\351\202\256\347\256\261", nullptr));
         passwd_label->setText(QApplication::translate("LoginDialog", "\345\257\206\347\240\201", nullptr));
         forget_label->setText(QApplication::translate("LoginDialog", "\345\277\230\350\256\260\345\257\206\347\240\201", nullptr));
-        login_pushButton->setText(QApplication::translate("LoginDialog", "\347\231\273\345\275\225", nullptr));
-        reg_pushButton->setText(QApplication::translate("LoginDialog", "\346\263\250\345\206\214", nullptr));
+        login_btn->setText(QApplication::translate("LoginDialog", "\347\231\273\345\275\225", nullptr));
+        reg_btn->setText(QApplication::translate("LoginDialog", "\346\263\250\345\206\214", nullptr));
     } // retranslateUi
 
 };

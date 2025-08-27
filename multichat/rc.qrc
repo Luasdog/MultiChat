@@ -6,5 +6,14 @@
         <file>resource/unvisible_hover.png</file>
         <file>resource/visible.png</file>
         <file>resource/visible_hover.png</file>
+        <file>resource/Catherine_de'_Medici.png</file>
+        <file>resource/Cleopatra.png</file>
+        <file>resource/Hojo_Tokimune.png</file>
+        <file>resource/Pedro_II.png</file>
+        <file>resource/Qin.png</file>
+        <file>resource/Queen_Victoria.png</file>
+        <file>resource/Saladin.png</file>
+        <file>resource/Teddy_Roosevelt.png</file>
+        <file>resource/Civ_Unmet.png</file>
     </qresource>
 </RCC>
