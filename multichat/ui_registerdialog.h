@@ -57,8 +57,8 @@ public:
     TimerBtn *getcode_btn;
     QSpacerItem *verticalSpacer_2;
     QHBoxLayout *horizontalLayout_6;
-    QPushButton *confirm_pushButton;
-    QPushButton *cancel_pushButton;
+    QPushButton *confirm_btn;
+    QPushButton *cancel_btn;
     QWidget *page_2;
     QVBoxLayout *verticalLayout_5;
     QSpacerItem *verticalSpacer_3;
@@ -228,19 +228,19 @@ public:
 
         horizontalLayout_6 = new QHBoxLayout();
         horizontalLayout_6->setObjectName(QString::fromUtf8("horizontalLayout_6"));
-        confirm_pushButton = new QPushButton(page);
-        confirm_pushButton->setObjectName(QString::fromUtf8("confirm_pushButton"));
-        confirm_pushButton->setMinimumSize(QSize(0, 25));
-        confirm_pushButton->setMaximumSize(QSize(16777215, 25));
+        confirm_btn = new QPushButton(page);
+        confirm_btn->setObjectName(QString::fromUtf8("confirm_btn"));
+        confirm_btn->setMinimumSize(QSize(0, 25));
+        confirm_btn->setMaximumSize(QSize(16777215, 25));
 
-        horizontalLayout_6->addWidget(confirm_pushButton);
+        horizontalLayout_6->addWidget(confirm_btn);
 
-        cancel_pushButton = new QPushButton(page);
-        cancel_pushButton->setObjectName(QString::fromUtf8("cancel_pushButton"));
-        cancel_pushButton->setMinimumSize(QSize(0, 25));
-        cancel_pushButton->setMaximumSize(QSize(16777215, 25));
+        cancel_btn = new QPushButton(page);
+        cancel_btn->setObjectName(QString::fromUtf8("cancel_btn"));
+        cancel_btn->setMinimumSize(QSize(0, 25));
+        cancel_btn->setMaximumSize(QSize(16777215, 25));
 
-        horizontalLayout_6->addWidget(cancel_pushButton);
+        horizontalLayout_6->addWidget(cancel_btn);
 
 
         verticalLayout_3->addLayout(horizontalLayout_6);
@@ -324,8 +324,8 @@ public:
         confirm_visible->setText(QString());
         verify_label->setText(QApplication::translate("RegisterDialog", "\351\252\214\350\257\201\347\240\201", nullptr));
         getcode_btn->setText(QApplication::translate("RegisterDialog", "\350\216\267\345\217\226", nullptr));
-        confirm_pushButton->setText(QApplication::translate("RegisterDialog", "\347\241\256\350\256\244", nullptr));
-        cancel_pushButton->setText(QApplication::translate("RegisterDialog", "\345\217\226\346\266\210", nullptr));
+        confirm_btn->setText(QApplication::translate("RegisterDialog", "\347\241\256\350\256\244", nullptr));
+        cancel_btn->setText(QApplication::translate("RegisterDialog", "\345\217\226\346\266\210", nullptr));
         tip_label->setText(QApplication::translate("RegisterDialog", "\346\263\250\345\206\214\346\210\220\345\212\237\357\274\2145 s\345\220\216\350\277\224\345\233\236\347\231\273\345\275\225", nullptr));
         tip2_label->setText(QApplication::translate("RegisterDialog", "\345\217\257\347\202\271\345\207\273\350\277\224\345\233\236\346\214\211\351\222\256\347\233\264\346\216\245\350\277\224\345\233\236\347\231\273\351\231\206\347\225\214\351\235\242", nullptr));
         return_btn->setText(QApplication::translate("RegisterDialog", "\350\277\224\345\233\236\347\231\273\345\275\225", nullptr));

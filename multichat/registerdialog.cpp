@@ -308,7 +308,7 @@ void RegisterDialog::changeTipPage()
     _countdown_timer->start(1000);
 }
 
-void RegisterDialog::on_confirm_pushButton_clicked()
+void RegisterDialog::on_confirm_btn_clicked()
 {
     if(ui->user_edit->text() == ""){
             showTip(tr("用户名不能为空"), false);
@@ -352,6 +352,12 @@ void RegisterDialog::on_confirm_pushButton_clicked()
 }
 
 void RegisterDialog::on_return_btn_clicked()
+{
+    _countdown_timer->stop();
+    emit sigSwitchLogin();
+}
+
+void RegisterDialog::on_cancel_btn_clicked()
 {
     _countdown_timer->stop();
     emit sigSwitchLogin();
