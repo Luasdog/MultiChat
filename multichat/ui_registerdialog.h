@@ -20,13 +20,15 @@
 #include <QtWidgets/QStackedWidget>
 #include <QtWidgets/QVBoxLayout>
 #include <QtWidgets/QWidget>
+#include "clickedlabel.h"
+#include "timerbtn.h"
 
 QT_BEGIN_NAMESPACE
 
 class Ui_RegisterDialog
 {
 public:
-    QVBoxLayout *verticalLayout_2;
+    QHBoxLayout *horizontalLayout_7;
     QVBoxLayout *verticalLayout;
     QStackedWidget *stackedWidget;
     QWidget *page;
@@ -37,35 +39,48 @@ public:
     QLabel *err_tip;
     QHBoxLayout *horizontalLayout;
     QLabel *user_label;
-    QLineEdit *user_lineEdit;
+    QLineEdit *user_edit;
     QHBoxLayout *horizontalLayout_2;
     QLabel *email_label;
-    QLineEdit *email_lineEdit;
+    QLineEdit *email_edit;
     QHBoxLayout *horizontalLayout_3;
     QLabel *passwd_label;
-    QLineEdit *passwd_lineEdit;
+    QLineEdit *passwd_edit;
+    ClickedLabel *passwd_visible;
     QHBoxLayout *horizontalLayout_4;
     QLabel *confirm_label;
-    QLineEdit *confirm_lineEdit;
+    QLineEdit *confirm_edit;
+    ClickedLabel *confirm_visible;
     QHBoxLayout *horizontalLayout_5;
     QLabel *verify_label;
-    QLineEdit *verify_lineEdit;
-    QPushButton *getcode_pushButton;
+    QLineEdit *verify_edit;
+    TimerBtn *getcode_btn;
     QSpacerItem *verticalSpacer_2;
     QHBoxLayout *horizontalLayout_6;
     QPushButton *confirm_pushButton;
     QPushButton *cancel_pushButton;
     QWidget *page_2;
+    QVBoxLayout *verticalLayout_5;
+    QSpacerItem *verticalSpacer_3;
+    QLabel *tip_label;
+    QLabel *tip2_label;
+    QSpacerItem *verticalSpacer_4;
+    QWidget *widget_2;
+    QHBoxLayout *horizontalLayout_8;
+    QSpacerItem *horizontalSpacer_2;
+    QPushButton *return_btn;
+    QSpacerItem *horizontalSpacer;
+    QSpacerItem *verticalSpacer_5;
 
     void setupUi(QDialog *RegisterDialog)
     {
         if (RegisterDialog->objectName().isEmpty())
             RegisterDialog->setObjectName(QString::fromUtf8("RegisterDialog"));
-        RegisterDialog->resize(407, 500);
+        RegisterDialog->resize(371, 500);
         RegisterDialog->setMinimumSize(QSize(300, 500));
         RegisterDialog->setMaximumSize(QSize(600, 900));
-        verticalLayout_2 = new QVBoxLayout(RegisterDialog);
-        verticalLayout_2->setObjectName(QString::fromUtf8("verticalLayout_2"));
+        horizontalLayout_7 = new QHBoxLayout(RegisterDialog);
+        horizontalLayout_7->setObjectName(QString::fromUtf8("horizontalLayout_7"));
         verticalLayout = new QVBoxLayout();
         verticalLayout->setObjectName(QString::fromUtf8("verticalLayout"));
         stackedWidget = new QStackedWidget(RegisterDialog);
@@ -100,12 +115,12 @@ public:
 
         horizontalLayout->addWidget(user_label);
 
-        user_lineEdit = new QLineEdit(page);
-        user_lineEdit->setObjectName(QString::fromUtf8("user_lineEdit"));
-        user_lineEdit->setMinimumSize(QSize(0, 25));
-        user_lineEdit->setMaximumSize(QSize(16777215, 25));
+        user_edit = new QLineEdit(page);
+        user_edit->setObjectName(QString::fromUtf8("user_edit"));
+        user_edit->setMinimumSize(QSize(0, 25));
+        user_edit->setMaximumSize(QSize(16777215, 25));
 
-        horizontalLayout->addWidget(user_lineEdit);
+        horizontalLayout->addWidget(user_edit);
 
 
         verticalLayout_3->addLayout(horizontalLayout);
@@ -119,12 +134,12 @@ public:
 
         horizontalLayout_2->addWidget(email_label);
 
-        email_lineEdit = new QLineEdit(page);
-        email_lineEdit->setObjectName(QString::fromUtf8("email_lineEdit"));
-        email_lineEdit->setMinimumSize(QSize(0, 25));
-        email_lineEdit->setMaximumSize(QSize(16777215, 25));
+        email_edit = new QLineEdit(page);
+        email_edit->setObjectName(QString::fromUtf8("email_edit"));
+        email_edit->setMinimumSize(QSize(0, 25));
+        email_edit->setMaximumSize(QSize(16777215, 25));
 
-        horizontalLayout_2->addWidget(email_lineEdit);
+        horizontalLayout_2->addWidget(email_edit);
 
 
         verticalLayout_3->addLayout(horizontalLayout_2);
@@ -138,12 +153,19 @@ public:
 
         horizontalLayout_3->addWidget(passwd_label);
 
-        passwd_lineEdit = new QLineEdit(page);
-        passwd_lineEdit->setObjectName(QString::fromUtf8("passwd_lineEdit"));
-        passwd_lineEdit->setMinimumSize(QSize(0, 25));
-        passwd_lineEdit->setMaximumSize(QSize(16777215, 25));
+        passwd_edit = new QLineEdit(page);
+        passwd_edit->setObjectName(QString::fromUtf8("passwd_edit"));
+        passwd_edit->setMinimumSize(QSize(0, 25));
+        passwd_edit->setMaximumSize(QSize(16777215, 25));
 
-        horizontalLayout_3->addWidget(passwd_lineEdit);
+        horizontalLayout_3->addWidget(passwd_edit);
+
+        passwd_visible = new ClickedLabel(page);
+        passwd_visible->setObjectName(QString::fromUtf8("passwd_visible"));
+        passwd_visible->setMinimumSize(QSize(20, 20));
+        passwd_visible->setMaximumSize(QSize(20, 20));
+
+        horizontalLayout_3->addWidget(passwd_visible);
 
 
         verticalLayout_3->addLayout(horizontalLayout_3);
@@ -157,12 +179,19 @@ public:
 
         horizontalLayout_4->addWidget(confirm_label);
 
-        confirm_lineEdit = new QLineEdit(page);
-        confirm_lineEdit->setObjectName(QString::fromUtf8("confirm_lineEdit"));
-        confirm_lineEdit->setMinimumSize(QSize(0, 25));
-        confirm_lineEdit->setMaximumSize(QSize(16777215, 25));
+        confirm_edit = new QLineEdit(page);
+        confirm_edit->setObjectName(QString::fromUtf8("confirm_edit"));
+        confirm_edit->setMinimumSize(QSize(0, 25));
+        confirm_edit->setMaximumSize(QSize(16777215, 25));
 
-        horizontalLayout_4->addWidget(confirm_lineEdit);
+        horizontalLayout_4->addWidget(confirm_edit);
+
+        confirm_visible = new ClickedLabel(page);
+        confirm_visible->setObjectName(QString::fromUtf8("confirm_visible"));
+        confirm_visible->setMinimumSize(QSize(20, 20));
+        confirm_visible->setMaximumSize(QSize(20, 20));
+
+        horizontalLayout_4->addWidget(confirm_visible);
 
 
         verticalLayout_3->addLayout(horizontalLayout_4);
@@ -176,19 +205,19 @@ public:
 
         horizontalLayout_5->addWidget(verify_label);
 
-        verify_lineEdit = new QLineEdit(page);
-        verify_lineEdit->setObjectName(QString::fromUtf8("verify_lineEdit"));
-        verify_lineEdit->setMinimumSize(QSize(0, 25));
-        verify_lineEdit->setMaximumSize(QSize(16777215, 25));
+        verify_edit = new QLineEdit(page);
+        verify_edit->setObjectName(QString::fromUtf8("verify_edit"));
+        verify_edit->setMinimumSize(QSize(0, 25));
+        verify_edit->setMaximumSize(QSize(16777215, 25));
 
-        horizontalLayout_5->addWidget(verify_lineEdit);
+        horizontalLayout_5->addWidget(verify_edit);
 
-        getcode_pushButton = new QPushButton(page);
-        getcode_pushButton->setObjectName(QString::fromUtf8("getcode_pushButton"));
-        getcode_pushButton->setMinimumSize(QSize(0, 25));
-        getcode_pushButton->setMaximumSize(QSize(16777215, 25));
+        getcode_btn = new TimerBtn(page);
+        getcode_btn->setObjectName(QString::fromUtf8("getcode_btn"));
+        getcode_btn->setMinimumSize(QSize(0, 25));
+        getcode_btn->setMaximumSize(QSize(16777215, 25));
 
-        horizontalLayout_5->addWidget(getcode_pushButton);
+        horizontalLayout_5->addWidget(getcode_btn);
 
 
         verticalLayout_3->addLayout(horizontalLayout_5);
@@ -219,15 +248,66 @@ public:
         stackedWidget->addWidget(page);
         page_2 = new QWidget();
         page_2->setObjectName(QString::fromUtf8("page_2"));
+        verticalLayout_5 = new QVBoxLayout(page_2);
+        verticalLayout_5->setObjectName(QString::fromUtf8("verticalLayout_5"));
+        verticalSpacer_3 = new QSpacerItem(20, 40, QSizePolicy::Minimum, QSizePolicy::Expanding);
+
+        verticalLayout_5->addItem(verticalSpacer_3);
+
+        tip_label = new QLabel(page_2);
+        tip_label->setObjectName(QString::fromUtf8("tip_label"));
+        tip_label->setAlignment(Qt::AlignCenter);
+
+        verticalLayout_5->addWidget(tip_label);
+
+        tip2_label = new QLabel(page_2);
+        tip2_label->setObjectName(QString::fromUtf8("tip2_label"));
+        tip2_label->setAlignment(Qt::AlignCenter);
+
+        verticalLayout_5->addWidget(tip2_label);
+
+        verticalSpacer_4 = new QSpacerItem(20, 40, QSizePolicy::Minimum, QSizePolicy::Expanding);
+
+        verticalLayout_5->addItem(verticalSpacer_4);
+
+        widget_2 = new QWidget(page_2);
+        widget_2->setObjectName(QString::fromUtf8("widget_2"));
+        horizontalLayout_8 = new QHBoxLayout(widget_2);
+        horizontalLayout_8->setObjectName(QString::fromUtf8("horizontalLayout_8"));
+        horizontalSpacer_2 = new QSpacerItem(80, 20, QSizePolicy::Expanding, QSizePolicy::Minimum);
+
+        horizontalLayout_8->addItem(horizontalSpacer_2);
+
+        return_btn = new QPushButton(widget_2);
+        return_btn->setObjectName(QString::fromUtf8("return_btn"));
+        return_btn->setMinimumSize(QSize(0, 25));
+        return_btn->setMaximumSize(QSize(16777215, 25));
+
+        horizontalLayout_8->addWidget(return_btn);
+
+        horizontalSpacer = new QSpacerItem(80, 20, QSizePolicy::Expanding, QSizePolicy::Minimum);
+
+        horizontalLayout_8->addItem(horizontalSpacer);
+
+
+        verticalLayout_5->addWidget(widget_2);
+
+        verticalSpacer_5 = new QSpacerItem(20, 40, QSizePolicy::Minimum, QSizePolicy::Expanding);
+
+        verticalLayout_5->addItem(verticalSpacer_5);
+
         stackedWidget->addWidget(page_2);
 
         verticalLayout->addWidget(stackedWidget);
 
 
-        verticalLayout_2->addLayout(verticalLayout);
+        horizontalLayout_7->addLayout(verticalLayout);
 
 
         retranslateUi(RegisterDialog);
+
+        stackedWidget->setCurrentIndex(0);
+
 
         QMetaObject::connectSlotsByName(RegisterDialog);
     } // setupUi
@@ -239,11 +319,16 @@ public:
         user_label->setText(QApplication::translate("RegisterDialog", "\347\224\250\346\210\267", nullptr));
         email_label->setText(QApplication::translate("RegisterDialog", "\351\202\256\347\256\261", nullptr));
         passwd_label->setText(QApplication::translate("RegisterDialog", "\345\257\206\347\240\201", nullptr));
+        passwd_visible->setText(QString());
         confirm_label->setText(QApplication::translate("RegisterDialog", "\347\241\256\350\256\244\345\257\206\347\240\201", nullptr));
+        confirm_visible->setText(QString());
         verify_label->setText(QApplication::translate("RegisterDialog", "\351\252\214\350\257\201\347\240\201", nullptr));
-        getcode_pushButton->setText(QApplication::translate("RegisterDialog", "\350\216\267\345\217\226", nullptr));
+        getcode_btn->setText(QApplication::translate("RegisterDialog", "\350\216\267\345\217\226", nullptr));
         confirm_pushButton->setText(QApplication::translate("RegisterDialog", "\347\241\256\350\256\244", nullptr));
         cancel_pushButton->setText(QApplication::translate("RegisterDialog", "\345\217\226\346\266\210", nullptr));
+        tip_label->setText(QApplication::translate("RegisterDialog", "\346\263\250\345\206\214\346\210\220\345\212\237\357\274\2145 s\345\220\216\350\277\224\345\233\236\347\231\273\345\275\225", nullptr));
+        tip2_label->setText(QApplication::translate("RegisterDialog", "\345\217\257\347\202\271\345\207\273\350\277\224\345\233\236\346\214\211\351\222\256\347\233\264\346\216\245\350\277\224\345\233\236\347\231\273\351\231\206\347\225\214\351\235\242", nullptr));
+        return_btn->setText(QApplication::translate("RegisterDialog", "\350\277\224\345\233\236\347\231\273\345\275\225", nullptr));
     } // retranslateUi
 
 };

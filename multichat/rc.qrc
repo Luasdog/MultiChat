@@ -2,5 +2,9 @@
     <qresource prefix="/">
         <file>resource/login_640.png</file>
         <file>style/stylesheet.qss</file>
+        <file>resource/unvisible.png</file>
+        <file>resource/unvisible_hover.png</file>
+        <file>resource/visible.png</file>
+        <file>resource/visible_hover.png</file>
     </qresource>
 </RCC>
