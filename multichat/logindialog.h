@@ -17,6 +17,7 @@ public:
     ~LoginDialog();
 
 private:
+    void initHttpHandlers();
     void initHead();
     Ui::LoginDialog *ui;
     bool checkUserValid();
@@ -26,7 +27,9 @@ private:
     void delTipErr(TipErr te);
     QMap<TipErr, QString> _tip_errs;
     void showTip(QString str, bool b_ok);
-
+    QMap<ReqId, std::function<void(const QJsonObject&)>> _handlers;
+    int _uid;
+    QString _token;
 
 public slots:
     void slot_forget_pwd();
@@ -34,8 +37,11 @@ public slots:
 signals:
     void switchRegister();
     void switchReset();
+    void sig_connect_tcp(ServerInfo);
+
 private slots:
     void on_login_btn_clicked();
+    void slot_login_mod_finish(ReqId id, QString res, ErrorCodes err);
 };
 
 #endif // LOGINDIALOG_H
