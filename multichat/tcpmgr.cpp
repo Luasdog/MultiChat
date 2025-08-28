@@ -1,25 +1,25 @@
 #include "tcpmgr.h"
 #include <QAbstractSocket>
 #include <QJsonDocument>
-// #include "usermgr.h"
+#include "usermgr.h"
 
 TcpMgr::TcpMgr() : _host(""),_port(0),_b_recv_pending(false),_message_id(0),_message_len(0)
 {
     QObject::connect(&_socket, &QTcpSocket::connected, [&]() {
-       qDebug() << "Connected to server!";
-       // 连接建立后发送消息
+        qDebug() << "Connected to server!";
+        // 连接建立后发送消息
         emit sig_con_success(true);
     });
 
     QObject::connect(&_socket, &QTcpSocket::readyRead, [&]() {
-       // 当有数据可读时，读取所有数据
-       // 读取所有数据并追加到缓冲区
-       _buffer.append(_socket.readAll());
+        // 当有数据可读时，读取所有数据
+        // 读取所有数据并追加到缓冲区
+        _buffer.append(_socket.readAll());
 
-       QDataStream stream(&_buffer, QIODevice::ReadOnly);
-       stream.setVersion(QDataStream::Qt_5_0);
+        QDataStream stream(&_buffer, QIODevice::ReadOnly);
+        stream.setVersion(QDataStream::Qt_5_0);
 
-       forever {
+        forever {
             //先解析头部
            if(!_b_recv_pending){
                // 检查缓冲区中的数据是否足够解析出一个消息头（消息ID + 消息长度）
@@ -52,7 +52,6 @@ TcpMgr::TcpMgr() : _host(""),_port(0),_b_recv_pending(false),_message_id(0),_mes
            _buffer = _buffer.mid(_message_len);
            handleMsg(ReqId(_message_id),_message_len, messageBody);
        }
-
     });
 
     //5.15 之后版本
@@ -135,9 +134,9 @@ void TcpMgr::initHandlers()
             return;
         }
 
-//        UserMgr::GetInstance()->SetUid(jsonObj["uid"].toInt());
-//        UserMgr::GetInstance()->SetName(jsonObj["name"].toString());
-//        UserMgr::GetInstance()->SetToken(jsonObj["token"].toString());
+        UserMgr::GetInstance()->SetUid(jsonObj["uid"].toInt());
+        UserMgr::GetInstance()->SetName(jsonObj["name"].toString());
+        UserMgr::GetInstance()->SetToken(jsonObj["token"].toString());
         emit sig_swich_chatdlg();
     });
 }
