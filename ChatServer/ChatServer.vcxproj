@@ -129,7 +129,6 @@
     <ClCompile Include="ConfigMgr.cpp" />
     <ClCompile Include="CServer.cpp" />
     <ClCompile Include="CSession.cpp" />
-    <ClCompile Include="HttpConnection.cpp" />
     <ClCompile Include="LogicSystem.cpp" />
     <ClCompile Include="message.grpc.pb.cc" />
     <ClCompile Include="message.pb.cc" />
@@ -137,7 +136,6 @@
     <ClCompile Include="MySqlDao.cpp" />
     <ClCompile Include="MysqlMgr.cpp" />
     <ClCompile Include="RedisMgr.cpp" />
-    <ClCompile Include="Singleton.cpp" />
     <ClCompile Include="StatusGrpcClient.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -147,7 +145,6 @@
     <ClInclude Include="CServer.h" />
     <ClInclude Include="CSession.h" />
     <ClInclude Include="data.h" />
-    <ClInclude Include="HttpConnection.h" />
     <ClInclude Include="LogicSystem.h" />
     <ClInclude Include="message.grpc.pb.h" />
     <ClInclude Include="message.pb.h" />

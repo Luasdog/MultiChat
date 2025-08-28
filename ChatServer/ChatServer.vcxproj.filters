@@ -45,13 +45,7 @@
     <ClCompile Include="RedisMgr.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="Singleton.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
     <ClCompile Include="StatusGrpcClient.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="HttpConnection.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="CSession.cpp">
@@ -96,9 +90,6 @@
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="StatusGrpcClient.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="HttpConnection.h">
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="CSession.h">
