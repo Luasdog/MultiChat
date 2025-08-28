@@ -2,7 +2,7 @@
 #include "ConfigMgr.h"
 
 RedisConPool::RedisConPool(size_t poolSize, const char* host, int port, const char* pwd)
-    : _poolSize(poolSize), _host(host), _port(port), _b_stop(false) {
+    : _poolSize(poolSize), _host(host), _port(port), _b_stop(false), _pwd(pwd) {
     for (size_t i = 0; i < _poolSize; ++i) {
         auto* context = redisConnect(host, port);
         if (context == nullptr || context->err != 0) {
@@ -27,6 +27,12 @@ RedisConPool::RedisConPool(size_t poolSize, const char* host, int port, const ch
         _connections.push(context);
     }
 
+    _check_thread = std::thread([this]() {
+        std::this_thread::sleep_for(std::chrono::seconds(60)); // 每隔 30 秒发送一次 PING 命令
+        checkThread();
+        });
+
+    _check_thread.detach();
 }
 
 RedisConPool::~RedisConPool() {
@@ -67,6 +73,44 @@ void RedisConPool::returnConnection(redisContext* context) {
 void RedisConPool::Close() {
     _b_stop = true;
     _cond.notify_all();
+}
+
+void RedisConPool::checkThread() {
+    std::lock_guard<std::mutex> lock(_mutex);
+    auto pool_size = _connections.size();
+    for (int i = 0; i < pool_size; i++) {
+        auto* context = _connections.front();
+        _connections.pop();
+        try {
+            auto reply = (redisReply*)redisCommand(context, "PING");
+            freeReplyObject(reply);
+            _connections.push(context);
+        }
+        catch (std::exception& exp) {
+            std::cout << "Error keeping connection alive: " << exp.what() << std::endl;
+            redisFree(context);
+            context = redisConnect(_host, _port);
+            if (context == nullptr || context->err != 0) {
+                if (context != nullptr) {
+                    redisFree(context);
+                }
+                continue;
+            }
+
+            auto reply = (redisReply*)redisCommand(context, "AUTH %s", _pwd);
+            if (reply->type == REDIS_REPLY_ERROR) {
+                std::cout << "认证失败" << std::endl;
+                //执行成功 释放redisCommand执行后返回的redisReply所占用的内存
+                freeReplyObject(reply);
+                continue;
+            }
+
+            //执行成功 释放redisCommand执行后返回的redisReply所占用的内存
+            freeReplyObject(reply);
+            std::cout << "认证成功" << std::endl;
+            _connections.push(context);
+        }
+    }
 }
 
 RedisMgr::RedisMgr() {

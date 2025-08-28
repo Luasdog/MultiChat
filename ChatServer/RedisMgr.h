@@ -11,13 +11,17 @@ public:
 	void Close();
 
 private:
+	void checkThread();
+
     std::atomic<bool> _b_stop;
     size_t _poolSize;
     const char* _host;
+	const char* _pwd;
     int _port;
     std::queue<redisContext*> _connections;
     std::mutex _mutex;
     std::condition_variable _cond;
+	std::thread _check_thread;
 };
 
 class RedisMgr : public Singleton<RedisMgr>,
