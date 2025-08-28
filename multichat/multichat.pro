@@ -27,6 +27,7 @@ SOURCES += \
     mainwindow.cpp \
     registerdialog.cpp \
     resetdialog.cpp \
+    tcpmgr.cpp \
     timerbtn.cpp
 
 HEADERS += \
@@ -38,6 +39,7 @@ HEADERS += \
     registerdialog.h \
     resetdialog.h \
     singleton.h \
+    tcpmgr.h \
     timerbtn.h
 
 FORMS += \
