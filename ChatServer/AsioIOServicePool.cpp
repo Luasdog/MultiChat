@@ -11,7 +11,7 @@ AsioIOServicePool::AsioIOServicePool(std::size_t size)
 		_works[i] = std::make_unique<WorkGuard>(boost::asio::make_work_guard(_ioServices[i])); // 与ioservice绑定 保证run不会退出
 	}
 
-	// 遍历索格ioservice，创建多个线程，每个线程内部启动ioservice
+	// 遍历多个ioservice，创建多个线程，每个线程内部启动ioservice
 	for (std::size_t i = 0; i < _ioServices.size(); i++) {
 		_threads.emplace_back([this, i]() {
 			_ioServices[i].run();

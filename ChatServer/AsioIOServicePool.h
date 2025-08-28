@@ -20,7 +20,7 @@ public:
 	IOService& GetIOService();
 	void Stop();
 private:
-	AsioIOServicePool(std::size_t size = 2/*std::thread::hardware_concurrency*/); // 单例类构造函数私有，默认开2个线程
+	AsioIOServicePool(std::size_t size = std::thread::hardware_concurrency()); // 单例类构造函数私有，默认开2个线程
 	std::vector<IOService> _ioServices;
 	std::vector<WorkGuardPtr> _works;
 	std::vector<std::thread> _threads;
