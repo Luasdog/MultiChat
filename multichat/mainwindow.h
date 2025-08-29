@@ -5,6 +5,7 @@
 #include "logindialog.h"
 #include "registerdialog.h"
 #include "resetdialog.h"
+#include "chatdialog.h"
 
 /******************************************************************************
  *
@@ -33,11 +34,14 @@ public slots:
     void SlotSwitchLogin();
     void SlotSwitchReset();
     void SlotSwitchLogin2();
+    void SlotSwitchChat();
 
 private:
     Ui::MainWindow *ui;
     LoginDialog * _login_dialog;
     RegisterDialog * _reg_dialog;
     ResetDialog* _reset_dialog;
+    ChatDialog* _chat_dialog;
+
 };
 #endif // MAINWINDOW_H
