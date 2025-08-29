@@ -15,5 +15,28 @@
         <file>resource/Saladin.png</file>
         <file>resource/Teddy_Roosevelt.png</file>
         <file>resource/Civ_Unmet.png</file>
+        <file>resource/add_friend_hover.png</file>
+        <file>resource/add_friend_normal.png</file>
+        <file>resource/addtip.png</file>
+        <file>resource/chat_icon.png</file>
+        <file>resource/chat_icon_hover.png</file>
+        <file>resource/chat_icon_press.png</file>
+        <file>resource/chat_icon_select_hover.png</file>
+        <file>resource/chat_icon_select_press.png</file>
+        <file>resource/close_search.png</file>
+        <file>resource/close_transparent.png</file>
+        <file>resource/contact_list.png</file>
+        <file>resource/contact_list_hover.png</file>
+        <file>resource/contact_list_press.png</file>
+        <file>resource/filedir.png</file>
+        <file>resource/filedir_hover.png</file>
+        <file>resource/filedir_press.png</file>
+        <file>resource/search.png</file>
+        <file>resource/smile.png</file>
+        <file>resource/smile_hover.png</file>
+        <file>resource/smile_press.png</file>
+        <file>resource/tipclose.png</file>
+        <file>resource/tipright.png</file>
+        <file>resource/tiprowdown.png</file>
     </qresource>
 </RCC>
