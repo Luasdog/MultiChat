@@ -22,6 +22,7 @@ SOURCES += \
     chatdialog.cpp \
     clickedbtn.cpp \
     clickedlabel.cpp \
+    customizeedit.cpp \
     global.cpp \
     httpmgr.cpp \
     logindialog.cpp \
@@ -37,6 +38,7 @@ HEADERS += \
     chatdialog.h \
     clickedbtn.h \
     clickedlabel.h \
+    customizeedit.h \
     global.h \
     httpmgr.h \
     logindialog.h \
@@ -64,7 +66,8 @@ RESOURCES += \
     rc.qrc
 
 DISTFILES += \
-    config.ini
+    config.ini \
+    resource/close_transparent.png
 
 win32:CONFIG(release, debug | release)
 {
