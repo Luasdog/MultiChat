@@ -15,6 +15,7 @@ class ChatDialog : public QDialog
 public:
     explicit ChatDialog(QWidget *parent = nullptr);
     ~ChatDialog();
+    void addChatUserList();
 
 private:
     void showSearch(bool bsearch = false);

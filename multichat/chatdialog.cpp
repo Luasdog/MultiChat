@@ -1,6 +1,8 @@
 #include "chatdialog.h"
 #include "ui_chatdialog.h"
 #include <QAction>
+#include <QRandomGenerator>
+#include "chatuserwid.h"
 
 ChatDialog::ChatDialog(QWidget *parent) :
     QDialog(parent),
@@ -45,12 +47,56 @@ ChatDialog::ChatDialog(QWidget *parent) :
     });
 
     showSearch(false);
-
+    addChatUserList();
 }
 
 ChatDialog::~ChatDialog()
 {
     delete ui;
+}
+
+std::vector<QString>  strs ={"hello world !",
+                             "nice to meet u",
+                             "New year，new life",
+                            "You have to love yourself",
+                            "My love is written in the wind ever since the whole world is you"};
+
+std::vector<QString> heads = {
+    ":/resource/Catherine_de'_Medici.png",
+    ":/resource/Cleopatra.png",
+    ":/resource/Hojo_Tokimune.png",
+    ":/resource/Pedro_II.png",
+    ":/resource/Qin.png",
+};
+
+std::vector<QString> names = {
+    "Catherine_de'_Medici",
+    "Cleopatra",
+    "Hojo_Tokimune",
+    "Pedro_II",
+    "Qin",
+    "C++",
+    "python",
+    "golang"
+};
+
+void ChatDialog::addChatUserList()
+{
+    // 创建QListWidgetItem，并设置自定义的widget
+    for(int i = 0; i < 13; i++){
+        int randomValue = QRandomGenerator::global()->bounded(100); // 生成0到99之间的随机整数
+        int str_i = randomValue%strs.size();
+        int head_i = randomValue%heads.size();
+        int name_i = randomValue%names.size();
+
+        auto *chat_user_wid = new ChatUserWid();
+        chat_user_wid->setInfo(names[name_i], heads[head_i], strs[str_i]);
+        QListWidgetItem *item = new QListWidgetItem;
+        //qDebug()<<"chat_user_wid sizeHint is " << chat_user_wid->sizeHint();
+        item->setSizeHint(chat_user_wid->sizeHint());
+        ui->chat_user_list->addItem(item);
+        ui->chat_user_list->setItemWidget(item, chat_user_wid);
+    }
 }
 
 void ChatDialog::showSearch(bool bsearch)
