@@ -69,6 +69,13 @@ struct ServerInfo{
     int Uid;
 };
 
+//聊天界面几种模式
+enum ChatUIMode{
+    SearchMode, //搜索模式
+    ChatMode, //聊天模式
+    ContactMode, //联系模式
+};
+
 extern QString gate_url_prefix;
 
 #endif // GLOBAL_H

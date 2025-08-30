@@ -4,7 +4,9 @@
 
 ChatDialog::ChatDialog(QWidget *parent) :
     QDialog(parent),
-    ui(new Ui::ChatDialog)
+    ui(new Ui::ChatDialog),
+    _mode(ChatUIMode::ChatMode),
+    _state(ChatUIMode::ChatMode)
 {
     ui->setupUi(this);
 
@@ -25,23 +27,47 @@ ChatDialog::ChatDialog(QWidget *parent) :
 
     // 当需要显示清除图标时，更改为实际的清除图标
     connect(ui->search_edit, &QLineEdit::textChanged, [clearAction](const QString &text) {
-       if (!text.isEmpty()) {
+        if (!text.isEmpty()) {
            clearAction->setIcon(QIcon(":/resource/close_search.png"));
-       } else {
+        } else {
            clearAction->setIcon(QIcon(":/resource/close_transparent.png")); // 文本为空时，切换回透明图标
-       }
+        }
     });
 
     // 连接清除动作的触发信号到槽函数，用于清除文本
     connect(clearAction, &QAction::triggered, [this, clearAction]() {
-       ui->search_edit->clear();
-       clearAction->setIcon(QIcon(":/resource/close_transparent.png")); // 清除文本后，切换回透明图标
-       ui->search_edit->clearFocus();
+        ui->search_edit->clear();
+        clearAction->setIcon(QIcon(":/resource/close_transparent.png")); // 清除文本后，切换回透明图标
+        ui->search_edit->clearFocus();
+        //清除按钮被按下则不显示搜索框
+        showSearch(false);
     });
+
+    showSearch(false);
 
 }
 
 ChatDialog::~ChatDialog()
 {
     delete ui;
+}
+
+void ChatDialog::showSearch(bool bsearch)
+{
+    if(bsearch){
+        ui->chat_user_list->hide();
+        ui->con_user_list->hide();
+        ui->search_list->show();
+        _mode = ChatUIMode::SearchMode;
+    } else if (_state == ChatUIMode::ChatMode) {
+        ui->chat_user_list->show();
+        ui->con_user_list->hide();
+        ui->search_list->hide();
+        _mode = ChatUIMode::ChatMode;
+    } else if (_state == ChatUIMode::ContactMode) {
+        ui->chat_user_list->hide();
+        ui->search_list->hide();
+        ui->con_user_list->show();
+        _mode = ChatUIMode::ContactMode;
+    }
 }
