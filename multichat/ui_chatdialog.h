@@ -15,7 +15,6 @@
 #include <QtWidgets/QHBoxLayout>
 #include <QtWidgets/QHeaderView>
 #include <QtWidgets/QLabel>
-#include <QtWidgets/QLineEdit>
 #include <QtWidgets/QListWidget>
 #include <QtWidgets/QPushButton>
 #include <QtWidgets/QSpacerItem>
@@ -23,7 +22,9 @@
 #include <QtWidgets/QTextEdit>
 #include <QtWidgets/QVBoxLayout>
 #include <QtWidgets/QWidget>
+#include <chatuserlist.h>
 #include <clickedbtn.h>
+#include <customizeedit.h>
 
 QT_BEGIN_NAMESPACE
 
@@ -43,11 +44,12 @@ public:
     QVBoxLayout *verticalLayout_2;
     QWidget *search_wid;
     QHBoxLayout *horizontalLayout_2;
-    QLineEdit *search_edit;
+    CustomizeEdit *search_edit;
     QSpacerItem *horizontalSpacer;
     ClickedBtn *add_btn;
-    QListWidget *chat_user_list;
+    ChatUserList *chat_user_list;
     QTableWidget *search_list;
+    QListWidget *con_user_list;
     QWidget *chat_data_wid;
     QVBoxLayout *verticalLayout_4;
     QWidget *title_wid;
@@ -140,9 +142,11 @@ public:
         search_wid = new QWidget(chat_user_wid);
         search_wid->setObjectName(QString::fromUtf8("search_wid"));
         search_wid->setMinimumSize(QSize(0, 60));
+        search_wid->setMaximumSize(QSize(16777215, 16777215));
         horizontalLayout_2 = new QHBoxLayout(search_wid);
         horizontalLayout_2->setObjectName(QString::fromUtf8("horizontalLayout_2"));
-        search_edit = new QLineEdit(search_wid);
+        horizontalLayout_2->setContentsMargins(5, 0, 5, 0);
+        search_edit = new CustomizeEdit(search_wid);
         search_edit->setObjectName(QString::fromUtf8("search_edit"));
 
         horizontalLayout_2->addWidget(search_edit);
@@ -161,7 +165,7 @@ public:
 
         verticalLayout_2->addWidget(search_wid);
 
-        chat_user_list = new QListWidget(chat_user_wid);
+        chat_user_list = new ChatUserList(chat_user_wid);
         chat_user_list->setObjectName(QString::fromUtf8("chat_user_list"));
 
         verticalLayout_2->addWidget(chat_user_list);
@@ -170,6 +174,11 @@ public:
         search_list->setObjectName(QString::fromUtf8("search_list"));
 
         verticalLayout_2->addWidget(search_list);
+
+        con_user_list = new QListWidget(chat_user_wid);
+        con_user_list->setObjectName(QString::fromUtf8("con_user_list"));
+
+        verticalLayout_2->addWidget(con_user_list);
 
 
         horizontalLayout->addWidget(chat_user_wid);

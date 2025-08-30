@@ -1,6 +1,7 @@
 #ifndef CHATDIALOG_H
 #define CHATDIALOG_H
 
+#include "global.h"
 #include <QDialog>
 
 namespace Ui {
@@ -14,9 +15,14 @@ class ChatDialog : public QDialog
 public:
     explicit ChatDialog(QWidget *parent = nullptr);
     ~ChatDialog();
+    void addChatUserList();
 
 private:
+    void showSearch(bool bsearch = false);
     Ui::ChatDialog *ui;
+    ChatUIMode _mode;
+    ChatUIMode _state;
+    bool _b_loading;
 };
 
 #endif // CHATDIALOG_H

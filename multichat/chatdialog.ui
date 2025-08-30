@@ -188,9 +188,27 @@
           <height>60</height>
          </size>
         </property>
+        <property name="maximumSize">
+         <size>
+          <width>16777215</width>
+          <height>16777215</height>
+         </size>
+        </property>
         <layout class="QHBoxLayout" name="horizontalLayout_2">
+         <property name="leftMargin">
+          <number>5</number>
+         </property>
+         <property name="topMargin">
+          <number>0</number>
+         </property>
+         <property name="rightMargin">
+          <number>5</number>
+         </property>
+         <property name="bottomMargin">
+          <number>0</number>
+         </property>
          <item>
-          <widget class="QLineEdit" name="search_edit"/>
+          <widget class="CustomizeEdit" name="search_edit"/>
          </item>
          <item>
           <spacer name="horizontalSpacer">
@@ -231,10 +249,13 @@
        </widget>
       </item>
       <item>
-       <widget class="QListWidget" name="chat_user_list"/>
+       <widget class="ChatUserList" name="chat_user_list"/>
       </item>
       <item>
        <widget class="QTableWidget" name="search_list"/>
+      </item>
+      <item>
+       <widget class="QListWidget" name="con_user_list"/>
       </item>
      </layout>
     </widget>
@@ -531,6 +552,16 @@
    <class>ClickedBtn</class>
    <extends>QPushButton</extends>
    <header location="global">clickedbtn.h</header>
+  </customwidget>
+  <customwidget>
+   <class>CustomizeEdit</class>
+   <extends>QLineEdit</extends>
+   <header location="global">customizeedit.h</header>
+  </customwidget>
+  <customwidget>
+   <class>ChatUserList</class>
+   <extends>QListWidget</extends>
+   <header location="global">chatuserlist.h</header>
   </customwidget>
  </customwidgets>
  <resources/>
