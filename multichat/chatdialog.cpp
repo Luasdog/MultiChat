@@ -6,7 +6,8 @@ ChatDialog::ChatDialog(QWidget *parent) :
     QDialog(parent),
     ui(new Ui::ChatDialog),
     _mode(ChatUIMode::ChatMode),
-    _state(ChatUIMode::ChatMode)
+    _state(ChatUIMode::ChatMode),
+    _b_loading(false)
 {
     ui->setupUi(this);
 

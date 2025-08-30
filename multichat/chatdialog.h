@@ -21,6 +21,7 @@ private:
     Ui::ChatDialog *ui;
     ChatUIMode _mode;
     ChatUIMode _state;
+    bool _b_loading;
 };
 
 #endif // CHATDIALOG_H
