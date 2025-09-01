@@ -38,5 +38,6 @@
         <file>resource/tipclose.png</file>
         <file>resource/tipright.png</file>
         <file>resource/tiprowdown.png</file>
+        <file>resource/loading.gif</file>
     </qresource>
 </RCC>
