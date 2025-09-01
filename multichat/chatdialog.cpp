@@ -3,6 +3,7 @@
 #include <QAction>
 #include <QRandomGenerator>
 #include "chatuserwid.h"
+#include "loadingdialog.h"
 
 ChatDialog::ChatDialog(QWidget *parent) :
     QDialog(parent),
@@ -47,6 +48,10 @@ ChatDialog::ChatDialog(QWidget *parent) :
     });
 
     showSearch(false);
+
+    //连接加载信号和槽
+    connect(ui->chat_user_list, &ChatUserList::sig_loading_chat_user, this, &ChatDialog::slot_loading_chat_user);
+
     addChatUserList();
 }
 
@@ -117,4 +122,23 @@ void ChatDialog::showSearch(bool bsearch)
         ui->con_user_list->show();
         _mode = ChatUIMode::ContactMode;
     }
+}
+
+void ChatDialog::slot_loading_chat_user()
+{
+    if(_b_loading){
+        return;
+    }
+
+    // 可判断加载条数和总记录条数是否相等
+    _b_loading = true;
+    LoadingDialog *loadingDialog = new LoadingDialog(this);
+    loadingDialog->setModal(true);
+    loadingDialog->show();
+    qDebug() << "add new data to list.....";
+    addChatUserList();
+    // 加载完成后关闭对话框
+    loadingDialog->deleteLater();
+
+    _b_loading = false;
 }
