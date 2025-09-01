@@ -19,6 +19,7 @@
 #include <QtWidgets/QWidget>
 #include <clickedbtn.h>
 #include <clickedlabel.h>
+#include "chatview.h"
 
 QT_BEGIN_NAMESPACE
 
@@ -33,7 +34,7 @@ public:
     QWidget *widget_2;
     QHBoxLayout *horizontalLayout_3;
     QLabel *title_label;
-    QWidget *chat_data_list;
+    ChatView *chat_data_list;
     QWidget *tool_wid;
     QHBoxLayout *horizontalLayout_4;
     QSpacerItem *horizontalSpacer_2;
@@ -88,7 +89,7 @@ public:
 
         verticalLayout_4->addWidget(title_wid);
 
-        chat_data_list = new QWidget(chat_data_wid);
+        chat_data_list = new ChatView(chat_data_wid);
         chat_data_list->setObjectName(QString::fromUtf8("chat_data_list"));
 
         verticalLayout_4->addWidget(chat_data_list);
