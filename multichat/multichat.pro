@@ -40,6 +40,7 @@ SOURCES += \
     picturebubble.cpp \
     registerdialog.cpp \
     resetdialog.cpp \
+    statewidget.cpp \
     tcpmgr.cpp \
     textbubble.cpp \
     timerbtn.cpp \
@@ -67,6 +68,7 @@ HEADERS += \
     registerdialog.h \
     resetdialog.h \
     singleton.h \
+    statewidget.h \
     tcpmgr.h \
     textbubble.h \
     timerbtn.h \
@@ -92,7 +94,84 @@ RESOURCES += \
 
 DISTFILES += \
     config.ini \
-    resource/close_transparent.png
+    resource/Catherine_de'_Medici.png \
+    resource/Catherine_de'_Medici.png \
+    resource/Civ_Unmet.png \
+    resource/Civ_Unmet.png \
+    resource/Cleopatra.png \
+    resource/Cleopatra.png \
+    resource/Hojo_Tokimune.png \
+    resource/Hojo_Tokimune.png \
+    resource/Pedro_II.png \
+    resource/Pedro_II.png \
+    resource/Qin.png \
+    resource/Qin.png \
+    resource/Queen_Victoria.png \
+    resource/Queen_Victoria.png \
+    resource/Saladin.png \
+    resource/Saladin.png \
+    resource/Teddy_Roosevelt.png \
+    resource/Teddy_Roosevelt.png \
+    resource/add_friend_hover.png \
+    resource/add_friend_hover.png \
+    resource/add_friend_normal.png \
+    resource/add_friend_normal.png \
+    resource/addtip.png \
+    resource/addtip.png \
+    resource/chat_icon.png \
+    resource/chat_icon.png \
+    resource/chat_icon_hover.png \
+    resource/chat_icon_hover.png \
+    resource/chat_icon_press.png \
+    resource/chat_icon_press.png \
+    resource/chat_icon_select_hover.png \
+    resource/chat_icon_select_hover.png \
+    resource/chat_icon_select_press.png \
+    resource/chat_icon_select_press.png \
+    resource/close_search.png \
+    resource/close_search.png \
+    resource/close_transparent.png \
+    resource/close_transparent.png \
+    resource/contact_list.png \
+    resource/contact_list.png \
+    resource/contact_list_hover.png \
+    resource/contact_list_hover.png \
+    resource/contact_list_press.png \
+    resource/contact_list_press.png \
+    resource/filedir.png \
+    resource/filedir.png \
+    resource/filedir_hover.png \
+    resource/filedir_hover.png \
+    resource/filedir_press.png \
+    resource/filedir_press.png \
+    resource/loading.gif \
+    resource/loading.gif \
+    resource/login_640.png \
+    resource/login_640.png \
+    resource/red_point.png \
+    resource/red_point.png \
+    resource/search.png \
+    resource/search.png \
+    resource/smile.png \
+    resource/smile.png \
+    resource/smile_hover.png \
+    resource/smile_hover.png \
+    resource/smile_press.png \
+    resource/smile_press.png \
+    resource/tipclose.png \
+    resource/tipclose.png \
+    resource/tipright.png \
+    resource/tipright.png \
+    resource/tiprowdown.png \
+    resource/tiprowdown.png \
+    resource/unvisible.png \
+    resource/unvisible.png \
+    resource/unvisible_hover.png \
+    resource/unvisible_hover.png \
+    resource/visible.png \
+    resource/visible.png \
+    resource/visible_hover.png \
+    resource/visible_hover.png
 
 win32:CONFIG(release, debug | release)
 {

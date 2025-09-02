@@ -81,45 +81,26 @@
           <number>0</number>
          </property>
          <item>
-          <widget class="QLabel" name="side_contact_labe">
-           <property name="minimumSize">
-            <size>
-             <width>30</width>
-             <height>30</height>
-            </size>
-           </property>
-           <property name="maximumSize">
-            <size>
-             <width>30</width>
-             <height>30</height>
-            </size>
-           </property>
-           <property name="text">
-            <string/>
-           </property>
-          </widget>
-         </item>
-         <item>
           <widget class="QLabel" name="side_head_label">
            <property name="minimumSize">
             <size>
-             <width>30</width>
-             <height>30</height>
+             <width>35</width>
+             <height>35</height>
             </size>
            </property>
            <property name="maximumSize">
             <size>
-             <width>30</width>
-             <height>30</height>
+             <width>35</width>
+             <height>35</height>
             </size>
            </property>
            <property name="text">
-            <string/>
+            <string>TextLabel</string>
            </property>
           </widget>
          </item>
          <item>
-          <widget class="QLabel" name="side_chat_label">
+          <widget class="StateWidget" name="side_chat_label" native="true">
            <property name="minimumSize">
             <size>
              <width>30</width>
@@ -132,8 +113,21 @@
              <height>30</height>
             </size>
            </property>
-           <property name="text">
-            <string/>
+          </widget>
+         </item>
+         <item>
+          <widget class="StateWidget" name="side_contact_label" native="true">
+           <property name="minimumSize">
+            <size>
+             <width>30</width>
+             <height>30</height>
+            </size>
+           </property>
+           <property name="maximumSize">
+            <size>
+             <width>30</width>
+             <height>30</height>
+            </size>
            </property>
           </widget>
          </item>
@@ -262,8 +256,11 @@
    </item>
    <item>
     <widget class="QStackedWidget" name="stackedWidget">
-     <widget class="ChatPage" name="stackedWidgetPage1" native="true"/>
-     <widget class="QWidget" name="stackedWidgetPage2" native="true"/>
+     <property name="currentIndex">
+      <number>1</number>
+     </property>
+     <widget class="ChatPage" name="chat_page"/>
+     <widget class="QWidget" name="friend_apply_page"/>
     </widget>
    </item>
   </layout>
@@ -288,6 +285,12 @@
    <class>ChatPage</class>
    <extends>QWidget</extends>
    <header>chatpage.h</header>
+   <container>1</container>
+  </customwidget>
+  <customwidget>
+   <class>StateWidget</class>
+   <extends>QWidget</extends>
+   <header location="global">statewidget.h</header>
    <container>1</container>
   </customwidget>
  </customwidgets>
