@@ -14,11 +14,11 @@
 #include <QtWidgets/QHBoxLayout>
 #include <QtWidgets/QLabel>
 #include <QtWidgets/QSpacerItem>
-#include <QtWidgets/QTextEdit>
 #include <QtWidgets/QVBoxLayout>
 #include <QtWidgets/QWidget>
 #include <clickedbtn.h>
 #include <clickedlabel.h>
+#include <messagetextedit.h>
 #include "chatview.h"
 
 QT_BEGIN_NAMESPACE
@@ -42,7 +42,7 @@ public:
     QSpacerItem *horizontalSpacer_3;
     ClickedLabel *file_label;
     QSpacerItem *horizontalSpacer_4;
-    QTextEdit *chat_edit;
+    MessageTextEdit *chat_edit;
     QWidget *send_wid;
     QHBoxLayout *horizontalLayout_5;
     QSpacerItem *horizontalSpacer_5;
@@ -130,7 +130,7 @@ public:
 
         verticalLayout_4->addWidget(tool_wid);
 
-        chat_edit = new QTextEdit(chat_data_wid);
+        chat_edit = new MessageTextEdit(chat_data_wid);
         chat_edit->setObjectName(QString::fromUtf8("chat_edit"));
         chat_edit->setMinimumSize(QSize(0, 150));
         chat_edit->setMaximumSize(QSize(16777215, 150));
@@ -185,7 +185,7 @@ public:
     void retranslateUi(QWidget *ChatPage)
     {
         ChatPage->setWindowTitle(QApplication::translate("ChatPage", "Form", nullptr));
-        title_label->setText(QApplication::translate("ChatPage", "\346\263\260\350\277\252\347\275\227\346\226\257\347\246\217", nullptr));
+        title_label->setText(QApplication::translate("ChatPage", "\346\226\207\347\247\246", nullptr));
         emo_label->setText(QString());
         file_label->setText(QString());
         receive_btn->setText(QApplication::translate("ChatPage", "\346\216\245\346\224\266", nullptr));

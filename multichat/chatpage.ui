@@ -92,7 +92,7 @@
             <item>
              <widget class="QLabel" name="title_label">
               <property name="text">
-               <string>泰迪罗斯福</string>
+               <string>文秦</string>
               </property>
              </widget>
             </item>
@@ -219,7 +219,7 @@
        </widget>
       </item>
       <item>
-       <widget class="QTextEdit" name="chat_edit">
+       <widget class="MessageTextEdit" name="chat_edit">
         <property name="minimumSize">
          <size>
           <width>0</width>
@@ -362,6 +362,11 @@
    <extends>QWidget</extends>
    <header>chatview.h</header>
    <container>1</container>
+  </customwidget>
+  <customwidget>
+   <class>MessageTextEdit</class>
+   <extends>QTextEdit</extends>
+   <header location="global">messagetextedit.h</header>
   </customwidget>
  </customwidgets>
  <resources/>
