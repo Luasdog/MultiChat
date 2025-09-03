@@ -72,6 +72,9 @@ ChatDialog::ChatDialog(QWidget *parent) :
     connect(ui->side_chat_label, &StateWidget::clicked, this, &ChatDialog::slot_side_chat);
     connect(ui->side_contact_label, &StateWidget::clicked, this, &ChatDialog::slot_side_contact);
 
+    //链接搜索框输入变化
+    connect(ui->search_edit, &QLineEdit::textChanged, this, &ChatDialog::slot_text_changed);
+
 }
 
 ChatDialog::~ChatDialog()
@@ -195,4 +198,10 @@ void ChatDialog::slot_side_contact()
     ui->stackedWidget->setCurrentWidget(ui->friend_apply_page);
     _state = ChatUIMode::ContactMode;
     showSearch(false);
+}
+
+void ChatDialog::slot_text_changed(const QString &str)
+{
+    //qDebug()<< "receive slot text changed str is " << str;
+    showSearch(true);
 }

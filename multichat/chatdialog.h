@@ -32,6 +32,7 @@ private slots:
     void slot_loading_chat_user();
     void slot_side_chat();
     void slot_side_contact();
+    void slot_text_changed(const QString & str);
 };
 
 #endif // CHATDIALOG_H

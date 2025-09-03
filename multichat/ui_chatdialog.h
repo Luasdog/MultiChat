@@ -18,12 +18,12 @@
 #include <QtWidgets/QListWidget>
 #include <QtWidgets/QSpacerItem>
 #include <QtWidgets/QStackedWidget>
-#include <QtWidgets/QTableWidget>
 #include <QtWidgets/QVBoxLayout>
 #include <QtWidgets/QWidget>
 #include <chatuserlist.h>
 #include <clickedbtn.h>
 #include <customizeedit.h>
+#include <searchlist.h>
 #include <statewidget.h>
 #include "chatpage.h"
 
@@ -49,7 +49,7 @@ public:
     QSpacerItem *horizontalSpacer;
     ClickedBtn *add_btn;
     ChatUserList *chat_user_list;
-    QTableWidget *search_list;
+    SearchList *search_list;
     QListWidget *con_user_list;
     QStackedWidget *stackedWidget;
     ChatPage *chat_page;
@@ -151,7 +151,7 @@ public:
 
         verticalLayout_2->addWidget(chat_user_list);
 
-        search_list = new QTableWidget(chat_user_wid);
+        search_list = new SearchList(chat_user_wid);
         search_list->setObjectName(QString::fromUtf8("search_list"));
 
         verticalLayout_2->addWidget(search_list);
