@@ -19,6 +19,7 @@ DEFINES += QT_DEPRECATED_WARNINGS
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
+    adduseritem.cpp \
     bubbleframe.cpp \
     chatdialog.cpp \
     chatitembase.cpp \
@@ -29,6 +30,7 @@ SOURCES += \
     clickedbtn.cpp \
     clickedlabel.cpp \
     customizeedit.cpp \
+    findsuccessdialog.cpp \
     global.cpp \
     httpmgr.cpp \
     listitembase.cpp \
@@ -40,12 +42,16 @@ SOURCES += \
     picturebubble.cpp \
     registerdialog.cpp \
     resetdialog.cpp \
+    searchlist.cpp \
+    statewidget.cpp \
     tcpmgr.cpp \
     textbubble.cpp \
     timerbtn.cpp \
+    userdata.cpp \
     usermgr.cpp
 
 HEADERS += \
+    adduseritem.h \
     bubbleframe.h \
     chatdialog.h \
     chatitembase.h \
@@ -56,6 +62,7 @@ HEADERS += \
     clickedbtn.h \
     clickedlabel.h \
     customizeedit.h \
+    findsuccessdialog.h \
     global.h \
     httpmgr.h \
     listitembase.h \
@@ -66,16 +73,21 @@ HEADERS += \
     picturebubble.h \
     registerdialog.h \
     resetdialog.h \
+    searchlist.h \
     singleton.h \
+    statewidget.h \
     tcpmgr.h \
     textbubble.h \
     timerbtn.h \
+    userdata.h \
     usermgr.h
 
 FORMS += \
+    adduseritem.ui \
     chatdialog.ui \
     chatpage.ui \
     chatuserwid.ui \
+    findsuccessdialog.ui \
     loadingdialog.ui \
     logindialog.ui \
     mainwindow.ui \
@@ -92,10 +104,100 @@ RESOURCES += \
 
 DISTFILES += \
     config.ini \
-    resource/close_transparent.png
+    resource/Catherine_de'_Medici.png \
+    resource/Catherine_de'_Medici.png \
+    resource/Civ_Unmet.png \
+    resource/Civ_Unmet.png \
+    resource/Cleopatra.png \
+    resource/Cleopatra.png \
+    resource/Hojo_Tokimune.png \
+    resource/Hojo_Tokimune.png \
+    resource/Pedro_II.png \
+    resource/Pedro_II.png \
+    resource/Qin.png \
+    resource/Qin.png \
+    resource/Queen_Victoria.png \
+    resource/Queen_Victoria.png \
+    resource/Saladin.png \
+    resource/Saladin.png \
+    resource/Teddy_Roosevelt.png \
+    resource/Teddy_Roosevelt.png \
+    resource/add_friend_hover.png \
+    resource/add_friend_hover.png \
+    resource/add_friend_normal.png \
+    resource/add_friend_normal.png \
+    resource/addtip.png \
+    resource/addtip.png \
+    resource/chat_icon.png \
+    resource/chat_icon.png \
+    resource/chat_icon_hover.png \
+    resource/chat_icon_hover.png \
+    resource/chat_icon_press.png \
+    resource/chat_icon_press.png \
+    resource/chat_icon_select_hover.png \
+    resource/chat_icon_select_hover.png \
+    resource/chat_icon_select_press.png \
+    resource/chat_icon_select_press.png \
+    resource/close_search.png \
+    resource/close_search.png \
+    resource/close_transparent.png \
+    resource/close_transparent.png \
+    resource/contact_list.png \
+    resource/contact_list.png \
+    resource/contact_list_hover.png \
+    resource/contact_list_hover.png \
+    resource/contact_list_press.png \
+    resource/contact_list_press.png \
+    resource/filedir.png \
+    resource/filedir.png \
+    resource/filedir_hover.png \
+    resource/filedir_hover.png \
+    resource/filedir_press.png \
+    resource/filedir_press.png \
+    resource/loading.gif \
+    resource/loading.gif \
+    resource/login_640.png \
+    resource/login_640.png \
+    resource/red_point.png \
+    resource/red_point.png \
+    resource/search.png \
+    resource/search.png \
+    resource/smile.png \
+    resource/smile.png \
+    resource/smile_hover.png \
+    resource/smile_hover.png \
+    resource/smile_press.png \
+    resource/smile_press.png \
+    resource/tipclose.png \
+    resource/tipclose.png \
+    resource/tipright.png \
+    resource/tipright.png \
+    resource/tiprowdown.png \
+    resource/tiprowdown.png \
+    resource/unvisible.png \
+    resource/unvisible.png \
+    resource/unvisible_hover.png \
+    resource/unvisible_hover.png \
+    resource/visible.png \
+    resource/visible.png \
+    resource/visible_hover.png \
+    resource/visible_hover.png
 
-win32:CONFIG(release, debug | release)
-{
+#win32:CONFIG(release, debug | release)
+#{
+#    #指定要拷贝的文件目录为工程目录下release目录下的所有dll、lib文件，例如工程目录在D:\QT\Test
+#    #PWD就为D:/QT/Test，DllFile = D:/QT/Test/release/*.dll
+#    TargetConfig = $${PWD}/config.ini
+#    #将输入目录中的"/"替换为"\"
+#    TargetConfig = $$replace(TargetConfig, /, \\)
+#    #将输出目录中的"/"替换为"\"
+#    OutputDir =  $${OUT_PWD}/$${DESTDIR}
+#    OutputDir = $$replace(OutputDir, /, \\)
+#    //执行copy命令
+#    QMAKE_POST_LINK += copy /Y \"$$TargetConfig\" \"$$OutputDir\"
+#}
+
+CONFIG(debug, debug | release) {
     #指定要拷贝的文件目录为工程目录下release目录下的所有dll、lib文件，例如工程目录在D:\QT\Test
     #PWD就为D:/QT/Test，DllFile = D:/QT/Test/release/*.dll
     TargetConfig = $${PWD}/config.ini
@@ -105,5 +207,35 @@ win32:CONFIG(release, debug | release)
     OutputDir =  $${OUT_PWD}/$${DESTDIR}
     OutputDir = $$replace(OutputDir, /, \\)
     //执行copy命令
-    QMAKE_POST_LINK += copy /Y \"$$TargetConfig\" \"$$OutputDir\"
+    QMAKE_POST_LINK += copy /Y \"$$TargetConfig\" \"$$OutputDir\" &
+
+    # 首先，定义static文件夹的路径
+    StaticDir = $${PWD}/static
+    # 将路径中的"/"替换为"\"
+    StaticDir = $$replace(StaticDir, /, \\)
+    #message($${StaticDir})
+    # 使用xcopy命令拷贝文件夹，/E表示拷贝子目录及其内容，包括空目录。/I表示如果目标不存在则创建目录。/Y表示覆盖现有文件而不提示。
+    QMAKE_POST_LINK += xcopy /Y /E /I \"$$StaticDir\" \"$$OutputDir\\static\\\"
+} else {
+    #指定要拷贝的文件目录为工程目录下release目录下的所有dll、lib文件，例如工程目录在D:\QT\Test
+    #PWD就为D:/QT/Test，DllFile = D:/QT/Test/release/*.dll
+    TargetConfig = $${PWD}/config.ini
+    #将输入目录中的"/"替换为"\"
+    TargetConfig = $$replace(TargetConfig, /, \\)
+    #将输出目录中的"/"替换为"\"
+    OutputDir =  $${OUT_PWD}/$${DESTDIR}
+    OutputDir = $$replace(OutputDir, /, \\)
+    //执行copy命令
+    QMAKE_POST_LINK += copy /Y \"$$TargetConfig\" \"$$OutputDir\" &
+
+    # 首先，定义static文件夹的路径
+    StaticDir = $${PWD}/static
+    # 将路径中的"/"替换为"\"
+    StaticDir = $$replace(StaticDir, /, \\)
+    #message($${StaticDir})
+    # 使用xcopy命令拷贝文件夹，/E表示拷贝子目录及其内容，包括空目录。/I表示如果目标不存在则创建目录。/Y表示覆盖现有文件而不提示。
+    QMAKE_POST_LINK += xcopy /Y /E /I \"$$StaticDir\" \"$$OutputDir\\static\\\"
 }
+
+
+win32-msvc*:QMAKE_CXXFLAGS += /wd"4819" /utf-8

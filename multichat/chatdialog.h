@@ -3,6 +3,7 @@
 
 #include "global.h"
 #include <QDialog>
+#include "statewidget.h"
 
 namespace Ui {
 class ChatDialog;
@@ -17,15 +18,25 @@ public:
     ~ChatDialog();
     void addChatUserList();
 
+protected:
+    bool eventFilter(QObject *watched, QEvent *event) override;
+    void handleGlobalMousePress(QMouseEvent *event);
+
 private:
     void showSearch(bool bsearch = false);
+    void addLBGroup(StateWidget* lb);
+    void clearLabelState(StateWidget* lb);
     Ui::ChatDialog *ui;
     ChatUIMode _mode;
     ChatUIMode _state;
     bool _b_loading;
+    QList<StateWidget*> _lb_list;
 
 private slots:
     void slot_loading_chat_user();
+    void slot_side_chat();
+    void slot_side_contact();
+    void slot_text_changed(const QString & str);
 };
 
 #endif // CHATDIALOG_H
