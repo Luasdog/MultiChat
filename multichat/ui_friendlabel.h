@@ -31,31 +31,41 @@ public:
     {
         if (FriendLabel->objectName().isEmpty())
             FriendLabel->setObjectName(QString::fromUtf8("FriendLabel"));
-        FriendLabel->resize(373, 42);
+        FriendLabel->resize(493, 43);
+        FriendLabel->setMinimumSize(QSize(0, 43));
         FriendLabel->setMaximumSize(QSize(16777215, 43));
+        FriendLabel->setStyleSheet(QString::fromUtf8("#FriendLabel {\n"
+"	background: #daf6e7;\n"
+"    color: #48bf56;\n"
+"    border-radius: 10px;\n"
+"}"));
         horizontalLayout = new QHBoxLayout(FriendLabel);
         horizontalLayout->setSpacing(0);
         horizontalLayout->setObjectName(QString::fromUtf8("horizontalLayout"));
         horizontalLayout->setContentsMargins(0, 0, 0, 0);
         tip_label = new QLabel(FriendLabel);
         tip_label->setObjectName(QString::fromUtf8("tip_label"));
-        tip_label->setMinimumSize(QSize(25, 25));
-        tip_label->setMaximumSize(QSize(25, 25));
+        tip_label->setMinimumSize(QSize(0, 20));
+        tip_label->setMaximumSize(QSize(16777215, 20));
         tip_label->setStyleSheet(QString::fromUtf8(""));
 
         horizontalLayout->addWidget(tip_label);
 
         close_wid = new QWidget(FriendLabel);
         close_wid->setObjectName(QString::fromUtf8("close_wid"));
+        close_wid->setMinimumSize(QSize(25, 25));
+        close_wid->setMaximumSize(QSize(25, 25));
         close_wid->setAutoFillBackground(false);
         horizontalLayout_2 = new QHBoxLayout(close_wid);
+        horizontalLayout_2->setSpacing(0);
         horizontalLayout_2->setObjectName(QString::fromUtf8("horizontalLayout_2"));
         horizontalLayout_2->setContentsMargins(0, 0, 0, 0);
         close_label = new ClickedLabel(close_wid);
         close_label->setObjectName(QString::fromUtf8("close_label"));
         close_label->setMinimumSize(QSize(15, 15));
         close_label->setMaximumSize(QSize(15, 15));
-        close_label->setStyleSheet(QString::fromUtf8("border-images:url(:/resource/tipclose.png)"));
+        close_label->setStyleSheet(QString::fromUtf8("border-image: url(:/resource/tipclose.png) 1 1 1 1 stretch;\n"
+"    border-width: 1px;  /* \345\277\205\351\241\273\350\256\276\347\275\256\357\274\214\344\270\216\344\270\212\351\235\242\347\232\204\346\225\260\345\200\274\345\257\271\345\272\224 */"));
         close_label->setAlignment(Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter);
 
         horizontalLayout_2->addWidget(close_label);
