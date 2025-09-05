@@ -17,7 +17,6 @@
         <file>resource/Civ_Unmet.png</file>
         <file>resource/add_friend_hover.png</file>
         <file>resource/add_friend_normal.png</file>
-        <file>resource/addtip.png</file>
         <file>resource/chat_icon.png</file>
         <file>resource/chat_icon_hover.png</file>
         <file>resource/chat_icon_press.png</file>
@@ -40,5 +39,7 @@
         <file>resource/tiprowdown.png</file>
         <file>resource/loading.gif</file>
         <file>resource/red_point.png</file>
+        <file>resource/add_friend.png</file>
+        <file>resource/addtip.png</file>
     </qresource>
 </RCC>
