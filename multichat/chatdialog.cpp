@@ -225,5 +225,7 @@ void ChatDialog::slot_side_contact()
 void ChatDialog::slot_text_changed(const QString &str)
 {
     //qDebug()<< "receive slot text changed str is " << str;
-    showSearch(true);
+    if (!str.isEmpty()) {
+        showSearch(true);
+    }
 }

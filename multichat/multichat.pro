@@ -21,6 +21,9 @@ DEFINES += QT_DEPRECATED_WARNINGS
 SOURCES += \
     adduseritem.cpp \
     applyfriend.cpp \
+    applyfrienditem.cpp \
+    applyfriendlist.cpp \
+    applyfriendpage.cpp \
     bubbleframe.cpp \
     chatdialog.cpp \
     chatitembase.cpp \
@@ -31,10 +34,13 @@ SOURCES += \
     clickedbtn.cpp \
     clickedlabel.cpp \
     clickedoncelabel.cpp \
+    contactuserlist.cpp \
+    conuseritem.cpp \
     customizeedit.cpp \
     findsuccessdialog.cpp \
     friendlabel.cpp \
     global.cpp \
+    grouptipitem.cpp \
     httpmgr.cpp \
     listitembase.cpp \
     loadingdialog.cpp \
@@ -56,6 +62,9 @@ SOURCES += \
 HEADERS += \
     adduseritem.h \
     applyfriend.h \
+    applyfrienditem.h \
+    applyfriendlist.h \
+    applyfriendpage.h \
     bubbleframe.h \
     chatdialog.h \
     chatitembase.h \
@@ -66,10 +75,13 @@ HEADERS += \
     clickedbtn.h \
     clickedlabel.h \
     clickedoncelabel.h \
+    contactuserlist.h \
+    conuseritem.h \
     customizeedit.h \
     findsuccessdialog.h \
     friendlabel.h \
     global.h \
+    grouptipitem.h \
     httpmgr.h \
     listitembase.h \
     loadingdialog.h \
@@ -91,11 +103,15 @@ HEADERS += \
 FORMS += \
     adduseritem.ui \
     applyfriend.ui \
+    applyfrienditem.ui \
+    applyfriendpage.ui \
     chatdialog.ui \
     chatpage.ui \
     chatuserwid.ui \
+    conuseritem.ui \
     findsuccessdialog.ui \
     friendlabel.ui \
+    grouptipitem.ui \
     loadingdialog.ui \
     logindialog.ui \
     mainwindow.ui \
@@ -111,85 +127,7 @@ RESOURCES += \
     rc.qrc
 
 DISTFILES += \
-    config.ini \
-    resource/Catherine_de'_Medici.png \
-    resource/Catherine_de'_Medici.png \
-    resource/Civ_Unmet.png \
-    resource/Civ_Unmet.png \
-    resource/Cleopatra.png \
-    resource/Cleopatra.png \
-    resource/Hojo_Tokimune.png \
-    resource/Hojo_Tokimune.png \
-    resource/Pedro_II.png \
-    resource/Pedro_II.png \
-    resource/Qin.png \
-    resource/Qin.png \
-    resource/Queen_Victoria.png \
-    resource/Queen_Victoria.png \
-    resource/Saladin.png \
-    resource/Saladin.png \
-    resource/Teddy_Roosevelt.png \
-    resource/Teddy_Roosevelt.png \
-    resource/add_friend_hover.png \
-    resource/add_friend_hover.png \
-    resource/add_friend_normal.png \
-    resource/add_friend_normal.png \
-    resource/addtip.png \
-    resource/addtip.png \
-    resource/chat_icon.png \
-    resource/chat_icon.png \
-    resource/chat_icon_hover.png \
-    resource/chat_icon_hover.png \
-    resource/chat_icon_press.png \
-    resource/chat_icon_press.png \
-    resource/chat_icon_select_hover.png \
-    resource/chat_icon_select_hover.png \
-    resource/chat_icon_select_press.png \
-    resource/chat_icon_select_press.png \
-    resource/close_search.png \
-    resource/close_search.png \
-    resource/close_transparent.png \
-    resource/close_transparent.png \
-    resource/contact_list.png \
-    resource/contact_list.png \
-    resource/contact_list_hover.png \
-    resource/contact_list_hover.png \
-    resource/contact_list_press.png \
-    resource/contact_list_press.png \
-    resource/filedir.png \
-    resource/filedir.png \
-    resource/filedir_hover.png \
-    resource/filedir_hover.png \
-    resource/filedir_press.png \
-    resource/filedir_press.png \
-    resource/loading.gif \
-    resource/loading.gif \
-    resource/login_640.png \
-    resource/login_640.png \
-    resource/red_point.png \
-    resource/red_point.png \
-    resource/search.png \
-    resource/search.png \
-    resource/smile.png \
-    resource/smile.png \
-    resource/smile_hover.png \
-    resource/smile_hover.png \
-    resource/smile_press.png \
-    resource/smile_press.png \
-    resource/tipclose.png \
-    resource/tipclose.png \
-    resource/tipright.png \
-    resource/tipright.png \
-    resource/tiprowdown.png \
-    resource/tiprowdown.png \
-    resource/unvisible.png \
-    resource/unvisible.png \
-    resource/unvisible_hover.png \
-    resource/unvisible_hover.png \
-    resource/visible.png \
-    resource/visible.png \
-    resource/visible_hover.png \
-    resource/visible_hover.png
+    config.ini
 
 #win32:CONFIG(release, debug | release)
 #{
