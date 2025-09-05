@@ -109,4 +109,31 @@ const QString add_prefix = "添加标签 ";
 
 const int  tip_offset = 5;
 
+const std::vector<QString>  strs ={"hello world !",
+                             "nice to meet u",
+                             "New year，new life",
+                            "You have to love yourself",
+                            "My love is written in the wind ever since the whole world is you"};
+
+const std::vector<QString> heads = {
+    ":/resource/Catherine_de'_Medici.png",
+    ":/resource/Cleopatra.png",
+    ":/resource/Hojo_Tokimune.png",
+    ":/resource/Pedro_II.png",
+    ":/resource/Qin.png",
+};
+
+const std::vector<QString> names = {
+    "HanMeiMei",
+    "Lily",
+    "Ben",
+    "Androw",
+    "Max",
+    "Summer",
+    "Candy",
+    "Hunter"
+};
+
+const int CHAT_COUNT_PER_PAGE = 13;
+
 #endif // GLOBAL_H

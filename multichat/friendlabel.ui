@@ -6,9 +6,15 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>373</width>
-    <height>42</height>
+    <width>493</width>
+    <height>43</height>
    </rect>
+  </property>
+  <property name="minimumSize">
+   <size>
+    <width>0</width>
+    <height>43</height>
+   </size>
   </property>
   <property name="maximumSize">
    <size>
@@ -18,6 +24,13 @@
   </property>
   <property name="windowTitle">
    <string>Form</string>
+  </property>
+  <property name="styleSheet">
+   <string notr="true">#FriendLabel {
+	background: #daf6e7;
+    color: #48bf56;
+    border-radius: 10px;
+}</string>
   </property>
   <layout class="QHBoxLayout" name="horizontalLayout">
    <property name="spacing">
@@ -39,14 +52,14 @@
     <widget class="QLabel" name="tip_label">
      <property name="minimumSize">
       <size>
-       <width>25</width>
-       <height>25</height>
+       <width>0</width>
+       <height>20</height>
       </size>
      </property>
      <property name="maximumSize">
       <size>
-       <width>25</width>
-       <height>25</height>
+       <width>16777215</width>
+       <height>20</height>
       </size>
      </property>
      <property name="styleSheet">
@@ -59,10 +72,25 @@
    </item>
    <item>
     <widget class="QWidget" name="close_wid" native="true">
+     <property name="minimumSize">
+      <size>
+       <width>25</width>
+       <height>25</height>
+      </size>
+     </property>
+     <property name="maximumSize">
+      <size>
+       <width>25</width>
+       <height>25</height>
+      </size>
+     </property>
      <property name="autoFillBackground">
       <bool>false</bool>
      </property>
      <layout class="QHBoxLayout" name="horizontalLayout_2">
+      <property name="spacing">
+       <number>0</number>
+      </property>
       <property name="leftMargin">
        <number>0</number>
       </property>
@@ -90,7 +118,8 @@
          </size>
         </property>
         <property name="styleSheet">
-         <string notr="true">border-images:url(:/resource/tipclose.png)</string>
+         <string notr="true">border-image: url(:/resource/tipclose.png) 1 1 1 1 stretch;
+    border-width: 1px;  /* 必须设置，与上面的数值对应 */</string>
         </property>
         <property name="text">
          <string/>

@@ -1,10 +1,23 @@
 #include "chatdialog.h"
 #include "ui_chatdialog.h"
 #include <QAction>
-#include <QRandomGenerator>
 #include "chatuserwid.h"
+#include <QDebug>
+#include <vector>
+#include <QRandomGenerator>
 #include "loadingdialog.h"
-#include <QMouseEvent>
+#include "global.h"
+#include "chatitembase.h"
+#include "textbubble.h"
+#include "picturebubble.h"
+//#include "messagetextwdit.h"
+#include "chatuserlist.h"
+#include "grouptipitem.h"
+//#include "invaliditem.h"
+#include "conuseritem.h"
+//#include "lineitem.h"
+#include "tcpmgr.h"
+#include "usermgr.h"
 
 ChatDialog::ChatDialog(QWidget *parent) :
     QDialog(parent),
@@ -16,6 +29,7 @@ ChatDialog::ChatDialog(QWidget *parent) :
     ui->setupUi(this);
 
     ui->add_btn->setState("normal","hover","press");
+    ui->add_btn->setProperty("state","normal");
     ui->search_edit->setMaxLength(15); // 设置搜索框输入最大长度
 
     QAction *searchAction = new QAction(ui->search_edit);
@@ -87,31 +101,6 @@ ChatDialog::~ChatDialog()
 {
     delete ui;
 }
-
-std::vector<QString>  strs ={"hello world !",
-                             "nice to meet u",
-                             "New year，new life",
-                            "You have to love yourself",
-                            "My love is written in the wind ever since the whole world is you"};
-
-std::vector<QString> heads = {
-    ":/resource/Catherine_de'_Medici.png",
-    ":/resource/Cleopatra.png",
-    ":/resource/Hojo_Tokimune.png",
-    ":/resource/Pedro_II.png",
-    ":/resource/Qin.png",
-};
-
-std::vector<QString> names = {
-    "Catherine_de'_Medici",
-    "Cleopatra",
-    "Hojo_Tokimune",
-    "Pedro_II",
-    "Qin",
-    "C++",
-    "python",
-    "golang"
-};
 
 void ChatDialog::addChatUserList()
 {
@@ -236,5 +225,7 @@ void ChatDialog::slot_side_contact()
 void ChatDialog::slot_text_changed(const QString &str)
 {
     //qDebug()<< "receive slot text changed str is " << str;
-    showSearch(true);
+    if (!str.isEmpty()) {
+        showSearch(true);
+    }
 }
