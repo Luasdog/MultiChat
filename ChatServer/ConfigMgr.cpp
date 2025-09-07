@@ -1,5 +1,40 @@
 #include "ConfigMgr.h"
 
+SectionInfo::SectionInfo() {}
+SectionInfo::~SectionInfo() {
+	_section_datas.clear();
+}
+
+SectionInfo::SectionInfo(const SectionInfo& src) {
+	_section_datas = src._section_datas;
+}
+
+SectionInfo& SectionInfo::operator = (const SectionInfo& src) {
+	if (&src == this) {
+		return *this;
+	}
+
+	this->_section_datas = src._section_datas;
+	return *this;
+}
+
+// 重载 [] 运算符
+std::string SectionInfo::operator[](const std::string& key) {
+	if (_section_datas.find(key) == _section_datas.end()) {
+		return "";
+	}
+	// to do ... 添加边界检查
+	return _section_datas[key];
+}
+
+std::string SectionInfo::GetValue(const std::string& key) {
+	if (_section_datas.find(key) == _section_datas.end()) {
+		return "";
+	}
+	// to do ... 添加边界检查  
+	return _section_datas[key];
+}
+
 ConfigMgr::ConfigMgr() {
 	// 获取当前工作目录
 	boost::filesystem::path current_path = boost::filesystem::current_path();
@@ -39,6 +74,38 @@ ConfigMgr::ConfigMgr() {
 			std::cout << key_value_pair.first << "-" << key_value_pair.second << std::endl;
 		}
 	}
+}
+
+ConfigMgr::~ConfigMgr() {
+	_config_map.clear();
+}
+
+SectionInfo ConfigMgr::operator[](const std::string& section) {
+	if (_config_map.find(section) == _config_map.end()) {
+		return SectionInfo();
+	}
+
+	return _config_map[section];
+}
+
+// 改成单例模式
+// 静态成员函数类外定义无需加static关键字
+ConfigMgr& ConfigMgr::Inst() {
+	static ConfigMgr cfg_mgr; // 生命周期与进程同步
+	return cfg_mgr;
+}
+
+ConfigMgr::ConfigMgr(const ConfigMgr& src) {
+	_config_map = src._config_map;
+}
+
+ConfigMgr& ConfigMgr::operator=(const ConfigMgr& src) {
+	if (&src == this) {
+		return *this;
+	}
+
+	_config_map = src._config_map;
+	return *this;
 }
 
 std::string ConfigMgr::GetValue(const std::string& section, const std::string& key) {
