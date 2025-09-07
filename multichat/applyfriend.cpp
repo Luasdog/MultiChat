@@ -5,6 +5,7 @@
 #include <QScrollBar>
 #include "usermgr.h"
 #include "tcpmgr.h"
+#include <QJsonDocument>
 
 ApplyFriend::ApplyFriend(QWidget *parent) :
     QDialog(parent),
@@ -338,38 +339,37 @@ void ApplyFriend::slotRemoveFriendLabel(QString name)
     _label_point.setX(2);
     _label_point.setY(6);
 
-   auto find_iter = _friend_labels.find(name);
+    auto find_iter = _friend_labels.find(name);
 
-   if(find_iter == _friend_labels.end()){
-       return;
-   }
-
-   auto find_key = _friend_label_keys.end();
-   for(auto iter = _friend_label_keys.begin(); iter != _friend_label_keys.end();
-       iter++){
-       if(*iter == name){
-           find_key = iter;
-           break;
-       }
-   }
-
-   if(find_key != _friend_label_keys.end()){
-      _friend_label_keys.erase(find_key);
-   }
-
-
-   delete find_iter.value();
-
-   _friend_labels.erase(find_iter);
-
-   resetLabels();
-
-   auto find_add = _add_labels.find(name);
-   if(find_add == _add_labels.end()){
+    if(find_iter == _friend_labels.end()){
         return;
-   }
+    }
 
-   find_add.value()->resetNormalState();
+    auto find_key = _friend_label_keys.end();
+    for(auto iter = _friend_label_keys.begin(); iter != _friend_label_keys.end(); iter++) {
+        if(*iter == name){
+            find_key = iter;
+            break;
+        }
+    }
+
+    if(find_key != _friend_label_keys.end()){
+        _friend_label_keys.erase(find_key);
+    }
+
+
+    delete find_iter.value();
+
+    _friend_labels.erase(find_iter);
+
+    resetLabels();
+
+    auto find_add = _add_labels.find(name);
+    if(find_add == _add_labels.end()) {
+        return;
+    }
+
+    find_add.value()->resetNormalState();
 }
 
 //点击标已有签添加或删除新联系人的标签
@@ -475,7 +475,31 @@ void ApplyFriend::slotAddFirendLabelByClickTip(QString text)
 
 void ApplyFriend::slotApplySure()
 {
-    qDebug() << "Slot Apply Sure called";
+    qDebug()<<"Slot Apply Sure called" ;
+    //发送请求逻辑
+    QJsonObject jsonObj;
+    auto uid = UserMgr::GetInstance()->GetUid();
+    jsonObj["uid"] = uid;
+    auto name = ui->name_edit->text();
+    if(name.isEmpty()){
+        name = ui->name_edit->placeholderText();
+    }
+
+    jsonObj["applyname"] = name;
+
+    auto backname = ui->back_edit->text();
+    if (backname.isEmpty()) {
+        backname = ui->back_edit->placeholderText();
+    }
+
+    jsonObj["backname"] = backname;
+    jsonObj["touid"] = _si->_uid;
+
+    QJsonDocument doc(jsonObj);
+    QByteArray jsonData = doc.toJson(QJsonDocument::Compact);
+
+    //发送tcp请求给chat server
+    emit TcpMgr::GetInstance()->sig_send_data(ReqId::ID_ADD_FRIEND_REQ, jsonData);
     this->hide();
     deleteLater();
 }

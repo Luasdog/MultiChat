@@ -30,7 +30,7 @@ FindSuccessDialog::~FindSuccessDialog()
     delete ui;
 }
 
-void FindSuccessDialog::SetSearchInfo(std::shared_ptr<SearchInfo> si)
+void FindSuccessDialog::setSearchInfo(std::shared_ptr<SearchInfo> si)
 {
     ui->name_label->setText(si->_name);
     _si = si;

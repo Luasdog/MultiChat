@@ -101,23 +101,25 @@ void ContactUserList::slot_item_clicked(QListWidgetItem *item)
             return;
         }
 
-       if(itemType == ListItemType::APPLY_FRIEND_ITEM){
+        if(itemType == ListItemType::APPLY_FRIEND_ITEM){
 
            // 创建对话框，提示用户
            qDebug()<< "apply friend item clicked ";
            //跳转到好友申请界面
            emit sig_switch_apply_friend_page();
            return;
-       }
+        }
 
-       if(itemType == ListItemType::CONTACT_USER_ITEM){
-           // 创建对话框，提示用户
-           qDebug()<< "contact user item clicked ";
+        if(itemType == ListItemType::CONTACT_USER_ITEM){
+            // 创建对话框，提示用户
+            qDebug()<< "contact user item clicked ";
 
-           //跳转到好友申请界面
-           emit sig_switch_friend_info_page();
-           return;
-       }
+            auto con_item = qobject_cast<ConUserItem*>(customItem);
+            auto user_info = con_item->getInfo();
+            //跳转到好友申请界面
+            emit sig_switch_friend_info_page();
+            return;
+        }
 }
 
 bool ContactUserList::eventFilter(QObject *watched, QEvent *event)
