@@ -22,7 +22,7 @@ MainWindow::MainWindow(QWidget *parent)
     //连接创建聊天界面信号
     connect(TcpMgr::GetInstance().get(),&TcpMgr::sig_switch_chatdlg, this, &MainWindow::SlotSwitchChat);
 
-    emit TcpMgr::GetInstance()->sig_switch_chatdlg(); // 测试聊天界面显示
+   // emit TcpMgr::GetInstance()->sig_switch_chatdlg(); // 测试聊天界面显示
 
 }
 
