@@ -25,7 +25,9 @@ public:
 	CSession(boost::asio::io_context& io_context, CServer* server);
 	~CSession();
 	tcp::socket& GetSocket();
-	std::string& GetUuid();
+	std::string& GetSessionId();
+	void SetUserId(int uid);
+	int GetUserId();
 	void Start();
 	void Send(char* msg, short max_length, short msgid);
 	void Send(std::string msg, short msgid);
@@ -38,10 +40,9 @@ private:
 	void asyncReadLen(std::size_t  read_len, std::size_t total_len,
 		std::function<void(const boost::system::error_code&, std::size_t)> handler);
 
-
 	void HandleWrite(const boost::system::error_code& error, std::shared_ptr<CSession> shared_self);
 	tcp::socket _socket;
-	std::string _uuid;
+	std::string _session_id;
 	char _data[MAX_LENGTH];
 	CServer* _server;
 	bool _b_close;
@@ -52,6 +53,7 @@ private:
 	bool _b_head_parse;
 	//收到的头部结构
 	std::shared_ptr<MsgNode> _recv_head_node;
+	int _user_uid;
 };
 
 class LogicNode {
