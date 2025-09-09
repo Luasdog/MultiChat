@@ -3,6 +3,11 @@
 
 #include <QDialog>
 #include "global.h"
+#include <functional>
+#include <QMap>
+#include <QJsonObject>
+#include <QSet>
+#include <QTimer>
 
 namespace Ui {
 class RegisterDialog;
@@ -18,11 +23,13 @@ public:
 
 private slots:
     void on_getcode_btn_clicked();
-    void slot_reg_mod_finish(ReqId id, QString res, ErrorCodes err);
     void on_confirm_btn_clicked();
 
     void on_return_btn_clicked();
     void on_cancel_btn_clicked();
+
+public slots:
+    void slot_reg_mod_finish(ReqId id, QString res, ErrorCodes err);
 
 private:
     void initHttpHandlers();

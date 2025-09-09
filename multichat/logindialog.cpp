@@ -13,6 +13,7 @@ LoginDialog::LoginDialog(QWidget *parent) :
     connect(ui->reg_btn, &QPushButton::clicked, this, &LoginDialog::switchRegister);
 
     ui->forget_label->setState("normal","hover","","selected","selected_hover","");
+    ui->forget_label->setCursor(Qt::PointingHandCursor);
     connect(ui->forget_label, &ClickedLabel::clicked, this, &LoginDialog::slot_forget_pwd);
     initHead();
     initHttpHandlers();
@@ -182,7 +183,7 @@ void LoginDialog::on_login_btn_clicked()
     }
 
     if(checkPwdValid() == false){
-        return ;
+        return;
     }
 
     enableBtn(false);
@@ -225,7 +226,7 @@ void LoginDialog::slot_login_mod_finish(ReqId id, QString res, ErrorCodes err)
 
 void LoginDialog::slot_tcp_con_finish(bool bsuccess)
 {
-    if(bsuccess){
+    if (bsuccess) {
         showTip(tr("聊天服务连接成功，正在登录..."),true);
         QJsonObject jsonObj;
         jsonObj["uid"] = _uid;

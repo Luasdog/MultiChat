@@ -23,8 +23,8 @@ class Ui_ChatUserWid
 public:
     QHBoxLayout *horizontalLayout;
     QWidget *icon_wid;
-    QHBoxLayout *horizontalLayout_2;
     QLabel *icon_label;
+    QLabel *red_point;
     QWidget *user_info_wid;
     QVBoxLayout *verticalLayout;
     QLabel *user_name_label;
@@ -37,46 +37,49 @@ public:
     {
         if (ChatUserWid->objectName().isEmpty())
             ChatUserWid->setObjectName(QString::fromUtf8("ChatUserWid"));
-        ChatUserWid->resize(400, 70);
-        ChatUserWid->setMinimumSize(QSize(0, 70));
-        ChatUserWid->setMaximumSize(QSize(16777215, 70));
+        ChatUserWid->resize(418, 75);
+        ChatUserWid->setMinimumSize(QSize(0, 75));
+        ChatUserWid->setMaximumSize(QSize(16777215, 75));
         horizontalLayout = new QHBoxLayout(ChatUserWid);
         horizontalLayout->setSpacing(5);
         horizontalLayout->setObjectName(QString::fromUtf8("horizontalLayout"));
         horizontalLayout->setContentsMargins(6, 2, 6, 2);
         icon_wid = new QWidget(ChatUserWid);
         icon_wid->setObjectName(QString::fromUtf8("icon_wid"));
-        icon_wid->setMinimumSize(QSize(50, 50));
-        icon_wid->setMaximumSize(QSize(50, 50));
-        horizontalLayout_2 = new QHBoxLayout(icon_wid);
-        horizontalLayout_2->setSpacing(6);
-        horizontalLayout_2->setObjectName(QString::fromUtf8("horizontalLayout_2"));
-        horizontalLayout_2->setContentsMargins(2, 2, 2, 2);
+        icon_wid->setMinimumSize(QSize(6, 60));
+        icon_wid->setMaximumSize(QSize(60, 60));
         icon_label = new QLabel(icon_wid);
         icon_label->setObjectName(QString::fromUtf8("icon_label"));
+        icon_label->setGeometry(QRect(7, 12, 45, 45));
         icon_label->setMinimumSize(QSize(45, 45));
         icon_label->setMaximumSize(QSize(45, 45));
-
-        horizontalLayout_2->addWidget(icon_label);
-
+        red_point = new QLabel(icon_wid);
+        red_point->setObjectName(QString::fromUtf8("red_point"));
+        red_point->setGeometry(QRect(27, 0, 30, 30));
+        red_point->setMinimumSize(QSize(30, 30));
+        red_point->setMaximumSize(QSize(30, 30));
 
         horizontalLayout->addWidget(icon_wid);
 
         user_info_wid = new QWidget(ChatUserWid);
         user_info_wid->setObjectName(QString::fromUtf8("user_info_wid"));
-        user_info_wid->setMaximumSize(QSize(130, 16777215));
+        user_info_wid->setMinimumSize(QSize(120, 0));
+        user_info_wid->setMaximumSize(QSize(120, 16777215));
         verticalLayout = new QVBoxLayout(user_info_wid);
         verticalLayout->setSpacing(6);
         verticalLayout->setObjectName(QString::fromUtf8("verticalLayout"));
         verticalLayout->setContentsMargins(2, 2, 2, 2);
         user_name_label = new QLabel(user_info_wid);
         user_name_label->setObjectName(QString::fromUtf8("user_name_label"));
+        user_name_label->setMinimumSize(QSize(0, 30));
+        user_name_label->setMaximumSize(QSize(16777215, 30));
 
         verticalLayout->addWidget(user_name_label);
 
         user_chat_label = new QLabel(user_info_wid);
         user_chat_label->setObjectName(QString::fromUtf8("user_chat_label"));
-        user_chat_label->setMaximumSize(QSize(130, 16777215));
+        user_chat_label->setMinimumSize(QSize(0, 30));
+        user_chat_label->setMaximumSize(QSize(130, 30));
 
         verticalLayout->addWidget(user_chat_label);
 
@@ -109,6 +112,7 @@ public:
     {
         ChatUserWid->setWindowTitle(QApplication::translate("ChatUserWid", "Form", nullptr));
         icon_label->setText(QString());
+        red_point->setText(QApplication::translate("ChatUserWid", "TextLabel", nullptr));
         user_name_label->setText(QApplication::translate("ChatUserWid", "TextLabel", nullptr));
         user_chat_label->setText(QApplication::translate("ChatUserWid", "TextLabel", nullptr));
         time_label->setText(QApplication::translate("ChatUserWid", "20:32", nullptr));

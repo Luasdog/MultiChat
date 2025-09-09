@@ -54,7 +54,7 @@
             <item>
              <widget class="QLabel" name="err_tip">
               <property name="text">
-               <string>错误提示</string>
+               <string/>
               </property>
               <property name="alignment">
                <set>Qt::AlignCenter</set>
@@ -495,14 +495,14 @@
  </widget>
  <customwidgets>
   <customwidget>
+   <class>ClickedLabel</class>
+   <extends>QLabel</extends>
+   <header location="global">clickedlabel.h</header>
+  </customwidget>
+  <customwidget>
    <class>TimerBtn</class>
    <extends>QPushButton</extends>
    <header>timerbtn.h</header>
-  </customwidget>
-  <customwidget>
-   <class>ClickedLabel</class>
-   <extends>QLabel</extends>
-   <header>clickedlabel.h</header>
   </customwidget>
  </customwidgets>
  <resources/>

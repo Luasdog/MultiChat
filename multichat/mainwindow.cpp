@@ -1,6 +1,8 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
+#include "resetdialog.h"
 #include "tcpmgr.h"
+#include <QLayout>
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -22,7 +24,7 @@ MainWindow::MainWindow(QWidget *parent)
     //连接创建聊天界面信号
     connect(TcpMgr::GetInstance().get(),&TcpMgr::sig_switch_chatdlg, this, &MainWindow::SlotSwitchChat);
 
-   // emit TcpMgr::GetInstance()->sig_switch_chatdlg(); // 测试聊天界面显示
+    // emit TcpMgr::GetInstance()->sig_switch_chatdlg(); // 测试聊天界面显示
 
 }
 
@@ -44,6 +46,7 @@ void MainWindow::SlotSwitchReg()
 {
     // 修改成动态初始化
     _reg_dialog = new RegisterDialog(this); //为了防止内存泄露，添加this设置成主窗口的子类
+    _reg_dialog->hide();
 
     _reg_dialog->setWindowFlags(Qt::CustomizeWindowHint | Qt::FramelessWindowHint);
 
