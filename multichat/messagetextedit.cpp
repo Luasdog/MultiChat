@@ -167,7 +167,7 @@ void MessageTextEdit::insertFromMimeData(const QMimeData *source)
 
 bool MessageTextEdit::isImage(QString url)
 {
-    QString imageFormat = "bmp,jpg,png,tif,gif,pcx,tga,exif,fpx,svg,psd,cdr,pcd,dxf,ufo,eps,ai,raw,wmf,webp";
+    QString imageFormat = "bmp,jpg,png,tif,gif,pcx,tga,exif,fpx,svg,psd,cdr,pcd,dxf,ufo,eps,ai,raw,wmf,webp"; // 不能有空格，否则出错
     QStringList imageFormatList = imageFormat.split(",");
     QFileInfo fileInfo(url);
     QString suffix = fileInfo.suffix();

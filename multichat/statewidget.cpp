@@ -100,7 +100,7 @@ void StateWidget::leaveEvent(QEvent* event){
 }
 
 void StateWidget::setState(QString normal, QString hover, QString press,
-                            QString select, QString select_hover, QString select_press)
+                           QString select, QString select_hover, QString select_press)
 {
     _normal = normal;
     _normal_hover = hover;
@@ -153,11 +153,12 @@ void StateWidget::addRedPoint()
     layout2->addWidget(_red_point);
     layout2->setMargin(0);
     this->setLayout(layout2);
+    _red_point->setVisible(false);
 }
 
 void StateWidget::showRedPoint(bool show)
 {
-
+    _red_point->setVisible(true);
 }
 
 void StateWidget::paintEvent(QPaintEvent *event)

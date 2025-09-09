@@ -60,7 +60,7 @@ void BubbleFrame::paintEvent(QPaintEvent *e)
         painter.setBrush(QBrush(bk_color));
         //画气泡
         QRect bk_rect = QRect(0, 0, this->width() - WIDTH_SANJIAO, this->height());
-        painter.drawRoundedRect(bk_rect,5,5);
+        painter.drawRoundedRect(bk_rect, 5, 5);
         //画三角
         QPointF points[3] = {
             QPointF(bk_rect.x() + bk_rect.width(), 12),

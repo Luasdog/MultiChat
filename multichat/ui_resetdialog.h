@@ -198,7 +198,7 @@ public:
     void retranslateUi(QDialog *ResetDialog)
     {
         ResetDialog->setWindowTitle(QApplication::translate("ResetDialog", "Dialog", nullptr));
-        err_tip->setText(QApplication::translate("ResetDialog", "\351\224\231\350\257\257\346\217\220\347\244\272", nullptr));
+        err_tip->setText(QString());
         user_label->setText(QApplication::translate("ResetDialog", "\347\224\250\346\210\267\345\220\215", nullptr));
         email_label->setText(QApplication::translate("ResetDialog", "\351\202\256\347\256\261", nullptr));
         verify_label->setText(QApplication::translate("ResetDialog", "\351\252\214\350\257\201\347\240\201", nullptr));

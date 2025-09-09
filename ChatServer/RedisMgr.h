@@ -6,6 +6,7 @@ public:
     RedisConPool(size_t poolSize, const char* host, int port, const char* pwd);
     ~RedisConPool();
 
+	void clearConnections();
     redisContext* getConnection();
 	void returnConnection(redisContext* context);
 	void Close();
@@ -22,6 +23,7 @@ private:
     std::mutex _mutex;
     std::condition_variable _cond;
 	std::thread _check_thread;
+	int _counter;
 };
 
 class RedisMgr : public Singleton<RedisMgr>,

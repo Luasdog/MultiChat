@@ -2,12 +2,17 @@
 #include "ui_registerdialog.h"
 #include "global.h"
 #include "httpmgr.h"
+#include <QRegularExpression>
+#include <QRegularExpressionValidator>
+#include <QRandomGenerator>
 
 RegisterDialog::RegisterDialog(QWidget *parent) :
     QDialog(parent),
-    ui(new Ui::RegisterDialog), _countdown(5)
+    ui(new Ui::RegisterDialog),
+    _countdown(5)
 {
     ui->setupUi(this);
+    ui->user_edit->setValidator(new QRegExpValidator(QRegExp("[a-zA-Z0-9]+$")));
     ui->passwd_edit->setEchoMode(QLineEdit::Password); //隐藏输入的密码
     ui->confirm_edit->setEchoMode(QLineEdit::Password); //隐藏输入的确认密码
 
@@ -96,10 +101,10 @@ RegisterDialog::~RegisterDialog()
 
 void RegisterDialog::on_getcode_btn_clicked()
 {
+    qDebug()<<"receive verify btn clicked ";
     auto email = ui->email_edit->text();
-    QRegularExpression regex(R"((\w+)(\.|_)?(\w*)@(\w+)(\.(\w+))+)"); //正则表达式 邮箱
-    bool match = regex.match(email).hasMatch();
-    if (match) {
+    bool valid = checkEmailValid();
+    if (valid) {
         //发送http验证码
         QJsonObject json_obj;
         json_obj["email"] = email;
@@ -224,7 +229,7 @@ bool RegisterDialog::checkPassValid()
     auto pass = ui->passwd_edit->text();
     auto confirm = ui->confirm_edit->text();
 
-    if(pass.length() < 6 || pass.length()>15){
+    if(pass.length() < 6 || pass.length() > 15){
         //提示长度不准确
         addTipErr(TipErr::TIP_PWD_ERR, tr("密码长度应为6~15"));
         return false;
@@ -310,45 +315,48 @@ void RegisterDialog::changeTipPage()
 
 void RegisterDialog::on_confirm_btn_clicked()
 {
-    if(ui->user_edit->text() == ""){
-            showTip(tr("用户名不能为空"), false);
-            return;
-        }
+    bool valid = checkUserValid();
+    if(!valid){
+        return;
+    }
 
-        if(ui->email_edit->text() == ""){
-            showTip(tr("邮箱不能为空"), false);
-            return;
-        }
+    valid = checkEmailValid();
+    if(!valid){
+        return;
+    }
 
-        if(ui->passwd_edit->text() == ""){
-            showTip(tr("密码不能为空"), false);
-            return;
-        }
+    valid = checkPassValid();
+    if(!valid){
+        return;
+    }
 
-        if(ui->confirm_edit->text() == ""){
-            showTip(tr("确认密码不能为空"), false);
-            return;
-        }
+    valid = checkConfirmValid();
+    if(!valid){
+        return;
+    }
 
-        if(ui->confirm_edit->text() != ui->passwd_edit->text()){
-            showTip(tr("密码和确认密码不匹配"), false);
-            return;
-        }
+    valid = checkVerifyValid();
+    if(!valid){
+        return;
+    }
 
-        if(ui->verify_edit->text() == ""){
-            showTip(tr("验证码不能为空"), false);
-            return;
-        }
+    //发送http请求注册用户
+    QJsonObject json_obj;
+    json_obj["user"] = ui->user_edit->text();
+    json_obj["email"] = ui->email_edit->text();
+    json_obj["passwd"] = xorString(ui->passwd_edit->text());
+    json_obj["sex"] = 0;
 
-        //发送http请求注册用户
-        QJsonObject json_obj;
-        json_obj["user"] = ui->user_edit->text();
-        json_obj["email"] = ui->email_edit->text();
-        json_obj["passwd"] = xorString(ui->passwd_edit->text());
-        json_obj["confirm"] = xorString(ui->confirm_edit->text());
-        json_obj["verifycode"] = ui->verify_edit->text();
-        HttpMgr::GetInstance()->postHttpReq(QUrl(gate_url_prefix+"/user_register"),
-                     json_obj, ReqId::ID_REG_USER,Modules::REGISTERMOD);
+    int randomValue = QRandomGenerator::global()->bounded(100);
+    int head_i = randomValue % heads.size();
+
+    json_obj["icon"] = heads[head_i];
+    json_obj["nick"] = ui->user_edit->text();
+
+    json_obj["confirm"] = xorString(ui->confirm_edit->text());
+    json_obj["verifycode"] = ui->verify_edit->text();
+    HttpMgr::GetInstance()->postHttpReq(QUrl(gate_url_prefix+"/user_register"),
+                 json_obj, ReqId::ID_REG_USER,Modules::REGISTERMOD);
 }
 
 void RegisterDialog::on_return_btn_clicked()

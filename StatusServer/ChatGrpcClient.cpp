@@ -79,6 +79,9 @@ ChatGrpcClient::ChatGrpcClient()
 
 AddFriendRsp ChatGrpcClient::NotifyAddFriend(std::string server_ip, const AddFriendReq& req)
 {
+	auto to_uid = req.touid();
+	std::string  uid_str = std::to_string(to_uid);
+
 	AddFriendRsp rsp;
 	return rsp;
 }

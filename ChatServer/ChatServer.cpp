@@ -60,5 +60,7 @@ int main()
 	}
 	catch (std::exception& e) {
 		std::cerr << "Exception: " << e.what() << endl;
+		RedisMgr::GetInstance()->HDel(LOGIN_COUNT, server_name);
+		RedisMgr::GetInstance()->Close();
 	}
 }

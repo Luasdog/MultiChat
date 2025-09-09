@@ -2,8 +2,8 @@
 #include "ConfigMgr.h"
 
 RedisConPool::RedisConPool(size_t poolSize, const char* host, int port, const char* pwd)
-    : _poolSize(poolSize), _host(host), _port(port), _b_stop(false), _pwd(pwd) {
-    for (size_t i = 0; i < _poolSize; ++i) {
+    : _poolSize(poolSize), _host(host), _port(port), _b_stop(false), _pwd(pwd), _counter(0) {
+    for (size_t i = 0; i < _poolSize; i++) {
         auto* context = redisConnect(host, port);
         if (context == nullptr || context->err != 0) {
             if (context != nullptr) {
@@ -28,19 +28,29 @@ RedisConPool::RedisConPool(size_t poolSize, const char* host, int port, const ch
     }
 
     _check_thread = std::thread([this]() {
-        std::this_thread::sleep_for(std::chrono::seconds(60)); // 每隔 30 秒发送一次 PING 命令
-        checkThread();
+        while (!_b_stop) {
+            _counter++;
+            if (_counter >= 60) {
+                checkThread();
+                _counter = 0;
+            }
+            std::this_thread::sleep_for(std::chrono::seconds(1)); // 每隔 60 秒发送一次 PING 命令
+        }
         });
 
     _check_thread.detach();
 }
 
 RedisConPool::~RedisConPool() {
+}
+
+void RedisConPool::clearConnections()
+{
     std::lock_guard<std::mutex> lock(_mutex);
     while (!_connections.empty()) {
         auto context = _connections.front();
-        _connections.pop();
         redisFree(context);
+        _connections.pop();
     }
 }
 
@@ -73,16 +83,25 @@ void RedisConPool::returnConnection(redisContext* context) {
 void RedisConPool::Close() {
     _b_stop = true;
     _cond.notify_all();
+    // _check_thread.join();
 }
 
 void RedisConPool::checkThread() {
     std::lock_guard<std::mutex> lock(_mutex);
+    if (_b_stop) {
+        return;
+    }
     auto pool_size = _connections.size();
     for (int i = 0; i < pool_size; i++) {
         auto* context = _connections.front();
         _connections.pop();
         try {
             auto reply = (redisReply*)redisCommand(context, "PING");
+            if (!reply) {
+                std::cout << "reply is null, redis ping failed: " << std::endl;
+                _connections.push(context);
+                continue;
+            }
             freeReplyObject(reply);
             _connections.push(context);
         }
@@ -122,7 +141,7 @@ RedisMgr::RedisMgr() {
 }
 
 RedisMgr::~RedisMgr() {
-    Close();
+    // Close();
 }
 
 // 获取key对应的value
@@ -252,7 +271,7 @@ bool RedisMgr::LPop(const std::string& key, std::string& value) {
     auto reply = (redisReply*)redisCommand(connect, "LPOP %s ", key.c_str());
     if (reply == nullptr || reply->type == REDIS_REPLY_NIL) {
         std::cout << "Execut command [ LPOP " << key << " ] failure ! " << std::endl;
-        freeReplyObject(reply);
+        // freeReplyObject(reply);
         _con_pool->returnConnection(connect);
         return false;
     }
@@ -273,7 +292,7 @@ bool RedisMgr::RPush(const std::string& key, const std::string& value) {
     if (NULL == reply)
     {
         std::cout << "Execut command [ RPUSH " << key << "  " << value << " ] failure ! " << std::endl;
-        freeReplyObject(reply);
+        // freeReplyObject(reply);
         _con_pool->returnConnection(connect);
         return false;
     }
@@ -298,7 +317,13 @@ bool RedisMgr::RPop(const std::string& key, std::string& value) {
         return false;
     }
     auto reply = (redisReply*)redisCommand(connect, "RPOP %s ", key.c_str());
-    if (reply == nullptr || reply->type == REDIS_REPLY_NIL) {
+    if (reply == nullptr) {
+        std::cout << "Execut command [ RPOP " << key << " ] failure ! " << std::endl;
+        _con_pool->returnConnection(connect);
+        return false;
+    }
+
+    if (reply->type == REDIS_REPLY_NIL) {
         std::cout << "Execut command [ RPOP " << key << " ] failure ! " << std::endl;
         freeReplyObject(reply);
         _con_pool->returnConnection(connect);
@@ -318,7 +343,13 @@ bool RedisMgr::HSet(const std::string& key, const std::string& hkey, const std::
         return false;
     }
     auto reply = (redisReply*)redisCommand(connect, "HSET %s %s %s", key.c_str(), hkey.c_str(), value.c_str());
-    if (reply == nullptr || reply->type != REDIS_REPLY_INTEGER) {
+    if (reply == nullptr) {
+        std::cout << "Execut command [ HSet " << key << "  " << hkey << "  " << value << " ] failure ! " << std::endl;
+        _con_pool->returnConnection(connect);
+        return false;
+    }
+
+    if (reply->type != REDIS_REPLY_INTEGER) {
         std::cout << "Execut command [ HSet " << key << "  " << hkey << "  " << value << " ] failure ! " << std::endl;
         freeReplyObject(reply);
         _con_pool->returnConnection(connect);
@@ -349,7 +380,13 @@ bool RedisMgr::HSet(const char* key, const char* hkey, const char* hvalue, size_
     argv[3] = hvalue;
     argvlen[3] = hvaluelen;
     auto reply = (redisReply*)redisCommandArgv(connect, 4, argv, argvlen);
-    if (reply == nullptr || reply->type != REDIS_REPLY_INTEGER) {
+    if (reply == nullptr) {
+        std::cout << "Execut command [ HSet " << key << "  " << hkey << "  " << hvalue << " ] failure ! " << std::endl;
+        _con_pool->returnConnection(connect);
+        return false;
+    }
+
+    if (reply->type != REDIS_REPLY_INTEGER) {
         std::cout << "Execut command [ HSet " << key << "  " << hkey << "  " << hvalue << " ] failure ! " << std::endl;
         freeReplyObject(reply);
         _con_pool->returnConnection(connect);
@@ -377,7 +414,13 @@ std::string RedisMgr::HGet(const std::string& key, const std::string& hkey)
     argv[2] = hkey.c_str();
     argvlen[2] = hkey.length();
     auto reply = (redisReply*)redisCommandArgv(connect, 3, argv, argvlen);
-    if (reply == nullptr || reply->type == REDIS_REPLY_NIL) {
+    if (reply == nullptr) {
+        std::cout << "Execut command [ HGet " << key << " " << hkey << "  ] failure ! " << std::endl;
+        _con_pool->returnConnection(connect);
+        return "";
+    }
+
+    if (reply->type == REDIS_REPLY_NIL) {
         freeReplyObject(reply);
         std::cout << "Execut command [ HGet " << key << " " << hkey << "  ] failure ! " << std::endl;
         _con_pool->returnConnection(connect);
@@ -425,7 +468,13 @@ bool RedisMgr::Del(const std::string& key)
         return false;
     }
     auto reply = (redisReply*)redisCommand(connect, "DEL %s", key.c_str());
-    if (reply == nullptr || reply->type != REDIS_REPLY_INTEGER) {
+    if (reply == nullptr) {
+        std::cout << "Execut command [ Del " << key << " ] failure ! " << std::endl;
+        _con_pool->returnConnection(connect);
+        return false;
+    }
+
+    if (reply->type != REDIS_REPLY_INTEGER) {
         std::cout << "Execut command [ Del " << key << " ] failure ! " << std::endl;
         freeReplyObject(reply);
         _con_pool->returnConnection(connect);
@@ -445,10 +494,16 @@ bool RedisMgr::ExistsKey(const std::string& key)
         return false;
     }
     auto reply = (redisReply*)redisCommand(connect, "exists %s", key.c_str());
-    if (reply == nullptr || reply->type != REDIS_REPLY_INTEGER || reply->integer == 0) {
+    if (reply == nullptr) {
         std::cout << "Not Found [ Key " << key << " ]  ! " << std::endl;
-        freeReplyObject(reply);
         _con_pool->returnConnection(connect);
+        return false;
+    }
+
+    if (reply->type != REDIS_REPLY_INTEGER || reply->integer == 0) {
+        std::cout << "Not Found [ Key " << key << " ]  ! " << std::endl;
+        _con_pool->returnConnection(connect);
+        freeReplyObject(reply);
         return false;
     }
     std::cout << " Found [ Key " << key << " ] exists ! " << std::endl;
@@ -461,4 +516,5 @@ bool RedisMgr::ExistsKey(const std::string& key)
 void RedisMgr::Close()
 {
     _con_pool->Close();
+    _con_pool->clearConnections();
 }

@@ -191,8 +191,8 @@ void ApplyFriend::showMoreLabel()
 
     }
 
-   int diff_height = next_point.y() + textHeight + tip_offset - ui->label_list->height();
-   ui->label_list->setFixedHeight(next_point.y() + textHeight + tip_offset);
+    int diff_height = next_point.y() + textHeight + tip_offset - ui->label_list->height();
+    ui->label_list->setFixedHeight(next_point.y() + textHeight + tip_offset);
 
     //qDebug()<<"after resize ui->lb_list size is " <<  ui->lb_list->size();
     ui->scrollcontent->setFixedHeight(ui->scrollcontent->height()+diff_height);
@@ -202,7 +202,7 @@ void ApplyFriend::resetLabels()
 {
     auto max_width = ui->gridWidget->width();
     auto label_height = 0;
-    for(auto iter = _friend_labels.begin(); iter != _friend_labels.end(); iter++){
+    for(auto iter = _friend_labels.begin(); iter != _friend_labels.end(); iter++) {
         //todo... 添加宽度统计
         if( _label_point.x() + iter.value()->width() > max_width) {
             _label_point.setY(_label_point.y()+iter.value()->height()+6);
@@ -222,10 +222,10 @@ void ApplyFriend::resetLabels()
          return;
     }
 
-    if(_label_point.x() + MIN_APPLY_LABEL_ED_LEN > ui->gridWidget->width()){
-        ui->label_edit->move(2,_label_point.y()+label_height+6);
-    }else{
-         ui->label_edit->move(_label_point);
+    if(_label_point.x() + MIN_APPLY_LABEL_ED_LEN > ui->gridWidget->width()) {
+        ui->label_edit->move(2, _label_point.y() + label_height + 6);
+    } else {
+        ui->label_edit->move(_label_point);
     }
 }
 
@@ -341,19 +341,19 @@ void ApplyFriend::slotRemoveFriendLabel(QString name)
 
     auto find_iter = _friend_labels.find(name);
 
-    if(find_iter == _friend_labels.end()){
+    if (find_iter == _friend_labels.end()) {
         return;
     }
 
     auto find_key = _friend_label_keys.end();
-    for(auto iter = _friend_label_keys.begin(); iter != _friend_label_keys.end(); iter++) {
-        if(*iter == name){
+    for (auto iter = _friend_label_keys.begin(); iter != _friend_label_keys.end(); iter++) {
+        if (*iter == name) {
             find_key = iter;
             break;
         }
     }
 
-    if(find_key != _friend_label_keys.end()){
+    if (find_key != _friend_label_keys.end()) {
         _friend_label_keys.erase(find_key);
     }
 

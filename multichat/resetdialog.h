@@ -25,6 +25,7 @@ private:
     void addTipErr(TipErr te, QString tips);
     void delTipErr(TipErr te);
     void initHandlers();
+
     Ui::ResetDialog *ui;
     QMap<TipErr, QString> _tip_errs;
     QMap<ReqId, std::function<void(const QJsonObject&)>> _handlers;

@@ -51,6 +51,7 @@ ChatView::ChatView(QWidget *parent)
 void ChatView::appendChatItem(QWidget *item)
 {
    QVBoxLayout *vl = qobject_cast<QVBoxLayout *>(m_pScrollArea->widget()->layout());
+   qDebug() << "vl->count() is " << vl->count();
    vl->insertWidget(vl->count()-1, item); // 在布局的倒数第二个位置插入新的聊天项 item
    // tip: 在构造函数中，布局的最后一个位置添加了一个高优先级的空白部件（用于将消息顶到顶部），因此新消息需要插入到空白部件之前，才能按顺序显示在聊天区域中。
    isAppended = true;
@@ -64,6 +65,23 @@ void ChatView::prependChatItem(QWidget *item)
 void ChatView::insertChatItem(QWidget *before, QWidget *item)
 {
 
+}
+
+void ChatView::removeAllItem()
+{
+    QVBoxLayout *layout = qobject_cast<QVBoxLayout *>(m_pScrollArea->widget()->layout());
+
+    int count = layout->count();
+
+    for (int i = 0; i < count - 1; ++i) {
+        QLayoutItem *item = layout->takeAt(0); // 始终从第一个控件开始删除
+        if (item) {
+            if (QWidget *widget = item->widget()) {
+                delete widget;
+            }
+            delete item;
+        }
+    }
 }
 
 bool ChatView::eventFilter(QObject *o, QEvent *e)

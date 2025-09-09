@@ -57,9 +57,11 @@ int main()
 {
 	try {
 		RunServer();
+		RedisMgr::GetInstance()->Close();
 	}
 	catch(std::exception const& e) {
 		std::cerr << "Error: " << e.what() << std::endl;
+		RedisMgr::GetInstance()->Close();
 		return EXIT_FAILURE;
 	}
 	return 0;

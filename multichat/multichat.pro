@@ -24,6 +24,7 @@ SOURCES += \
     applyfrienditem.cpp \
     applyfriendlist.cpp \
     applyfriendpage.cpp \
+    authenfriend.cpp \
     bubbleframe.cpp \
     chatdialog.cpp \
     chatitembase.cpp \
@@ -37,12 +38,15 @@ SOURCES += \
     contactuserlist.cpp \
     conuseritem.cpp \
     customizeedit.cpp \
+    customizetextedit.cpp \
     findfaildialog.cpp \
     findsuccessdialog.cpp \
+    friendinfopage.cpp \
     friendlabel.cpp \
     global.cpp \
     grouptipitem.cpp \
     httpmgr.cpp \
+    invaliditem.cpp \
     listitembase.cpp \
     loadingdialog.cpp \
     logindialog.cpp \
@@ -53,6 +57,7 @@ SOURCES += \
     registerdialog.cpp \
     resetdialog.cpp \
     searchlist.cpp \
+    statelabel.cpp \
     statewidget.cpp \
     tcpmgr.cpp \
     textbubble.cpp \
@@ -66,6 +71,7 @@ HEADERS += \
     applyfrienditem.h \
     applyfriendlist.h \
     applyfriendpage.h \
+    authenfriend.h \
     bubbleframe.h \
     chatdialog.h \
     chatitembase.h \
@@ -79,12 +85,15 @@ HEADERS += \
     contactuserlist.h \
     conuseritem.h \
     customizeedit.h \
+    customizetextedit.h \
     findfaildialog.h \
     findsuccessdialog.h \
+    friendinfopage.h \
     friendlabel.h \
     global.h \
     grouptipitem.h \
     httpmgr.h \
+    invaliditem.h \
     listitembase.h \
     loadingdialog.h \
     logindialog.h \
@@ -95,6 +104,7 @@ HEADERS += \
     resetdialog.h \
     searchlist.h \
     singleton.h \
+    statelabel.h \
     statewidget.h \
     tcpmgr.h \
     textbubble.h \
@@ -107,12 +117,14 @@ FORMS += \
     applyfriend.ui \
     applyfrienditem.ui \
     applyfriendpage.ui \
+    authenfriend.ui \
     chatdialog.ui \
     chatpage.ui \
     chatuserwid.ui \
     conuseritem.ui \
     findfaildialog.ui \
     findsuccessdialog.ui \
+    friendinfopage.ui \
     friendlabel.ui \
     grouptipitem.ui \
     loadingdialog.ui \

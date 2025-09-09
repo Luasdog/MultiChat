@@ -20,7 +20,7 @@
 #include <QtWidgets/QStackedWidget>
 #include <QtWidgets/QVBoxLayout>
 #include <QtWidgets/QWidget>
-#include "clickedlabel.h"
+#include <clickedlabel.h>
 #include "timerbtn.h"
 
 QT_BEGIN_NAMESPACE
@@ -315,7 +315,7 @@ public:
     void retranslateUi(QDialog *RegisterDialog)
     {
         RegisterDialog->setWindowTitle(QApplication::translate("RegisterDialog", "Dialog", nullptr));
-        err_tip->setText(QApplication::translate("RegisterDialog", "\351\224\231\350\257\257\346\217\220\347\244\272", nullptr));
+        err_tip->setText(QString());
         user_label->setText(QApplication::translate("RegisterDialog", "\347\224\250\346\210\267", nullptr));
         email_label->setText(QApplication::translate("RegisterDialog", "\351\202\256\347\256\261", nullptr));
         passwd_label->setText(QApplication::translate("RegisterDialog", "\345\257\206\347\240\201", nullptr));

@@ -2,8 +2,8 @@
 #include "ConfigMgr.h"
 
 RedisConPool::RedisConPool(size_t poolSize, const char* host, int port, const char* pwd)
-    : _poolSize(poolSize), _host(host), _port(port), _b_stop(false) {
-    for (size_t i = 0; i < _poolSize; ++i) {
+    : _poolSize(poolSize), _host(host), _port(port), _b_stop(false), _pwd(pwd), _counter(0) {
+    for (size_t i = 0; i < _poolSize; i++) {
         auto* context = redisConnect(host, port);
         if (context == nullptr || context->err != 0) {
             if (context != nullptr) {
@@ -27,14 +27,30 @@ RedisConPool::RedisConPool(size_t poolSize, const char* host, int port, const ch
         _connections.push(context);
     }
 
+    _check_thread = std::thread([this]() {
+        while (!_b_stop) {
+            _counter++;
+            if (_counter >= 60) {
+                checkThread();
+                _counter = 0;
+            }
+
+            std::this_thread::sleep_for(std::chrono::seconds(1)); // 每隔 60 秒发送一次 PING 命令
+        }
+        });
+
 }
 
 RedisConPool::~RedisConPool() {
+}
+
+void RedisConPool::clearConnections()
+{
     std::lock_guard<std::mutex> lock(_mutex);
     while (!_connections.empty()) {
-        auto context = _connections.front();
-        _connections.pop();
+        auto* context = _connections.front();
         redisFree(context);
+        _connections.pop();
     }
 }
 
@@ -67,6 +83,54 @@ void RedisConPool::returnConnection(redisContext* context) {
 void RedisConPool::Close() {
     _b_stop = true;
     _cond.notify_all();
+    _check_thread.join();
+}
+
+void RedisConPool::checkThread()
+{
+    std::lock_guard<std::mutex> lock(_mutex);
+    if (_b_stop) {
+        return;
+    }
+    auto pool_size = _connections.size();
+    for (int i = 0; i < pool_size && !_b_stop; i++) {
+        auto* context = _connections.front();
+        _connections.pop();
+        try {
+            auto reply = (redisReply*)redisCommand(context, "PING");
+            if (!reply) {
+                std::cout << "redis ping failed" << std::endl;
+                _connections.push(context);
+                continue;
+            }
+            freeReplyObject(reply);
+            _connections.push(context);
+        }
+        catch (std::exception& exp) {
+            std::cout << "Error keeping connection alive: " << exp.what() << std::endl;
+            redisFree(context);
+            context = redisConnect(_host, _port);
+            if (context == nullptr || context->err != 0) {
+                if (context != nullptr) {
+                    redisFree(context);
+                }
+                continue;
+            }
+
+            auto reply = (redisReply*)redisCommand(context, "AUTH %s", _pwd);
+            if (reply->type == REDIS_REPLY_ERROR) {
+                std::cout << "认证失败" << std::endl;
+                //执行成功 释放redisCommand执行后返回的redisReply所占用的内存
+                freeReplyObject(reply);
+                continue;
+            }
+
+            //执行成功 释放redisCommand执行后返回的redisReply所占用的内存
+            freeReplyObject(reply);
+            std::cout << "认证成功" << std::endl;
+            _connections.push(context);
+        }
+    }
 }
 
 RedisMgr::RedisMgr() {
@@ -78,7 +142,7 @@ RedisMgr::RedisMgr() {
 }
 
 RedisMgr::~RedisMgr() {
-    Close();
+    // Close();
 }
 
 // 获取key对应的value
@@ -91,7 +155,7 @@ bool RedisMgr::Get(const std::string& key, std::string& value)
     auto reply = (redisReply*)redisCommand(connect, "GET %s", key.c_str()); // c_str() : string -> const char*
     if (reply == NULL) {
         std::cout << "[ GET  " << key << " ] failed" << std::endl;
-        freeReplyObject(reply);
+        // freeReplyObject(reply);
         _con_pool->returnConnection(connect); // 连接返回池中
         return false;
     }
@@ -124,7 +188,7 @@ bool RedisMgr::Set(const std::string& key, const std::string& value) {
     if (NULL == reply)
     {
         std::cout << "Execut command [ SET " << key << "  " << value << " ] failure ! " << std::endl;
-        freeReplyObject(reply);
+        // freeReplyObject(reply);
         _con_pool->returnConnection(connect);
         return false;
     }
@@ -347,6 +411,32 @@ std::string RedisMgr::HGet(const std::string& key, const std::string& hkey)
     return value;
 }
 
+bool RedisMgr::HDel(const std::string& key, const std::string& field)
+{
+    auto connect = _con_pool->getConnection();
+	if (connect == nullptr) {
+		return false;
+	}
+
+	Defer defer([&connect, this]() {
+		_con_pool->returnConnection(connect);
+		});
+
+	redisReply* reply = (redisReply*)redisCommand(connect, "HDEL %s %s", key.c_str(), field.c_str());
+	if (reply == nullptr) {
+		std::cerr << "HDEL command failed" << std::endl;
+		return false;
+	}
+
+	bool success = false;
+	if (reply->type == REDIS_REPLY_INTEGER) {
+		success = reply->integer > 0;
+	}
+
+	freeReplyObject(reply);
+	return success;
+}
+
 // 删除
 bool RedisMgr::Del(const std::string& key)
 {
@@ -391,4 +481,5 @@ bool RedisMgr::ExistsKey(const std::string& key)
 void RedisMgr::Close()
 {
     _con_pool->Close();
+    _con_pool->clearConnections();
 }

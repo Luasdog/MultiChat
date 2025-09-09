@@ -27,6 +27,7 @@ FindSuccessDialog::FindSuccessDialog(QWidget *parent) :
 
 FindSuccessDialog::~FindSuccessDialog()
 {
+    qDebug()<<"FindSuccessDlg destruct";
     delete ui;
 }
 
