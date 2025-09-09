@@ -268,10 +268,10 @@ void LogicSystem::AddFriendApply(std::shared_ptr<CSession> session, const short&
 	reader.parse(msg_data, root);
 	auto uid = root["uid"].asInt();
 	auto applyname = root["applyname"].asString();
-	auto bakname = root["backname"].asString();
+	auto backname = root["backname"].asString();
 	auto touid = root["touid"].asInt();
 	std::cout << "user login uid is  " << uid << " applyname  is "
-		<< applyname << " backname is " << bakname << " touid is " << touid << endl;
+		<< applyname << " backname is " << backname << " touid is " << touid << endl;
 
 	Json::Value rtvalue;
 	rtvalue["error"] = ErrorCodes::Success;

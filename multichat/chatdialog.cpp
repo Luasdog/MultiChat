@@ -106,9 +106,6 @@ ChatDialog::ChatDialog(QWidget *parent) :
     //更新聊天界面信息
     setSelectChatPage();
 
-    // 为serchlist设置search edit
-    ui->search_list->setSearchEdit(ui->search_edit);
-
     //连接加载联系人的信号和槽函数
     connect(ui->con_user_list, &ContactUserList::sig_loading_contact_user,
             this, &ChatDialog::slot_loading_contact_user);

@@ -83,7 +83,7 @@ void RedisConPool::returnConnection(redisContext* context) {
 void RedisConPool::Close() {
     _b_stop = true;
     _cond.notify_all();
-    _check_thread.join();
+    //_check_thread.join();
 }
 
 void RedisConPool::checkThread() {
