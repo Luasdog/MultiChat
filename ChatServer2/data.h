@@ -21,7 +21,7 @@ struct ApplyInfo {
 		_icon(icon), _nick(nick), _sex(sex), _status(status) {
 	}
 
-	int _uid;
+	int _uid; 
 	std::string _name;
 	std::string _desc;
 	std::string _icon;

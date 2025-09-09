@@ -23,7 +23,6 @@ int main()
 	auto server_name = cfg["SelfServer"]["Name"];
 	try {
 		auto pool = AsioIOServicePool::GetInstance();
-
 		//将登录数设置为0
 		RedisMgr::GetInstance()->HSet(LOGIN_COUNT, server_name, "0");
 
@@ -61,5 +60,7 @@ int main()
 	}
 	catch (std::exception& e) {
 		std::cerr << "Exception: " << e.what() << endl;
+		RedisMgr::GetInstance()->HDel(LOGIN_COUNT, server_name);
+		RedisMgr::GetInstance()->Close();
 	}
 }

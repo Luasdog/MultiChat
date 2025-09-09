@@ -2,8 +2,8 @@
 #include "ConfigMgr.h"
 
 RedisConPool::RedisConPool(size_t poolSize, const char* host, int port, const char* pwd)
-    : _poolSize(poolSize), _host(host), _port(port), _b_stop(false), _pwd(pwd) {
-    for (size_t i = 0; i < _poolSize; ++i) {
+    : _poolSize(poolSize), _host(host), _port(port), _b_stop(false), _pwd(pwd), _counter(0) {
+    for (size_t i = 0; i < _poolSize; i++) {
         auto* context = redisConnect(host, port);
         if (context == nullptr || context->err != 0) {
             if (context != nullptr) {
@@ -28,19 +28,29 @@ RedisConPool::RedisConPool(size_t poolSize, const char* host, int port, const ch
     }
 
     _check_thread = std::thread([this]() {
-        std::this_thread::sleep_for(std::chrono::seconds(60)); // 每隔 30 秒发送一次 PING 命令
-        checkThread();
+        while (!_b_stop) {
+            _counter++;
+            if (_counter >= 60) {
+                checkThread();
+                _counter = 0;
+            }
+            std::this_thread::sleep_for(std::chrono::seconds(1)); // 每隔 60 秒发送一次 PING 命令
+        }
         });
 
     _check_thread.detach();
 }
 
 RedisConPool::~RedisConPool() {
+}
+
+void RedisConPool::clearConnections()
+{
     std::lock_guard<std::mutex> lock(_mutex);
     while (!_connections.empty()) {
         auto context = _connections.front();
-        _connections.pop();
         redisFree(context);
+        _connections.pop();
     }
 }
 
@@ -73,16 +83,25 @@ void RedisConPool::returnConnection(redisContext* context) {
 void RedisConPool::Close() {
     _b_stop = true;
     _cond.notify_all();
+    _check_thread.join();
 }
 
 void RedisConPool::checkThread() {
     std::lock_guard<std::mutex> lock(_mutex);
+    if (_b_stop) {
+        return;
+    }
     auto pool_size = _connections.size();
     for (int i = 0; i < pool_size; i++) {
         auto* context = _connections.front();
         _connections.pop();
         try {
             auto reply = (redisReply*)redisCommand(context, "PING");
+            if (!reply) {
+                std::cout << "reply is null, redis ping failed: " << std::endl;
+                _connections.push(context);
+                continue;
+            }
             freeReplyObject(reply);
             _connections.push(context);
         }
@@ -122,7 +141,7 @@ RedisMgr::RedisMgr() {
 }
 
 RedisMgr::~RedisMgr() {
-    Close();
+    // Close();
 }
 
 // 获取key对应的value
@@ -461,4 +480,5 @@ bool RedisMgr::ExistsKey(const std::string& key)
 void RedisMgr::Close()
 {
     _con_pool->Close();
+    _con_pool->clearConnections();
 }
