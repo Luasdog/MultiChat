@@ -33,6 +33,8 @@ class VerifyGrpcClient : public Singleton<VerifyGrpcClient>
 {
 	friend class Singleton<VerifyGrpcClient>;
 public:
+	~VerifyGrpcClient() {
+	}
 	GetVerifyRsp GetVerifyCode(std::string email);
 private:
 	VerifyGrpcClient();

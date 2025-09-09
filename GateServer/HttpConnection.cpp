@@ -20,7 +20,7 @@ void HttpConnection::Start() {
 				std::cout << "http read err is " << ec.what() << std::endl;
 				return;
 			}
-
+			//处理读到的数
 			boost::ignore_unused(bytes_transferred);
 			self->HandleReq();
 			self->CheckDeadline();
@@ -138,6 +138,7 @@ void HttpConnection::PreParseGetParam() {
 void HttpConnection::HandleReq() {
 	// 设置版本
 	_response.version(_request.version());
+	// 设置为短连接
 	_response.keep_alive(false);
 	if (_request.method() == http::verb::get) {
 		// 解析

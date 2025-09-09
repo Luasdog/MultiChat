@@ -7,7 +7,7 @@ RPConPool::RPConPool(size_t poolsize, std::string host, std::string port)
 	, _port(port)
 	, _b_stop(false)
 {
-	for (size_t i = 0; i < _poolSize; i++) {
+	for (size_t i = 0; i < _poolSize; ++i) {
 		std::shared_ptr<Channel> channel = grpc::CreateChannel(host + ":" + port,
 			grpc::InsecureChannelCredentials());
 		_connections.push(VerifyService::NewStub(channel)); // 隐式调用移动构造
