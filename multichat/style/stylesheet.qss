@@ -715,7 +715,7 @@ ApplyFriendItem #addBtn[state='press'] {
 }
 
 #red_point {
-    border-image: url(:/res/red_point.png);
+    border-image: url(:/resource/red_point.png);
 }
 
 #FindFailDlg{
@@ -768,37 +768,37 @@ ApplyFriendItem #addBtn[state='press'] {
 }
 
 #msg_chat[state='normal'] {
- border-image: url(:/res/msg_chat_normal.png);
+ border-image: url(:/resource/msg_chat_normal.png);
 }
 
 #msg_chat[state='hover'] {
- border-image: url(:/res/msg_chat_hover.png);
+ border-image: url(:/resource/msg_chat_hover.png);
 }
 
 #msg_chat[state='press'] {
- border-image: url(:/res/msg_chat_press.png);
+ border-image: url(:/resource/msg_chat_press.png);
 }
 
 #video_chat[state='normal'] {
- border-image: url(:/res/video_chat_normal.png);
+ border-image: url(:/resource/video_chat_normal.png);
 }
 
 #video_chat[state='hover'] {
- border-image: url(:/res/video_chat_hover.png);
+ border-image: url(:/resource/video_chat_hover.png);
 }
 
 #video_chat[state='press'] {
- border-image: url(:/res/video_chat_press.png);
+ border-image: url(:/resource/video_chat_press.png);
 }
 
 #voice_chat[state='normal'] {
- border-image: url(:/res/voice_chat_normal.png);
+ border-image: url(:/resource/voice_chat_normal.png);
 }
 
 #voice_chat[state='hover'] {
- border-image: url(:/res/voice_chat_hover.png);
+ border-image: url(:/resource/voice_chat_hover.png);
 }
 
 #voice_chat[state='press'] {
- border-image: url(:/res/voice_chat_press.png);
+ border-image: url(:/resource/voice_chat_press.png);
 }
