@@ -72,13 +72,25 @@ bool MysqlDao::CheckEmail(const std::string& name, const std::string& email) {
 		// 执行查询
 		std::unique_ptr<sql::ResultSet> res(pstmt->executeQuery());
 
-		bool isMatch = false;
+		//bool isMatch = false;
 		// 如果用户名不存在，返回false（或根据业务需求调整）
-		if (res->next()) {
-			isMatch = (email == res->getString("email"));
+		//if (res->next()) {
+		//	isMatch = (email == res->getString("email"));
+		//}
+		//pool_->returnConnection(std::move(con));
+		//return isMatch;
+
+		// 遍历结果集
+		while (res->next()) {
+			std::cout << "Check Email: " << res->getString("email") << std::endl;
+			if (email != res->getString("email")) {
+				pool_->returnConnection(std::move(con));
+				return false;
+			}
+			pool_->returnConnection(std::move(con));
+			return true;
 		}
-		pool_->returnConnection(std::move(con));
-		return isMatch;
+		return true;
 	}
 	catch (sql::SQLException& e) {
 		pool_->returnConnection(std::move(con));
@@ -322,6 +334,10 @@ std::shared_ptr<UserInfo> MysqlDao::GetUser(int uid)
 			user_ptr->pwd = res->getString("pwd");
 			user_ptr->email = res->getString("email");
 			user_ptr->name = res->getString("name");
+			user_ptr->nick = res->getString("nick");
+			user_ptr->desc = res->getString("desc");
+			user_ptr->sex = res->getInt("sex");
+			user_ptr->icon = res->getString("icon");
 			user_ptr->uid = uid;
 			break;
 		}
@@ -374,4 +390,92 @@ std::shared_ptr<UserInfo> MysqlDao::GetUser(std::string name)
 		std::cerr << ", SQLState: " << e.getSQLState() << " )" << std::endl;
 		return nullptr;
 	}
+}
+
+bool MysqlDao::GetApplyList(int touid, std::vector<std::shared_ptr<ApplyInfo>>& applyList, int begin, int limit)
+{
+	auto con = pool_->getConnection();
+	if (con == nullptr) {
+		return false;
+	}
+
+	Defer defer([this, &con]() {
+		pool_->returnConnection(std::move(con));
+		});
+
+
+	try {
+		// 准备SQL语句, 根据起始id和限制条数返回列表
+		std::unique_ptr<sql::PreparedStatement> pstmt(con->_con->prepareStatement("select apply.from_uid, apply.status, user.name, "
+			"user.nick, user.sex from friend_apply as apply join user on apply.from_uid = user.uid where apply.to_uid = ? "
+			"and apply.id > ? order by apply.id ASC LIMIT ? "));
+
+		pstmt->setInt(1, touid); // 将uid替换为你要查询的uid
+		pstmt->setInt(2, begin); // 起始id
+		pstmt->setInt(3, limit); //偏移量
+		// 执行查询
+		std::unique_ptr<sql::ResultSet> res(pstmt->executeQuery());
+		// 遍历结果集
+		while (res->next()) {
+			auto name = res->getString("name");
+			auto uid = res->getInt("from_uid");
+			auto status = res->getInt("status");
+			auto nick = res->getString("nick");
+			auto sex = res->getInt("sex");
+			auto apply_ptr = std::make_shared<ApplyInfo>(uid, name, "", "", nick, sex, status);
+			applyList.push_back(apply_ptr);
+		}
+		return true;
+	}
+	catch (sql::SQLException& e) {
+		std::cerr << "SQLException: " << e.what();
+		std::cerr << " (MySQL error code: " << e.getErrorCode();
+		std::cerr << ", SQLState: " << e.getSQLState() << " )" << std::endl;
+		return false;
+	}
+}
+
+bool MysqlDao::GetFriendList(int self_id, std::vector<std::shared_ptr<UserInfo> >& user_info_list) {
+
+	auto con = pool_->getConnection();
+	if (con == nullptr) {
+		return false;
+	}
+
+	Defer defer([this, &con]() {
+		pool_->returnConnection(std::move(con));
+		});
+
+
+	try {
+		// 准备SQL语句, 根据起始id和限制条数返回列表
+		std::unique_ptr<sql::PreparedStatement> pstmt(con->_con->prepareStatement("select * from friend where self_id = ? "));
+
+		pstmt->setInt(1, self_id); // 将uid替换为你要查询的uid
+
+		// 执行查询
+		std::unique_ptr<sql::ResultSet> res(pstmt->executeQuery());
+		// 遍历结果集
+		while (res->next()) {
+			auto friend_id = res->getInt("friend_id");
+			auto back = res->getString("back");
+			//再一次查询friend_id对应的信息
+			auto user_info = GetUser(friend_id);
+			if (user_info == nullptr) {
+				continue;
+			}
+
+			user_info->back = user_info->name;
+			user_info_list.push_back(user_info);
+		}
+		return true;
+	}
+	catch (sql::SQLException& e) {
+		std::cerr << "SQLException: " << e.what();
+		std::cerr << " (MySQL error code: " << e.getErrorCode();
+		std::cerr << ", SQLState: " << e.getSQLState() << " )" << std::endl;
+		return false;
+	}
+
+	return true;
 }
