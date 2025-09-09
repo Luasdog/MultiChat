@@ -14,7 +14,7 @@ public:
     MySqlPool(const std::string& url, const std::string& user, const std::string& pass, const std::string& schema, int poolSize)
         : url_(url), user_(user), pass_(pass), schema_(schema), poolSize_(poolSize), b_stop_(false) {
         try {
-            for (int i = 0; i < poolSize_; i++) {
+            for (int i = 0; i < poolSize_; ++i) {
                 sql::mysql::MySQL_Driver* driver = sql::mysql::get_mysql_driver_instance();
                 auto* con = driver->connect(url_, user_, pass_);
                 con->setSchema(schema_);
