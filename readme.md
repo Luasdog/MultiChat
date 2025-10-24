@@ -1,6 +1,6 @@
 # 总体说明
 
-C++全栈实时聊天项目
+C++全栈实时聊天项目学习，参考llfc博客
 
 ![Servers](/Pictures/Servers.jpg)
 
