@@ -5,6 +5,8 @@ x64
 .vs
 multichat.pro.user
 node_modules
+multichat.zip
+项目图.vsdx
 
 multichat/bin/
 multichat/.qmake.stash
